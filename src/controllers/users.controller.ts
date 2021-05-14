@@ -30,8 +30,7 @@ class UsersController {
   public createUser = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const test: CreateUserDto = {
-        email: String(req.query.email),
-        password: String(req.query.password),
+        user_id: String(req.query.user_id),
       };
       const userData: CreateUserDto = test;
       const createUserData: User = await this.userService.createUser(userData);
