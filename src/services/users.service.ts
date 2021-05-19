@@ -37,22 +37,23 @@ class UserService {
     const sec = now.getSeconds() < 10 ? '0' + now.getSeconds() : now.getSeconds();
     const nowDay = year + month + day + hour + min + sec;
 
-    userData.user_name = '';
-    userData.email = '';
-    userData.password = '';
-    userData.img_url = '';
-    userData.point = 0;
-    userData.reg_date = nowDay;
-    userData.reg_writer = '';
-    userData.modify_date = '';
-    userData.modify_writer = '';
-    userData.del_date = '';
-    userData.del_writer = '';
-    userData.use_yn = true;
+    const data: CreateUserDto = {
+      user_name: '',
+      user_id: userData.user_id,
+      email: '',
+      password: '',
+      img_url: '',
+      point: 0,
+      reg_date: nowDay,
+      reg_writer: '',
+      modify_date: '',
+      modify_writer: '',
+      del_date: '',
+      del_writer: '',
+      use_yn: true,
+    };
 
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    const createUserData: User = await this.users.create({ ...userData });
+    const createUserData: User = await this.users.create(data);
 
     return createUserData;
   }
@@ -60,20 +61,24 @@ class UserService {
   public async updateUser(userId: string, userData: CreateUserDto): Promise<User> {
     if (isEmpty(userData)) throw new HttpException(400, "You're not userData");
 
-    if (userData.email) {
-      const findUser: User = await this.users.findOne({ email: userData.email });
-      if (findUser && findUser.user_id != userId) throw new HttpException(409, `You're email ${userData.email} already exists`);
+    let pw;
+    if (userId) {
+      const findUser: User = await this.users.findOne({ user_id: userId });
+      if (findUser && findUser.user_id != userId) throw new HttpException(409, `You're user_id ${userId} already exists`);
+      pw = findUser.password;
     }
 
     if (userData.password) {
-      const hashedPassword = await bcrypt.hash(userData.password, 10);
-      userData = { ...userData, password: hashedPassword };
+      const isPasswordMatching: boolean = await bcrypt.compare(userData.password, pw);
+      if (!isPasswordMatching) throw new HttpException(409, "You're password not matching");
+
+      const updateUserById: User = await this.users.findByIdAndUpdate(userId, { userData });
+      if (!updateUserById) throw new HttpException(409, "You're not user");
+
+      return updateUserById;
+    } else {
+      throw new HttpException(409, `You're user_password ${userData.password} already exists`);
     }
-
-    const updateUserById: User = await this.users.findByIdAndUpdate(userId, { userData });
-    if (!updateUserById) throw new HttpException(409, "You're not user");
-
-    return updateUserById;
   }
 
   public async deleteUser(userId: string): Promise<User> {

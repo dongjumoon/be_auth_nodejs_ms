@@ -44,7 +44,12 @@ class UsersController {
   public updateUser = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const userId: string = req.params.id;
-      const userData: CreateUserDto = req.body;
+      const userData: CreateUserDto = {
+        user_name: String(req.query.user_name),
+        email: String(req.query.email),
+        password: String(req.query.password),
+        img_url: String(req.query.img_url),
+      };
       const updateUserData: User = await this.userService.updateUser(userId, userData);
 
       res.status(200).json({ data: updateUserData, message: 'updated' });
