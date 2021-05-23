@@ -29,10 +29,9 @@ class UsersController {
 
   public createUser = async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const test: CreateUserDto = {
+      const userData: CreateUserDto = {
         user_id: String(req.query.user_id),
       };
-      const userData: CreateUserDto = test;
       const createUserData: User = await this.userService.createUser(userData);
 
       res.status(201).json({ data: createUserData, message: 'created' });
