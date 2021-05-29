@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import ApiController from '@controllers/api.controller';
-import Route from '@interfaces/routes.interface';
+import Route from '@/entity/routes.interface';
 
 class ApiRoute implements Route {
   public path = '/api';

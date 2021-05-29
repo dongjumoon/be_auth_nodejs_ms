@@ -1,0 +1,137 @@
+contoller : get, post, put, delete routing path
+service : biz logic => 
+  ㄴ 로그인 => find id pw => view param 비교 => 성공 => token => 실패 => 403 error 
+repository : crud (무조건 있어야 된다. )
+  ㄴ findById(id: Long): users, findByAll(*, searchWord: string, gb: string): array[users.dto], findByPaging(int pageNumber, int currentNumber): array
+    ㄴ findByUserId(1) => 모델 , findByPhone(1) => 모델 , findByName(N) => array 
+  ㄴ create: 등록 ,
+  ㄴ update : findbyid -> create 수정 
+  ㄴ remove : 삭제 
+
+
+model: 나의시스템 -> DB교환 및 테이블
+  UserEntity(tableName = user)
+dto: 나의시스템 -> 화면(json, res.body..)
+  UserDTO
+vo: 나의시스템 -> 외부시스템(던지고 받을때) 
+  UserVO 
+
+controller: context path (get, post, put, delete), entry point(REST API) => json type 
+  userController
+service: biz logic (트랜잭션처리 => 커밋, 롤백 가능 , select+insert, select+update, select+update+delete), 대외계 통신(나의시스템 -> 메시지브로커[큐], 레디스 통신, OPEN API )
+  userService
+repository: dataAccess control (DB)
+  userRepository
+
+통신인터페이스:
+  input: request 
+    {
+      tranId: uuid(문자열+조합) , 유일한키 => controller (logger.log박아라 ) => 추적(tracking ),
+      head: {
+        token[string]: "jwt[json web token]", 
+        title[string]: "userController.findById", 
+        totalLength[number]: 150,
+        sessionId[string]: "jsession"
+      }
+      body: { => body[userDTO] = {}
+        userId: "userId", (50)
+        password: "password" (100)
+      },
+      tail(선택): {
+        realLength: 200 => length(body)
+      }
+    }
+  output: reponse
+    {
+      tranId: uuid 
+      code: 200
+      msg: "success",
+      body: {
+        user[100] => 다건 
+        user => 단건 
+      },
+      error: {
+        code: ERR_USERID_LENGTH_100,
+        msg: "유저의 아이디가 너무 깁니다. " => 다국어 (영문, 한글)
+      }
+
+    }
+
+
+
+통신모델:
+  type requestDTO<?> = {
+     tranId: string,
+      head: {}
+      body: {},
+      tail: {}
+  }
+  type responseDTO<?> = {
+     tranId: string,  
+      code: nubmer, 
+      msg: string,
+      body: {},
+      error: {
+        code: string,
+        msg: string
+      }
+  }
+
+
+# comment 정의 
+  class UserController {
+
+    // 로그인 처리 함수 
+    // http://localhost:3000/login
+    // param : UserDTO  + RequestDTO 
+    // return : UserDTO + ResponseDTO
+    // body length : 200(MAX) 
+    @GetMapping("/login) 
+    findById(RequestDTO<UserDTO> UserDTO) {
+      ..
+      ...
+      ...
+      return ResponseDTO<UserDTO>;
+    }
+  }
+
+# error 코드 정의 
+
+httpStatus
+  200: 조회성공 
+  201: 등록,수정,삭제 성공 
+  401: 권한
+  400: 유효성실패
+  500: 서버에러 
+
+ErrorCode 
+ USER CLASS ERROR DEFINE 
+  ERROR_USER_01: 
+    KOR: 유저 아이디 검증 실패 
+    ENG: user id fail 
+  ERROR_USER_02: 
+    KOR: 길이 제한 실패
+    ENG: ''
+  ERROR_USER_03: 
+    KOR: 패스워드 전달 실패 ,
+    ENG: ''
+
+ ORDER CLASS ERROR DEFINE 
+  ERROR_ORDER_01: 주문실패
+  ERROR_ORDER_02: 주문중 
+
+  
+
+
+  1 레벨 : 엄마, 아빠
+  2 레벨 : 나, 누나, 형
+  3 레벨 : 나의 자식 
+
+  cno , cname , depth 
+  1     엄마     1
+  2     아빠     1
+  3     나       2
+  4     누나      2
+  5     형       2
+  6     
+
