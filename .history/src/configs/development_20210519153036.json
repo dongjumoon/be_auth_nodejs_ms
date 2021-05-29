@@ -1,9 +1,0 @@
-{
-    "env": "development",
-    "dbConfig": {
-        "host": "mongodb://root:qwerqwer@13.125.209.154:27017/?authSource=admin&readPreference=primary&appname=MongoDB%20Compass&ssl=false",
-        "database": "mongoose",
-        "port": 27017
-    },
-    "secretKey": "secretKey"
-}
