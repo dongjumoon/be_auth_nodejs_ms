@@ -2,14 +2,12 @@ import config from 'config';
 import { dbConfig } from '@interfaces/db.interface';
 
 const { host, port, database }: dbConfig = config.get('dbConfig');
-const env_host = process.env.MONGO_HOST
+
 export const dbConnection = {
-  url: `mongodb://${env_host}`,
+  url: `mongodb://${host}/${port}/${database}`,
   options: {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useFindAndModify: false,
   },
 };
-
-console.log(dbConnection);

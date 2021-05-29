@@ -1,8 +1,8 @@
 {
     "env": "development",
     "dbConfig": {
-        "host": "",
-        "database": "microservices",
+        "host": "localhost:27017",
+        "database": "mongoose",
         "port": 27017
     },
     "secretKey": "secretKey"
