@@ -1,0 +1,25 @@
+POST http://localhost:8888/api/product HTTP/1.1
+content-type: application/json
+  
+{
+    "prodId": "PD0001",
+    "name": "아이스 아메리카노",
+    "price": "1000",
+    "volume": "100",
+    "size": "L",
+    "sort": "-",
+    "imgUrl": "http://www.naver.com/coffe/iceam",
+    "useYn": "Y",
+    "hotIceGb": "I",
+    "whippingYn": "Y",
+    "shotYn": "Y",
+    "category": "커피"
+}
+
+###
+
+GET  http://localhost:8888/api/product HTTP/1.1
+
+###
+
+GET  http://localhost:8888/api/product/PD0001 HTTP/1.1

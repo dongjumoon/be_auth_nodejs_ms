@@ -10,10 +10,10 @@ import morgan from 'morgan';
 import { connect, set } from 'mongoose';
 import swaggerJSDoc from 'swagger-jsdoc';
 import swaggerUi from 'swagger-ui-express';
-import { dbConnection } from '@databases';
-import Routes from '@interfaces/routes.interface';
-import errorMiddleware from '@middlewares/error.middleware';
-import { logger, stream } from '@utils/logger';
+import { dbConnection } from '@/configs/dbConnection';
+import Routes from '@/common/entity/routes.interface';
+import errorMiddleware from '@/common/middlewares/error.middleware';
+import { logger, stream } from '@/common/utils/logger';
 
 class App {
   public app: express.Application;

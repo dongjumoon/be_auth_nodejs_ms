@@ -1,0 +1,18 @@
+POST http://localhost:8888/api/order HTTP/1.1
+content-type: application/json
+  
+{
+    "userId": "최영수@gmail.com",
+    "productId": "PD0001",
+    "startDateTime": "2021-05-30 04:47",
+    "endDateTime": "-",
+    "orderDate": "2021-05-30 05:01"
+}
+
+###
+
+GET  http://localhost:8888/api/order/최영수@gmail.com HTTP/1.1
+
+###
+
+GET  http://localhost:8888/api/order/pay/최영수@gmail.com HTTP/1.1
