@@ -5,5 +5,5 @@ export class OrderDTO {
   productId: string;
   startDateTime: string;
   endDateTime: string;
-  orderDate: string;
+  orderState: string;
 }
