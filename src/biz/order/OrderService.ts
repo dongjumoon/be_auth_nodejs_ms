@@ -1,6 +1,7 @@
 import { OrderDTO } from './OrderDTO';
 import OrderRepository from '@/biz/order/OrderRepository';
 import { logger } from '@/common/utils/logger';
+// import getSeqAutoincrement from '@/common/helper/getSeqAutoincrement';
 
 class OrderService {
   // 의존성 주입
@@ -23,6 +24,7 @@ class OrderService {
    * @returns
    */
   public createOrderId = async (orderDTO: OrderDTO) => {
+    // orderDTO.productId = getSeqAutoincrement('OR');
     const createResult = await this.orderRepository.create(orderDTO);
     return createResult;
   };

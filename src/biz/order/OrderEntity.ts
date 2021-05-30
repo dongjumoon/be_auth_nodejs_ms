@@ -4,5 +4,5 @@ export interface OrderEntity {
   productId?: string;
   startDateTime?: string;
   endDateTime?: string;
-  orderDate?: string; // 결제취소, 결제완료, 주문처리, 음료픽업
+  orderState?: string; // 결제취소, 결제완료, 주문처리, 음료픽업
 }
