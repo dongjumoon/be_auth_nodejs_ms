@@ -11,4 +11,8 @@ content-type: application/json
 
 ###
 
-GET  http://localhost:8888/api/order?userId=최영수1@gmail.com HTTP/1.1
+GET  http://localhost:8888/api/order/최영수@gmail.com HTTP/1.1
+
+###
+
+GET  http://localhost:8888/api/order/pay/최영수@gmail.com HTTP/1.1

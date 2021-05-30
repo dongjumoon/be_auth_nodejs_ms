@@ -2,7 +2,7 @@ import { ProductEntity } from '@/biz/product/ProductEntity';
 import { model, Schema, Document } from 'mongoose';
 
 const Product: Schema = new Schema({
-  id: {
+  prodId: {
     type: String,
     required: true,
     unique: true,
@@ -18,25 +18,25 @@ const Product: Schema = new Schema({
     type: Number,
   },
   size: {
-    type: Number, // tall grande, venti
+    type: String, // tall grande, venti
   },
   sort: {
     type: String,
   },
-  img_url: {
+  imgUrl: {
     type: String,
   },
-  use_yn: {
-    type: Boolean,
+  useYn: {
+    type: String, // Y, N
   },
-  hot_ice_gb: {
+  hotIceGb: {
     type: String,
   },
-  whipping_yn: {
-    type: Boolean,
+  whippingYn: {
+    type: String, // Y, N
   },
-  shot_yn: {
-    type: Boolean,
+  shotYn: {
+    type: String, // Y, N
   },
   category: {
     type: String,

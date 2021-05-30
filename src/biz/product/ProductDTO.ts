@@ -1,4 +1,4 @@
-export interface ProductEntity {
+export class ProductDTO {
   _id?: string;
   prodId: string;
   name: string;

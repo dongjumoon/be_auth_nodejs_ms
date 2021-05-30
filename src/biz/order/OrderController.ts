@@ -7,6 +7,17 @@ export default class OrderController {
     this.orderService = orderService;
   }
 
+  public payOrderUserId = (req: Request, res: Response, next: NextFunction) => {
+    try {
+      this.orderService.payOrder(req.params.userId);
+      res.status(200).json({
+        body: { msg: '결재성공' },
+      });
+    } catch (e) {
+      next(e);
+    }
+  };
+
   public createOrderId = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const result = await this.orderService.createOrderId(req.body);
@@ -26,7 +37,7 @@ export default class OrderController {
    */
   public findByUserId = async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const userId = req.query.userId as string;
+      const userId = req.params.userId as string;
       const result = await this.orderService.findByUserId(userId);
       res.status(200).json({
         body: result,

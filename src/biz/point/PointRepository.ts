@@ -2,7 +2,7 @@ import { PointEntity } from '@/biz/point/PointEntity';
 import { model, Schema, Document } from 'mongoose';
 
 const Point: Schema = new Schema({
-  id: {
+  pointId: {
     type: String,
     required: true,
     unique: true,
@@ -11,10 +11,10 @@ const Point: Schema = new Schema({
   score: {
     type: Number,
   },
-  reg_date: {
+  regDate: {
     type: String,
   },
-  user_id: {
+  userId: {
     type: String,
   },
 });

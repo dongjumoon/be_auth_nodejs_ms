@@ -1,5 +1,6 @@
-export interface PointEntity {
+export class PointDTO {
   _id?: string;
+
   pointId: string;
   score: number;
   regDate: string;
