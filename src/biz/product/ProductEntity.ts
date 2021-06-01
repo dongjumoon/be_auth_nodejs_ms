@@ -2,14 +2,14 @@ export interface ProductEntity {
   _id?: string;
   prodId: string;
   name: string;
-  pricce: number;
+  price: number;
   volume: number;
   size: string;
   sort: number;
   imgUrl: string;
-  useYn: boolean;
+  useYn: string;
   hotIceGb: string;
-  whippingYn: boolean;
-  shotYn: boolean;
+  whippingYn: string;
+  shotYn: string;
   category: string;
 }
