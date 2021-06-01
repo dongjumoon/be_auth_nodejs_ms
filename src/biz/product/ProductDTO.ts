@@ -2,14 +2,14 @@ export class ProductDTO {
   _id?: string;
   prodId: string;
   name: string;
-  pricce: number;
+  price: number;
   volume: number;
   size: string;
   sort: number;
   imgUrl: string;
-  useYn: boolean;
+  useYn: string; // Y, N
   hotIceGb: string;
-  whippingYn: boolean;
-  shotYn: boolean;
+  whippingYn: string; // Y, N
+  shotYn: string; // Y, N
   category: string;
 }

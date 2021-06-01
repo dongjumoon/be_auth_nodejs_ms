@@ -16,9 +16,9 @@ class PointRoute implements Route {
     // 포인트 조회
     this.router.get(`${this.path}/:userId`, this.PointController.findByUserIdPoint);
     // 포인트 누적
-    this.router.put(`${this.path}`, this.PointController.addUserIdPoint);
+    this.router.put(`${this.path}/add`, this.PointController.addUserIdPoint);
     // 포인트 사용
-    this.router.put(`${this.path}`, this.PointController.useUserIdPoint);
+    this.router.put(`${this.path}/use`, this.PointController.useUserIdPoint);
   }
 }
 
