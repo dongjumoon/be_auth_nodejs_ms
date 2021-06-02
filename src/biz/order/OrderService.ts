@@ -1,11 +1,11 @@
-import { OrderDTO } from './OrderDTO';
 import OrderRepository from '@/biz/order/OrderRepository';
 import { logger } from '@/common/utils/logger';
+import { OrderDTO } from './OrderDTO';
 // import getSeqAutoincrement from '@/common/helper/getSeqAutoincrement';
 
 class OrderService {
   // 의존성 주입
-  private orderRepository = OrderRepository;
+  public orderRepository = OrderRepository;
 
   /**
    * 유저ID별 주문조회

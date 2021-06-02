@@ -4,7 +4,7 @@ import { PointDTO } from './PointDTO';
 import PointRepository from './PointRepository';
 
 export default class PointService {
-  private pointRepository = PointRepository;
+  public pointRepository = PointRepository;
   public findByUserIdPoint = async (userId: string) => {
     logger.info(`PointService::findByUserIdPoint in => ${userId}`);
     const result = await this.pointRepository.findOne({ userId: userId });

@@ -4,7 +4,7 @@ import { ProductDTO } from './ProductDTO';
 import ProductRepository from './ProductRepository';
 
 export default class ProductService {
-  private productRepository = ProductRepository;
+  public productRepository = ProductRepository;
   public createProduct = async (productDTO: ProductDTO) => {
     logger.info(`ProductService::createProduct in => ${productDTO}`);
     productDTO.prodId = getSeqAutoincrement('PD');

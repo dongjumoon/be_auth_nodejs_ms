@@ -1,8 +1,8 @@
-import { NextFunction, Request, Response } from 'express';
 import OrderService from '@/biz/order/OrderService';
+import { NextFunction, Request, Response } from 'express';
 
 export default class OrderController {
-  private orderService: OrderService;
+  public orderService: OrderService;
   constructor(orderService: OrderService) {
     this.orderService = orderService;
   }
