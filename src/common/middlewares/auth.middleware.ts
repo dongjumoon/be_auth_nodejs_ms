@@ -3,18 +3,16 @@ import { NextFunction, Response } from 'express';
 import jwt from 'jsonwebtoken';
 import HttpException from '@exceptions/HttpException';
 import { DataStoredInToken, RequestWithUser } from '@/common/entity/auth.interface';
-import userModel from '@/biz/user/users.model';
+import userModel from '@/biz/user/UsersRepository';
 
 const authMiddleware = async (req: RequestWithUser, res: Response, next: NextFunction) => {
   try {
     const Authorization = req.cookies['Authorization'] || req.header('Authorization').split('Bearer ')[1] || null;
-
     if (Authorization) {
       const secretKey: string = config.get('secretKey');
       const verificationResponse = (await jwt.verify(Authorization, secretKey)) as DataStoredInToken;
       const userId = verificationResponse._id;
       const findUser = await userModel.findById(userId);
-
       if (findUser) {
         req.user = findUser;
         next();
@@ -28,5 +26,4 @@ const authMiddleware = async (req: RequestWithUser, res: Response, next: NextFun
     next(new HttpException(401, 'Wrong authentication token'));
   }
 };
-
 export default authMiddleware;

@@ -1,5 +1,5 @@
 import { model, Schema, Document } from 'mongoose';
-import { User } from '@/biz/user/users.interface';
+import { User } from '@/biz/user/UsersEntity';
 
 const userSchema: Schema = new Schema({
   user_name: {

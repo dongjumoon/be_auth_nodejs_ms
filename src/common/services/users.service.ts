@@ -1,8 +1,8 @@
 import bcrypt from 'bcrypt';
-import { CreateUserDto } from '@/biz/user/users.dto';
+import { CreateUserDto } from '@/biz/user/UsersDTO';
 import HttpException from '@exceptions/HttpException';
-import { User } from '@/biz/user/users.interface';
-import userModel from '@/biz/user/users.model';
+import { User } from '@/biz/user/UsersEntity';
+import userModel from '@/biz/user/UsersRepository';
 import { isEmpty } from '@/common/utils/util';
 
 class UserService {

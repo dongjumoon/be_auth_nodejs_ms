@@ -1,8 +1,8 @@
 import { Router } from 'express';
-import UsersController from '@/biz/user/users.controller';
-import { CreateUserDto } from '@/biz/user/users.dto';
+import { CreateUserDto } from '@/biz/user/UsersDTO';
 import Route from '@/common/entity/routes.interface';
 import validationMiddleware from '@/common/middlewares/validation.middleware';
+import UsersController from './Userscontroller';
 
 class UsersRoute implements Route {
   public path = '/api/user';
