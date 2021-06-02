@@ -1,19 +1,28 @@
 import getSeqAutoincrement from '@/common/helper/getSeqAutoincrement';
+import { logger } from '@/common/utils/logger';
 import { ProductDTO } from './ProductDTO';
 import ProductRepository from './ProductRepository';
 
 export default class ProductService {
   private productRepository = ProductRepository;
   public createProduct = async (productDTO: ProductDTO) => {
+    logger.info(`ProductService::createProduct in => ${productDTO}`);
     productDTO.prodId = getSeqAutoincrement('PD');
-    await this.productRepository.create(productDTO);
+    const result = await this.productRepository.create(productDTO);
+    logger.info(`ProductService::createProduct out => ${result}`);
   };
 
   public findByProdAll = async () => {
-    return await this.productRepository.find();
+    logger.info(`ProductService::findByProdAll in => {}`);
+    const result = await this.productRepository.find();
+    logger.info(`ProductService::findByProdAll out => ${result}`);
+    return result;
   };
 
   public findByProdId = async (prodId: string) => {
-    return await this.productRepository.findOne({ prodId });
+    logger.info(`ProductService::findByProdId in => ${prodId}`);
+    const result = await this.productRepository.findOne({ prodId });
+    logger.info(`ProductService::findByProdId out => ${result}`);
+    return result;
   };
 }

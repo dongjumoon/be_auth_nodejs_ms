@@ -13,8 +13,9 @@ class OrderService {
    * @returns
    */
   public findByUserId = async (userId: string) => {
+    logger.info(`OrderService::findByUserId in => ${userId}`);
     const orderOne = await this.orderRepository.findOne({ userId: userId });
-    logger.debug(orderOne);
+    logger.info(`OrderService::findByUserId out => ${orderOne}`);
     return orderOne;
   };
 
@@ -24,9 +25,20 @@ class OrderService {
    * @returns
    */
   public createOrderId = async (orderDTO: OrderDTO) => {
-    // orderDTO.productId = getSeqAutoincrement('OR');
+    logger.info(`OrderService::createOrderId in => ${JSON.stringify(orderDTO)}`);
     const createResult = await this.orderRepository.create(orderDTO);
+    logger.info(`OrderService::createOrderId out => ${JSON.stringify(createResult)}`);
     return createResult;
+  };
+
+  /**
+   * 주문등록 푸시 알람 보내기 
+   * @param orderDTO 
+   */
+  public orderPushSend = async (orderDTO: OrderDTO) => {
+    logger.info(`OrderService::orderPushSend in => ${orderDTO}`);
+    logger.info(`주문등록 푸시 알람 보내기 : ${orderDTO} send`);
+    logger.info(`OrderService::orderPushSend out => ${orderDTO}`);
   };
 
   /**
@@ -34,7 +46,9 @@ class OrderService {
    * @param userId
    */
   public payOrder = (userId: string) => {
-    logger.info(`결제 userId: ${userId}`);
+    logger.info(`OrderService::payOrder in => ${userId}`);
+    logger.info(`유저ID별 주문결제 : ${userId}`);
+    logger.info(`OrderService::payOrder out => ${userId}`);
   };
 }
 
