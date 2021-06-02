@@ -3,7 +3,7 @@ import { NextFunction, Request, Response } from 'express';
 import PointService from './PointService';
 
 class PointController {
-  private pointService: PointService;
+  public pointService: PointService;
   constructor(pointService: PointService) {
     this.pointService = pointService;
   }

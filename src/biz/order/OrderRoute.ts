@@ -1,7 +1,7 @@
-import { Router } from 'express';
-import Route from '@/common/entity/routes.interface';
 import OrderController from '@/biz/order/OrderController';
 import OrderService from '@/biz/order/OrderService';
+import Route from '@/common/entity/routes.interface';
+import { Router } from 'express';
 
 class OrderRoute implements Route {
   public path = '/api/order';

@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from 'express';
 import ProductService from './ProductService';
 
 class ProductController {
-  private productService: ProductService;
+  public productService: ProductService;
   constructor(productService: ProductService) {
     this.productService = productService;
   }

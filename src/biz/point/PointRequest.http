@@ -1,4 +1,16 @@
-PUT http://localhost:8888/api/point HTTP/1.1
+PUT http://localhost:8888/api/point/use HTTP/1.1
+content-type: application/json
+  
+{
+    "userId": "박진우@gmail.com",
+    "pointId": "PT0001",
+    "score": "30",
+    "regDate": "2021-05-30 04:47"
+}
+
+###
+
+PUT http://localhost:8888/api/point/add HTTP/1.1
 content-type: application/json
   
 {
