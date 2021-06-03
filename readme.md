@@ -22,8 +22,10 @@ yarn start
 
 ### 도커빌드
 docker build --tag be_auth_nodejs_ms:0.1 .
-### 도커실행
-docker run --name be_auth_node_ms_con -d -p 8888:8888 be_auth_node_ms:0.1
+### 도커운영 실행 
+docker run --name be_auth_node_ms_prd -d -p 8888:8888 be_auth_node_ms:0.1
+### 도커데브 실행 
+docker run --name be_auth_node_ms_dev -d -p 8888:8888 -f Dockerfile-Dev be_auth_node_ms:0.1
 ### 도커컴포즈 실행
 docker-compose up --build -d
 ### 도커컴포즈 중지
