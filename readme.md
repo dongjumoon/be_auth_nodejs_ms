@@ -21,11 +21,19 @@ yarn start
 - param : user_id=[이메일]
 
 ### 도커빌드
-docker build --tag be_auth_nodejs_ms:0.1 .
+docker build --tag be_auth_nodejs_ms_prod:0.1 .
+docker build -f Dockerfile-Dev --tag be_auth_nodejs_ms_dev:0.1 .
 ### 도커운영 실행 
-docker run --name be_auth_node_ms_prd -d -p 8888:8888 be_auth_node_ms:0.1
+docker run --name be-auth-nodejs-ms-prod -d -p 8888:8888 be_auth_node_ms_prod:0.1
 ### 도커데브 실행 
-docker run --name be_auth_node_ms_dev -d -p 8888:8888 -f Dockerfile-Dev be_auth_node_ms:0.1
+sudo docker run --name be-auth-nodejs-ms-dev -d -p 8888:8888 be_auth_nodejs_ms_dev:0.1
+### 도커확인
+CONTAINER ID        IMAGE                       COMMAND                  CREATED             STATUS              PORTS                    NAMES
+f453061f667c        be_auth_nodejs_ms_dev:0.1   "docker-entrypoint.s…"   3 seconds ago       Up 2 seconds        0.0.0.0:8888->8888/tcp   be-auth-nodejs-ms-dev
+### 접속
+curl localhost:8888
+### 인그레스 연결 : /etc/hosts
+localhost 아이피주소
 ### 도커컴포즈 실행
 docker-compose up --build -d
 ### 도커컴포즈 중지
