@@ -218,6 +218,123 @@ paths:
           description: "successful operation"
         "401":
           description: "Invalid input"
+          
+  /api/user:
+    get:
+      tags:
+      - "회원관리"
+      summary: "모든 회원을 조회합니다"
+      description: ""
+      operationId: "findAllId"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters: []
+      responses:
+        "200":
+          description: "successful operation"
+        "401":
+          description: "Invalid input"
+          
+    post:
+      tags:
+      - "회원관리"
+      summary: "회원을 등록합니다"
+      description: ""
+      operationId: "createUser"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "body"
+        in: "body"
+        description: "회원을 등록합니다"
+        required: true
+        schema:
+          items:
+           $ref: "#/definitions/UserDTO"      
+      responses:
+        "200":
+          description: "successful operation"
+        "401":
+          description: "Invalid input"
+    put:
+      tags:
+      - "회원관리"
+      summary: "회원을 수정합니다"
+      description: ""
+      operationId: "updateUser"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "body"
+        in: "body"
+        description: "회원을 수정합니다"
+        required: true
+        schema:
+          items:
+           $ref: "#/definitions/UserDTO"      
+      responses:
+        "200":
+          description: "successful operation"
+        "401":
+          description: "Invalid input"        
+          
+  /api/user/{user_id}:
+    get:
+      tags:
+      - "회원관리"
+      summary: "회원을 검색합니다"
+      description: ""
+      operationId: "findAId"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "user_id"
+        in: "path"
+        description: "회원을 user_id로 상세조회 합니다."
+        required: true
+        type: "string"
+        format: "string"
+
+      responses:
+        "200":
+          description: "successful operation"
+        "401":
+          description: "Invalid input"
+    
+    
+    delete:
+      tags:
+      - "회원관리"
+      summary: "회원을 삭제합니다"
+      description: ""
+      operationId: "deleteUser"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "user_id"
+        in: "path"
+        description: "회원을 user_id로 삭제합니다."
+        required: true
+        type: "string"
+        format: "string"
+
+      responses:
+        "200":
+          description: "successful operation"
+        "401":
+          description: "Invalid input"      
+    
+   
       
   
 securityDefinitions:
@@ -311,7 +428,53 @@ definitions:
         format: "string"  
       category:
         type: "string"
-        format: "string"  
+        format: "string"
+  UserDTO:
+    type: "object"
+    properties:
+        _id: 
+           type: "string"
+           format: "string"
+        user_name:
+           type: "string"
+           format: "string"
+        user_id:
+           type: "string"
+           format: "string"
+        email:
+           type: "string"
+           format: "string"
+        password:
+           type: "string"
+           format: "string" 
+        img_url:
+           type: "string"
+           format: "string"
+        point:
+           type: "integer"
+           format: "int64"
+        reg_date: 
+           type: "string"
+           format: "string"
+        reg_writer:
+           type: "string"
+           format: "string"
+        modify_date:
+           type: "string"
+           format: "string"
+        modify_writer:
+           type: "string"
+           format: "string"
+        del_date:
+           type: "string"
+           format: "string"
+        del_writer:
+           type: "string"
+           format: "string"
+        use_yn:
+           type: "boolean"
+           format: "boolean"
+         
     
  
 externalDocs:

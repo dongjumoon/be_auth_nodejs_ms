@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
-import userService from '@services/users.service';
-import { User } from './UsersEntity';
-import { CreateUserDto } from './UsersDTO';
+import userService from './UserService';
+import { User } from './UserEntity';
+import { CreateUserDto } from './UserDTO';
 import bcrypt from 'bcrypt';
 
 
@@ -27,7 +27,7 @@ class UsersController {
     }
   };
 
-  public createUser = async (req: Request, res: Response, next: NextFunction) => {
+  public deleteUser = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const userId: string = req.params.id;
       const deleteUserData: User = await this.userService.deleteUser(userId);
@@ -36,8 +36,8 @@ class UsersController {
       next(error);
     }
   };
-
-  public updateUser = async (req: Request, res: Response, next: NextFunction) => {
+  
+  public createUser = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const createUserData: User = await this.userService.createUser(req.body);
       res.status(201).json({ data: createUserData, message: 'created' });
@@ -45,8 +45,8 @@ class UsersController {
       next(error);
     }
   };
-
-  public deleteUser = async (req: Request, res: Response, next: NextFunction) => {
+  
+  public updateUser = async (req: Request, res: Response, next: NextFunction) => {
     try {
        const userId: string = req.body.user_id; 
        const userData: CreateUserDto = {

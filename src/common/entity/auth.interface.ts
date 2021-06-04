@@ -1,5 +1,5 @@
 import { Request } from 'express';
-import { User } from '@/biz/user/UsersEntity';
+import { User } from '@/biz/user/UserEntity';
 
 export interface DataStoredInToken {
   _id: string;

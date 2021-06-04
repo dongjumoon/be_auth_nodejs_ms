@@ -1,9 +1,9 @@
 import bcrypt from 'bcrypt';
 import { isConstructorDeclaration } from 'typescript';
 import { isEmpty, dayUtil } from '@/common/utils/util';
-import { CreateUserDto } from '@/biz/user/UsersDTO';
-import { User } from '@/biz/user/UsersEntity';
-import userModel from '@/biz/user/UsersRepository';
+import { CreateUserDto } from '@/biz/user/UserDTO';
+import { User } from '@/biz/user/UserEntity';
+import userModel from '@/biz/user/UserRepository';
 import HttpException from '@/exceptions/HttpException';
 
 class UserService {
