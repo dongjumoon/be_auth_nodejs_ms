@@ -33,13 +33,12 @@ paths:
       produces:
         - "application/json"
       parameters:
-        - name: "body"
-          in: "body"
-          description: "주문 OrderDTO로 받는다."
-          required: true
-          schema:
-            items:
-              $ref: "#/definitions/OrderDTO"
+      - name: "body"
+        in: "body"
+        description: "주문 OrderDTO로 받는다."
+        required: true
+        schema:
+          $ref: "#/definitions/OrderDTO"  
       responses:
         "200":
           description: "successful operation"
@@ -122,13 +121,12 @@ paths:
       produces:
         - "application/json"
       parameters:
-        - name: "body"
-          in: "body"
-          description: "포인트를 PointDTO로 받는다."
-          required: true
-          schema:
-            items:
-              $ref: "#/definitions/PointDTO"
+      - name: "body"
+        in: "body"
+        description: "포인트를 PointDTO로 받는다."
+        required: true
+        schema:
+          $ref: "#/definitions/PointDTO"      
       responses:
         "200":
           description: "successful operation"
@@ -145,12 +143,11 @@ paths:
       produces:
         - "application/json"
       parameters:
-        - name: "body"
-          in: "body"
-          required: true
-          schema:
-            items:
-              $ref: "#/definitions/PointDTO"
+      - name: "body"
+        in: "body"
+        required: true
+        schema:
+          $ref: "#/definitions/PointDTO"      
       responses:
         "200":
           description: "successful operation"
@@ -167,13 +164,12 @@ paths:
       produces:
         - "application/json"
       parameters:
-        - name: "body"
-          in: "body"
-          description: "상품을 ProductDTO로 등록 합니다."
-          required: true
-          schema:
-            items:
-              $ref: "#/definitions/ProductDTO"
+      - name: "body"
+        in: "body"
+        description: "상품을 ProductDTO로 등록 합니다."
+        required: true
+        schema:
+          $ref: "#/definitions/ProductDTO"      
       responses:
         "200":
           description: "successful operation"
@@ -247,12 +243,12 @@ paths:
       produces:
         - "application/json"
       parameters:
-        - name: "body"
-          in: "body"
-          description: "회원을 등록합니다"
-          required: true
-          schema:
-            $ref: "#/definitions/UserDTO"
+      - name: "body"
+        in: "body"
+        description: "회원을 등록합니다"
+        required: true
+        schema:
+          $ref: "#/definitions/UserDTO"      
       responses:
         "200":
           description: "successful operation"
@@ -269,12 +265,12 @@ paths:
       produces:
         - "application/json"
       parameters:
-        - name: "body"
-          in: "body"
-          description: "회원을 수정합니다"
-          required: true
-          schema:
-            $ref: "#/definitions/UserDTO"
+      - name: "body"
+        in: "body"
+        description: "회원을 수정합니다"
+        required: true
+        schema:
+          $ref: "#/definitions/UserDTO"      
       responses:
         "200":
           description: "successful operation"
