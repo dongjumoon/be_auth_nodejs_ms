@@ -49,17 +49,19 @@ export default class OrderController {
       if (!result) { // 비정상 조회 일때
 
         // 응답코드 
-        response.code = ResponseMsgConst.ORDER_400_CODE; // 200, 400, 500...
-        response.msg =  ResponseMsgConst.ORDER_400_MSG;
+        response.code = ResponseMsgConst.RESP_5XX.CODE; // 200, 400, 500...
+        response.msg =  ResponseMsgConst.RESP_5XX.MSG;
 
         // 에러코드 정의
-        errorDTO.code = ErrorMsgConst.ORDER_001_CODE; // 프로젝트에서 정한 에러코드 
-        errorDTO.msg = ErrorMsgConst.ORDER_001_MSG; // 프로젝트에서 정한 에러메세지 
+        errorDTO.code = ErrorMsgConst.ORDER_ERROR_DEFINE.RD_3.CODE; // 프로젝트에서 정한 에러코드 
+        errorDTO.msg = ErrorMsgConst.ORDER_ERROR_DEFINE.RD_3.MSG; // 프로젝트에서 정한 에러메세지 
         response.error = errorDTO;
         
         // 추적하는 유니크 아이디 = ObjectId
         response.transId = getSeqAutoincrement('findByUserId');
-        res.status(200).json(response);
+        // res.status(200).json(response);
+
+        throw new Error(JSON.stringify(response));
 
       } else { // 정상일때
 
