@@ -135,3 +135,96 @@ ErrorCode
   5     형       2
   6     
 
+
+
+app 
+  errorMiddleware strt 
+  router 
+     authMiddleware start => filter, interceptor
+     controller 
+        service 
+     authMiddleware end 
+  errorMiddleware end
+
+
+interface IoCommonInter {
+  send();
+  rev();
+}
+
+
+
+
+class Board {
+  let file: IoCommonInter;
+  
+  constructor(file: IoCommonInter) {
+    this.file = file;
+  }
+}
+
+let board = new Board(new File());
+let board = new Board(new Print());
+let board = new Board(new RequestIOnew());
+          
+
+t 
+front <- be <- db(oragle)
+front <- be <- swing 
+
+axios.get('/naver/map');
+if (res === './')
+
+function customerGetWrapping(url, param) {
+  // 1. 분기처리 
+  let res = axios.get(url);
+  if (res == true) {
+    return axios.get(url, param);
+  } else {
+    return fail;
+  }
+  // 2. try ~ catch 
+  try {
+    let ret = request.get(url, param);
+    JSON.parse(ret);
+  } catch (e) {
+    throw new Error(e);
+  }
+} 
+
+orderService 
+map 호출
+customerGetWrapping('www.naver.com/map', {x: 1, y: 2});
+
+// 자바스크립트 - 객체지향(프로토콜)
+
+// 믹스인
+
+기존클래스에... 함수를 주입할 수 있음.
+
+axios.property.newGet = (req, res) {
+
+}
+
+axios.newGet()
+
+타입스크립트 => 어노테이션 = 데코레이터 
+
+타입스크립트(super set) > ecmascript2021(ecmascript 6) > ecmascript 5(react, vue, angular) > ecmascript 3
+
+
+어노테이션 
+@Autowired
+requset req;
+
+런타임때(실행) => 
+
+@Transactional
+function 내함수() { 
+  try {
+  비지니스 로직 find...insert ...
+  }
+  catch (e) {
+
+  } 
+}
