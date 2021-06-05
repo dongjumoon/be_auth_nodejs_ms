@@ -11,10 +11,11 @@ export class ErrorMsgConst {
   ]
 
   static readonly ORDER_ERROR_ = {
-    CODE_1 : { CODE: 1, MSG: '메시지' },
-    CODE_2 : { CODE: 1, MSG: '메시지' },
-    CODE_3 : { CODE: 1, MSG: '메시지' },
-    CODE_4 : { CODE: 1, MSG: '메시지' },
+    CODE_C_1 : { CODE: 1, MSG: '메시지' },
+    CODE_RL_2 : { CODE: 1, MSG: '메시지' },
+    CODE_RD_3 : { CODE: 1, MSG: '메시지' },
+    CODE_D_4 : { CODE: 1, MSG: '메시지' },
+    CODE_U_4 : { CODE: 1, MSG: '메시지' },
   }
 
   constructor() {
