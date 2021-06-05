@@ -1,4 +1,8 @@
 // todo: 에러문구 정의 
+
+enum ORDER_ERROR_IDX {
+  C, RL, RD, D, U 
+}
 export class ErrorMsgConst {
   static readonly ORDER_001_MSG = '데이터 조회가 실패했습니다.';
   static readonly ORDER_001_CODE = 'ORDER_ERROR_001';
@@ -19,19 +23,17 @@ export class ErrorMsgConst {
   }
 
   constructor() {
-
     ErrorMsgConst.ORDER_ERROR_['CODE_2']['CODE']
 
-    ErrorMsgConst.ORDER_ERROR[0]['CODE']
+    ErrorMsgConst.ORDER_ERROR[ORDER_ERROR_IDX.RD]['CODE']
     ErrorMsgConst.ORDER_ERROR[0]['MSG']
 
-    ErrorMsgConst.ORDER_ERROR[1]['CODE']
+    ErrorMsgConst.ORDER_ERROR[ORDER_ERROR_IDX.C]['CODE']
     ErrorMsgConst.ORDER_ERROR[1]['MSG']
     
-    ErrorMsgConst.ORDER_ERROR[2]['CODE']
+    ErrorMsgConst.ORDER_ERROR[ORDER_ERROR_IDX.U]['CODE']
     ErrorMsgConst.ORDER_ERROR[2]['MSG']
   }
-
 
   static readonly PRODUCT_001 = '상품에러';
   
