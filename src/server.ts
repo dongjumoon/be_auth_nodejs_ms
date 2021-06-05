@@ -1,3 +1,5 @@
+import BoardRoute from '@/biz/board/BoardRoute';
+
 process.env['NODE_CONFIG_DIR'] = __dirname + '/configs';
 
 import 'dotenv/config';
@@ -17,11 +19,12 @@ const Routes = [
   new UsersRoute(),
   new AuthRoute(),
 
-  // 상품, 주문, 포인트, 쿠폰
+  // 상품, 주문, 포인트, 쿠폰, 게시판
   new OrderRoute(),
   new ProductRoute(),
   new PointRoute(),
   new CouponRoute(),
+  new BoardRoute(),
 ];
 const app = new App(Routes);
 
