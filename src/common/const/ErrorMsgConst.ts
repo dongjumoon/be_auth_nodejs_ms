@@ -10,7 +10,17 @@ export class ErrorMsgConst {
     {CODE: 4, MSG: '메세지'}
   ]
 
+  static readonly ORDER_ERROR_ = {
+    CODE_1 : { CODE: 1, MSG: '메시지' },
+    CODE_2 : { CODE: 1, MSG: '메시지' },
+    CODE_3 : { CODE: 1, MSG: '메시지' },
+    CODE_4 : { CODE: 1, MSG: '메시지' },
+  }
+
   constructor() {
+
+    ErrorMsgConst.ORDER_ERROR_['CODE_2']['CODE']
+
     ErrorMsgConst.ORDER_ERROR[0]['CODE']
     ErrorMsgConst.ORDER_ERROR[0]['MSG']
 
