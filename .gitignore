@@ -116,3 +116,4 @@ dist
 .idea/
 
 .history 
+.settings.json

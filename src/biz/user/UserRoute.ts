@@ -1,8 +1,8 @@
 import { Router } from 'express';
-import UsersController from '@/biz/user/users.controller';
-import { CreateUserDto } from '@/biz/user/users.dto';
+import { CreateUserDto } from '@/biz/user/UserDTO';
 import Route from '@/common/entity/routes.interface';
 import validationMiddleware from '@/common/middlewares/validation.middleware';
+import UsersController from './UserController';
 
 class UsersRoute implements Route {
   public path = '/api/user';
@@ -16,8 +16,8 @@ class UsersRoute implements Route {
   private initializeRoutes() {
     this.router.get(`${this.path}`, this.usersController.getUsers);
     this.router.get(`${this.path}/:id`, this.usersController.getUserById);
-    this.router.post(`${this.path}`, validationMiddleware(CreateUserDto, 'query'), this.usersController.createUser);
-    this.router.put(`${this.path}/:id`, validationMiddleware(CreateUserDto, 'query', true), this.usersController.updateUser);
+    this.router.post(`${this.path}`, validationMiddleware(CreateUserDto, 'body'), this.usersController.createUser);
+    this.router.put(`${this.path}`, validationMiddleware(CreateUserDto, 'body'), this.usersController.updateUser);
     this.router.delete(`${this.path}/:id`, this.usersController.deleteUser);
   }
 }

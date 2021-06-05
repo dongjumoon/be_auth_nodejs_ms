@@ -1,0 +1,27 @@
+GET http://localhost:8888/api/user HTTP/1.1
+content-type: application/json
+###
+GET http://localhost:8888/api/user/김용연@naver.com HTTP/1.1
+###
+POST  http://localhost:8888/api/user HTTP/1.1
+
+{
+        "user_id": "jinu9843@naver.com",
+        "email": "nave1212121r1296805978095873@naver.com",
+        "password": "45454545"
+}
+
+###
+
+
+PUT   http://localhost:8888/api/user HTTP/1.1
+
+{
+        "user_id": "aaa@naver.com",
+        "email": "nave121215873@naver.com",
+        "password": "2222"
+}
+// user_id 만 뺴고 수정가능
+
+###
+DELETE    http://localhost:8888/api/user/김용연@naver.com HTTP/1.1
