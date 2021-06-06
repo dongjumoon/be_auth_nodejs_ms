@@ -14,5 +14,6 @@ export class ErrorMsgConst {
     {CODE: "BOARD_ERROR_004", MSG: '게시글 삭제 에러'},
     {CODE: "BOARD_ERROR_005", MSG: '게시글 수정 에러'}
   ]
+    static PRODUCT_ERROR_DEFINE: any;
 
 }

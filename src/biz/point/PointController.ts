@@ -1,5 +1,8 @@
 // todo: 포인트 정보
+import { ErrorMsgConst } from '@/common/const/ErrorMsgConst';
+import { ResponseDTO } from '@/common/dto/ResponseDTO';
 import { NextFunction, Request, Response } from 'express';
+import { PointEntity } from './PointEntity';
 import PointService from './PointService';
 
 class PointController {
@@ -9,51 +12,39 @@ class PointController {
   }
   public findByUserIdPoint = async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const pointUser = await this.pointService.findByUserIdPoint(req.params.userId);
-      res.status(200).json({
-        tranId: '01',
-        code: 200,
-        msg: '포인트 조회 정상 처리 되었습니다.',
-        body: { pointUser },
-        error: {
-          code: 0,
-          msg: '',
-        },
-      });
+      const result: PointEntity = await this.pointService.findByUserIdPoint(req.params.userId);
+      if (!result) {
+        const response = ResponseDTO.errorProc({
+          title: 'findByUserIdPoint',
+          error: {
+            code: ErrorMsgConst.POINT_ERROR_DEFINE.RD_3.CODE,
+            msg: ErrorMsgConst.POINT_ERROR_DEFINE.RD_3.MSG,
+          },
+          result: result,
+        });
+        res.status(500).json(response);
+      } else {
+        const response = ResponseDTO.successProc(result);
+        res.status(200).json(response);
+      }
     } catch (error) {
       next(error);
     }
   };
-  public addUserIdPoint = (req: Request, res: Response, next: NextFunction) => {
+  public addUserIdPoint = async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const result = this.pointService.addUserIdPoint(req.body);
-      res.status(200).json({
-        tranId: '01',
-        code: 200,
-        msg: '포인트 조회 정상 처리 되었습니다.',
-        body: { result },
-        error: {
-          code: 0,
-          msg: '',
-        },
-      });
+      const result: any | PointEntity = await this.pointService.addUserIdPoint(req.body);
+      const response = ResponseDTO.successProc(result);
+      res.status(200).json(response);
     } catch (error) {
       next(error);
     }
   };
-  public useUserIdPoint = (req: Request, res: Response, next: NextFunction) => {
+  public useUserIdPoint = async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const result = this.pointService.useUserIdPoint(req.body);
-      res.status(200).json({
-        tranId: '01',
-        code: 200,
-        msg: '포인트 조회 정상 처리 되었습니다.',
-        body: { result },
-        error: {
-          code: 0,
-          msg: '',
-        },
-      });
+      const result: any | PointEntity = await this.pointService.useUserIdPoint(req.body);
+      const response = ResponseDTO.successProc(result);
+      res.status(200).json(response);
     } catch (error) {
       next(error);
     }

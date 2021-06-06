@@ -9,6 +9,7 @@ export default class PointService {
     logger.info(`PointService::findByUserIdPoint in => ${userId}`);
     const result = await this.pointRepository.findOne({ userId: userId });
     logger.info(`PointService::findByUserIdPoint out => ${result}`);
+    return result; 
   };
 
   public addUserIdPoint = async (pointDTO: PointDTO) => {
