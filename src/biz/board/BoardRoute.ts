@@ -15,7 +15,7 @@ class BoardRoute implements Route {
   private initializeRoutes() {
     this.router.get(`${this.path}`, this.BoardController.getBoardList); // 게시글 목록
     this.router.get(`${this.path}/paging`, this.BoardController.getBoardSearchList); // 게시글 페이징 목록
-    this.router.get(`${this.path}/`, this.BoardController.getBoardDetail); // 게시글 상세목록
+    this.router.get(`${this.path}/detail`, this.BoardController.getBoardDetail); // 게시글 상세목록
     this.router.post(`${this.path}`, this.BoardController.createBoard); // 게시글 작성
     this.router.put(`${this.path}`, this.BoardController.updateBoard); // 게시글 수정
     this.router.delete(`${this.path}/:bno`, this.BoardController.deleteBoard); // 게시글 수정

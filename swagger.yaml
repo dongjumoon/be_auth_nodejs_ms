@@ -326,6 +326,145 @@ paths:
         '401':
           description: 'Invalid input'
 
+  /api/board:
+    get:
+      tags:
+        - '게시판'
+      summary: '게시글 목록을 가져옵니다'
+      description: ''
+      operationId: 'getBoardList'
+      consumes:
+        - 'application/json'
+      produces:
+        - 'application/json'
+      parameters: []
+      responses:
+        '200':
+          description: 'successful operation'
+        '401':
+          description: 'Invalid input'
+
+    post:
+      tags:
+        - '게시판'
+      summary: '게시글 등록 합니다. '
+      description: ''
+      operationId: 'createBoard'
+      consumes:
+        - 'application/json'
+      produces:
+        - 'application/json'
+      parameters:
+        - name: 'body'
+          in: 'body'
+          description: '게시글 작성 BoardCreateDTO로 받는다.'
+          required: true
+          schema:
+            $ref: '#/definitions/BoardCreateDTO'
+      responses:
+        '200':
+          description: 'successful operation'
+        '401':
+          description: 'Invalid input'
+
+    put:
+      tags:
+        - '게시판'
+      summary: '게시글을 수정합니다'
+      description: ''
+      operationId: 'updateBoard'
+      consumes:
+        - 'application/json'
+      produces:
+        - 'application/json'
+      parameters:
+        - name: 'body'
+          in: 'body'
+          description: '게시글 수정 BoardUpdateDTO로 받는다'
+          required: true
+          schema:
+            $ref: '#/definitions/BoardUpdateDTO'
+      responses:
+        '200':
+          description: 'successful operation'
+        '401':
+          description: 'Invalid input'
+
+  /api/board/paging:
+    get:
+      tags:
+        - '게시판'
+      summary: '게시글 검색 목록을 가져옵니다(+페이징)'
+      description: ''
+      operationId: 'getBoardSearchList'
+      consumes:
+        - 'application/json'
+      produces:
+        - 'application/json'
+      parameters:
+        - name: 'body'
+          in: 'body'
+          description: '게시글 검색 BoardSearchDTO로 받는다'
+          required: true
+          schema:
+            $ref: '#/definitions/BoardSearchDTO'
+      responses:
+        '200':
+          description: 'successful operation'
+        '401':
+          description: 'Invalid input'
+
+  /api/board/detail:
+    get:
+      tags:
+        - '게시판'
+      summary: '게시글 하나를 가져옵니다'
+      description: ''
+      operationId: 'getBoardDetail'
+      consumes:
+        - 'application/json'
+      produces:
+        - 'application/json'
+      parameters:
+        - name: 'bno'
+          in: 'query'
+          description: '게시글을 bno로 조회 합니다.'
+          required: true
+          type: 'string'
+          format: 'string'
+
+      responses:
+        '200':
+          description: 'successful operation'
+        '401':
+          description: 'Invalid input'
+
+  /api/board/{bno}:
+    delete:
+      tags:
+        - '게시판'
+      summary: '게시글을 삭제합니다'
+      description: ''
+      operationId: 'deleteBoard'
+      consumes:
+        - 'application/json'
+      produces:
+        - 'application/json'
+      parameters:
+        - name: 'bno'
+          in: 'path'
+          description: '게시글을 bno로 삭제합니다.'
+          required: true
+          type: 'string'
+          format: 'string'
+
+      responses:
+        '200':
+          description: 'successful operation'
+        '401':
+          description: 'Invalid input'
+
+
 securityDefinitions:
   petstore_auth:
     type: 'oauth2'
@@ -437,6 +576,151 @@ definitions:
       img_url:
         type: "string"
         format: "string"
+
+  BoardDTO:
+    type: 'object'
+    properties:
+      title:
+        type: 'string'
+        format: 'string'
+      content:
+        type: 'string'
+        format: 'string'
+      uploadFileId:
+        type: 'string'
+        format: 'string'
+      noticeYn:
+        type: 'boolean'
+        format: 'boolean'
+      type:
+        type: 'string'
+        format: 'string'
+      popupYn:
+        type: 'boolean'
+        format: 'boolean'
+      useYn:
+        type: 'boolean'
+        format: 'boolean'
+      regDate:
+        type: 'string'
+        format: 'string'
+      regWriter:
+        type: 'string'
+        format: 'string'
+      modifyDate:
+        type: 'string'
+        format: 'string'
+      modifyWriter:
+        type: 'string'
+        format: 'string'
+      delDate:
+        type: 'string'
+        format: 'string'
+      delWriter:
+        type: 'string'
+        format: 'string'
+      likeAction:
+        type: 'number'
+        format: 'number'
+      dislikeAction:
+        type: 'number'
+        format: 'number'
+      hideYn:
+        type: 'boolean'
+        format: 'boolean'
+      bno:
+        type: 'string'
+        format: 'string'
+      startDate:
+        type: 'string'
+        format: 'string'
+      endDate:
+        type: 'string'
+        format: 'string'
+
+  BoardCreateDTO:
+    type: 'object'
+    properties:
+      title:
+        type: 'string'
+        format: 'string'
+      content:
+        type: 'string'
+        format: 'string'
+      uploadFileId:
+        type: 'string'
+        format: 'string'
+      noticeYn:
+        type: 'boolean'
+        format: 'string'
+      type:
+        type: 'string'
+        format: 'string'
+      popupYn:
+        type: 'boolean'
+        format: 'boolean'
+      regDate:
+        type: 'string'
+        format: 'string'
+      regWriter:
+        type: 'string'
+        format: 'string'
+      bno:
+        type: 'string'
+        format: 'string'
+
+  BoardUpdateDTO:
+    type: 'object'
+    properties:
+      title:
+        type: 'string'
+        format: 'string'
+      content:
+        type: 'string'
+        format: 'string'
+      uploadFileId:
+        type: 'string'
+        format: 'string'
+      noticeYn:
+        type: 'boolean'
+        format: 'boolean'
+      type:
+        type: 'string'
+        format: 'string'
+      popupYn:
+        type: 'boolean'
+        format: 'boolean'
+      modifyWriter:
+        type: 'string'
+        format: 'string'
+      bno:
+        type: 'string'
+        format: 'string'
+
+  BoardSearchDTO:
+    type: 'object'
+    properties:
+      pageNumber:
+        type: 'number'
+        format: 'number'
+      offset:
+        type: 'number'
+        format: 'number'
+      max:
+        type: 'number'
+        format: 'number'
+      sort:
+        type: 'string'
+        format: 'string'
+      order:
+        type: 'string'
+        format: 'string'
+      keyword:
+        type: 'string'
+        format: 'string'
+      gnb:
+        type: 'string'
+        format: 'string'
 
 externalDocs:
   description: 'Find out more about Swagger'

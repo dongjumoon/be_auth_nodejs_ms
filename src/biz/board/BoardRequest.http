@@ -17,7 +17,12 @@ content-type: application/json
 GET http://localhost:8888/api/board HTTP/1.1
 
 ###
-GET http://localhost:8888/api/board?bno=BD0001 HTTP/1.1
+GET http://localhost:8888/api/board/detail HTTP/1.1
+content-type: application/json
+
+{
+  "bno": "BD0002"
+}
 
 ###
 GET http://localhost:8888/api/board/paging HTTP/1.1
