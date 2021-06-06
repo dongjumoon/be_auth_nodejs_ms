@@ -4,6 +4,7 @@ import { ResponseDTO } from '@/common/dto/ResponseDTO';
 import { NextFunction, Request, Response } from 'express';
 import { PointEntity } from './PointEntity';
 import PointService from './PointService';
+import _ from 'lodash';
 
 class PointController {
   public pointService: PointService;
@@ -13,7 +14,7 @@ class PointController {
   public findByUserIdPoint = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const result: {} | PointEntity = await this.pointService.findByUserIdPoint(req.params.userId);
-      if (!result) {
+      if (_.isEmpty(result)) {
         const response = ResponseDTO.errorProc({
           title: 'findByUserIdPoint',
           error: {

@@ -5,6 +5,7 @@ import { PointDTO } from '../point/PointDTO';
 import { PointEntity } from '../point/PointEntity';
 import { ProductEntity } from './ProductEntity';
 import ProductService from './ProductService';
+import _ from 'lodash';
 
 class ProductController {
   public productService: ProductService;
@@ -41,7 +42,7 @@ class ProductController {
   public findByProdAll = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const result: {} | PointEntity = await this.productService.findByProdAll();
-      if (!result) {
+      if (_.isEmpty(result)) {
         const response = ResponseDTO.errorProc({
           title: 'findByProdAll',
           error: {
@@ -68,7 +69,7 @@ class ProductController {
   public findByProdId = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const result: {} | ProductEntity = await this.productService.findByProdId(req.params.prodId);
-      if (!result) {
+      if (_.isEmpty(result)) {
         const response = ResponseDTO.errorProc({
           title: 'findByProdId',
           error: {
