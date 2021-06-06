@@ -46,15 +46,14 @@ class UserService {
   }
 
   public async createUser(userData: CreateUserDto): Promise<User> {
-
+    const findUser: User = await this.users.findOne({ user_id: userData.user_id });
     try {
       if (isEmpty(userData)) throw new HttpException(400, "You're not userData");
-      const findUser: User = await this.users.findOne({ user_id: userData.user_id });
-      if (findUser) throw new HttpException(409, `You're user_id ${userData.user_id} already exists`);
+    //if (findUser) throw new HttpException(409, `You're user_id ${userData.user_id} already exists`);
       const reg_date = dayUtil();
       const password = userData.password;
       const encryptedPassowrd = bcrypt.hashSync(password, 10) // sync
-      userData.reg_date = reg_date;
+     //serData.reg_date = reg_date;
       userData.password = encryptedPassowrd;
       userData.point = 0;
       const createUserData: User = await this.users.create(userData);
@@ -71,11 +70,19 @@ class UserService {
       if (active !== "product") {
         //에러코드 정의
         errorDTO.code = ErrorMsgConst.USER_ERROR.C0_2.CODE;
-        errorDTO.msg = ErrorMsgConst.USER_ERROR.C0_2.MSG;
+        if(findUser){
+          errorDTO.msg = "동일한 아이디가 존재합니다.";
+        }else{
+          errorDTO.msg = ErrorMsgConst.USER_ERROR.C0_2.MSG;
+        }
         response.error = errorDTO;
       } else {
         errorDTO.code = ErrorMsgConst.USER_ERROR.C0_2.CODE;
-        errorDTO.msg = ErrorMsgConst.USER_ERROR.C0_2.MSG; // 운영 메세지
+        if(findUser){
+          errorDTO.msg = "동일한 아이디가 존재합니다.";
+        }else{
+          errorDTO.msg = ErrorMsgConst.USER_ERROR.C0_2.MSG; // 운영 메세지
+        }
         response.error = errorDTO;
       }
       //추적하는 유니크 아이디 = objectId
@@ -99,7 +106,7 @@ class UserService {
         const isPasswordMatching: boolean = await bcrypt.compare(userData.password, pw);
         if (isPasswordMatching) throw new HttpException(409, "You're password not matching");
         // const updateUserById: User = await this.users.findByIdAndUpdate(userData['_id'], userData);
-        userData.modify_date = dayUtil();
+        //userData.modify_date = dayUtil();
         const updateUserById = await this.users.updateOne({ user_id: userData['user_id'] }, userData);
         if (!updateUserById) throw new HttpException(409, "You're not user");
 
@@ -135,9 +142,13 @@ class UserService {
   }
 
   public async deleteUser(userId: string): Promise<User> {
+    const findUser: User = await this.users.findOne({ user_id: userId });
     try {
-      const deleteUserById: User = await this.users.remove({ user_id: userId });
-      return deleteUserById;
+      if(findUser){
+        const deleteUserById: User = await this.users.remove({ user_id: userId });
+        return deleteUserById;
+      }
+   
     } catch (e){
       let response = new ResponseDTO();
       let errorDTO = new ErrorDTO();

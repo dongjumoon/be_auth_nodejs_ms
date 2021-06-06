@@ -7,6 +7,7 @@ import { ErrorDTO, ResponseDTO } from '@/common/dto/ResponseDTO';
 import { ErrorMsgConst } from '@/common/const/ErrorMsgConst';
 import { ResponseMsgConst } from '@/common/const/ResponseMsgConst';
 import getSeqAutoincrement from '@/common/helper/getSeqAutoincrement';
+import UserRepository from './UserRepository';
 
 
 class UsersController {

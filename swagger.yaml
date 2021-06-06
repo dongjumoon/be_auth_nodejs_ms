@@ -435,32 +435,8 @@ definitions:
         type: 'string'
         format: 'string'
       img_url:
-        type: 'string'
-        format: 'string'
-      point:
-        type: 'integer'
-        format: 'int64'
-      reg_date:
-        type: 'string'
-        format: 'string'
-      reg_writer:
-        type: 'string'
-        format: 'string'
-      modify_date:
-        type: 'string'
-        format: 'string'
-      modify_writer:
-        type: 'string'
-        format: 'string'
-      del_date:
-        type: 'string'
-        format: 'string'
-      del_writer:
-        type: 'string'
-        format: 'string'
-      use_yn:
-        type: 'boolean'
-        format: 'boolean'
+        type: "string"
+        format: "string"
 
 externalDocs:
   description: 'Find out more about Swagger'
