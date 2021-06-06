@@ -1,442 +1,443 @@
-swagger: "2.0"
+swagger: '2.0'
 info:
-  description: "This is a sample server Petstore server.  You can find out more about     Swagger at [http://swagger.io](http://swagger.io) or on [irc.freenode.net, #swagger](http://swagger.io/irc/).      For this sample, you can use the api key `special-key` to test the authorization     filters."
-  version: "1.0.0"
-  title: "Swagger 커피공장 플랫폼"
-  termsOfService: "http://swagger.io/terms/"
+  description: 'This is a sample server Petstore server.  You can find out more about     Swagger at [http://swagger.io](http://swagger.io) or on [irc.freenode.net, #swagger](http://swagger.io/irc/).      For this sample, you can use the api key `special-key` to test the authorization     filters.'
+  version: '1.0.0'
+  title: 'Swagger 커피공장 플랫폼'
+  termsOfService: 'http://swagger.io/terms/'
   contact:
-    email: "apiteam@swagger.io"
+    email: 'apiteam@swagger.io'
   license:
-    name: "Apache 2.0"
-    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
-host: "petstore.swagger.io"
-basePath: "/v2"
+    name: 'Apache 2.0'
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+host: 'petstore.swagger.io'
+basePath: '/v2'
 tags:
-  - name: "커피공장"
-    description: "동네 커피 주문을 효과적으로 처리할 수 있는 지상의 하나뿐인 플랫폼"
+  - name: '커피공장'
+    description: '동네 커피 주문을 효과적으로 처리할 수 있는 지상의 하나뿐인 플랫폼'
     externalDocs:
-      description: "Find out more"
-      url: "http://swagger.io"
+      description: 'Find out more'
+      url: 'http://swagger.io'
 schemes:
-  - "https"
-  - "http"
+  - 'https'
+  - 'http'
 paths:
   /api/order:
     post:
-      tags:
-        - "주문관리"
-      summary: "주문등록 합니다. "
-      description: ""
-      operationId: "createOrderId"
-      consumes:
-        - "application/json"
-      produces:
-        - "application/json"
-      parameters:
-      - name: "body"
-        in: "body"
-        description: "주문 OrderDTO로 받는다."
+    tags:
+      - '주문관리'
+    summary: '주문등록 합니다. '
+    description: ''
+    operationId: 'createOrderId'
+    consumes:
+      - 'application/json'
+    produces:
+      - 'application/json'
+    parameters:
+      - name: 'body'
+        in: 'body'
+        description: '주문 OrderDTO로 받는다.'
         required: true
         schema:
-          $ref: "#/definitions/OrderDTO"  
-      responses:
-        "200":
-          description: "successful operation"
-        "401":
-          description: "Invalid input"
+          $ref: '#/definitions/OrderDTO'
+    responses:
+      '200':
+        description: 'successful operation'
+      '401':
+        description: 'Invalid input'
 
   /api/order/{userId}:
     get:
       tags:
-        - "주문관리"
-      summary: "주문조회를 합니다. "
-      description: ""
-      operationId: "findByUserId"
+        - '주문관리'
+      summary: '주문조회를 합니다. '
+      description: ''
+      operationId: 'findByUserId'
       produces:
-        - "application/json"
+        - 'application/json'
       parameters:
-        - name: "userId"
-          in: "path"
-          description: "사용자ID를 Path를 받습니다."
+        - name: 'userId'
+          in: 'path'
+          description: '사용자ID를 Path를 받습니다.'
           required: true
-          type: "string"
-          format: "string"
+          type: 'string'
+          format: 'string'
       responses:
-        "200":
-          description: "successful operation"
-        "401":
-          description: "Invalid input"
+        '200':
+          description: 'successful operation'
+        '401':
+          description: 'Invalid input'
 
   /api/order/pay/{userId}:
     get:
       tags:
-        - "주문관리"
-      summary: "주문결제를 합니다."
-      description: ""
-      operationId: "payOrderUserId"
+        - '주문관리'
+      summary: '주문결제를 합니다.'
+      description: ''
+      operationId: 'payOrderUserId'
       produces:
-        - "application/json"
+        - 'application/json'
       parameters:
-        - name: "userId"
-          in: "path"
-          description: "사용자ID를 Path로 받습니다."
+        - name: 'userId'
+          in: 'path'
+          description: '사용자ID를 Path로 받습니다.'
           required: true
-          type: "string"
-          format: "string"
+          type: 'string'
+          format: 'string'
       responses:
-        "200":
-          description: "successful operation"
-        "401":
-          description: "Invalid input"
+        '200':
+          description: 'successful operation'
+        '401':
+          description: 'Invalid input'
 
   /api/point/{userId}:
     get:
       tags:
-        - "포인트관리"
-      summary: "포인트를 조회한다."
-      description: ""
-      operationId: "findByUserIdPoint"
+        - '포인트관리'
+      summary: '포인트를 조회한다.'
+      description: ''
+      operationId: 'findByUserIdPoint'
       produces:
-        - "application/json"
+        - 'application/json'
       parameters:
-        - name: "userId"
-          in: "path"
-          description: "사용자ID를 Path로 받습니다."
+        - name: 'userId'
+          in: 'path'
+          description: '사용자ID를 Path로 받습니다.'
           required: true
-          type: "string"
-          format: "string"
+          type: 'string'
+          format: 'string'
       responses:
-        "200":
-          description: "successful operation"
-        "401":
-          description: "Invalid input"
+        '200':
+          description: 'successful operation'
+        '401':
+          description: 'Invalid input'
 
   /api/point/add:
     put:
       tags:
-        - "포인트관리"
-      summary: "포인트를 누적한다."
-      description: ""
-      operationId: "addUserIdPoint"
+        - '포인트관리'
+      summary: '포인트를 누적한다.'
+      description: ''
+      operationId: 'addUserIdPoint'
       produces:
-        - "application/json"
+        - 'application/json'
       parameters:
-      - name: "body"
-        in: "body"
-        description: "포인트를 PointDTO로 받는다."
-        required: true
-        schema:
-          $ref: "#/definitions/PointDTO"      
+        - name: 'body'
+          in: 'body'
+          description: '포인트를 PointDTO로 받는다.'
+          required: true
+          schema:
+            $ref: '#/definitions/PointDTO'
       responses:
-        "200":
-          description: "successful operation"
-        "401":
-          description: "Invalid input"
+        '200':
+          description: 'successful operation'
+        '401':
+          description: 'Invalid input'
 
   /api/point/use:
     put:
       tags:
-        - "포인트관리"
-      summary: "포인트를 사용한다."
-      description: ""
-      operationId: "useUserIdPoint"
+        - '포인트관리'
+      summary: '포인트를 사용한다.'
+      description: ''
+      operationId: 'useUserIdPoint'
       produces:
-        - "application/json"
+        - 'application/json'
       parameters:
-      - name: "body"
-        in: "body"
-        required: true
-        schema:
-          $ref: "#/definitions/PointDTO"      
+        - name: 'body'
+          in: 'body'
+          required: true
+          schema:
+            $ref: '#/definitions/PointDTO'
       responses:
-        "200":
-          description: "successful operation"
-        "401":
-          description: "Invalid input"
+        '200':
+          description: 'successful operation'
+        '401':
+          description: 'Invalid input'
 
   /api/product:
     post:
       tags:
-        - "상품관리"
-      summary: "상품을 등록한다."
-      description: ""
-      operationId: "createProduct"
+        - '상품관리'
+      summary: '상품을 등록한다.'
+      description: ''
+      operationId: 'createProduct'
       produces:
-        - "application/json"
+        - 'application/json'
       parameters:
-      - name: "body"
-        in: "body"
-        description: "상품을 ProductDTO로 등록 합니다."
-        required: true
-        schema:
-          $ref: "#/definitions/ProductDTO"      
+        - name: 'body'
+          in: 'body'
+          description: '상품을 ProductDTO로 등록 합니다.'
+          required: true
+          schema:
+            $ref: '#/definitions/ProductDTO'
       responses:
-        "200":
-          description: "successful operation"
-        "401":
-          description: "Invalid input"
+        '200':
+          description: 'successful operation'
+        '401':
+          description: 'Invalid input'
 
     get:
       tags:
-        - "상품관리"
-      summary: "상품을 목록 조회"
-      description: ""
-      operationId: "findByProdAll"
+        - '상품관리'
+      summary: '상품을 목록 조회'
+      description: ''
+      operationId: 'findByProdAll'
       produces:
-        - "application/json"
+        - 'application/json'
       parameters: []
       responses:
-        "200":
-          description: "successful operation"
-        "401":
-          description: "Invalid input"
+        '200':
+          description: 'successful operation'
+        '401':
+          description: 'Invalid input'
 
   /api/product/{prodId}:
     get:
       tags:
-        - "상품관리"
-      summary: "상품을 상세 조회"
-      description: ""
-      operationId: "findByProdId"
+        - '상품관리'
+      summary: '상품을 상세 조회'
+      description: ''
+      operationId: 'findByProdId'
       produces:
-        - "application/json"
+        - 'application/json'
       parameters:
-        - name: "prodId"
-          in: "path"
-          description: "상품을 prodId로 상세조회 합니다."
+        - name: 'prodId'
+          in: 'path'
+          description: '상품을 prodId로 상세조회 합니다.'
           required: true
-          type: "string"
-          format: "string"
+          type: 'string'
+          format: 'string'
 
       responses:
-        "200":
-          description: "successful operation"
-        "401":
-          description: "Invalid input"
+        '200':
+          description: 'successful operation'
+        '401':
+          description: 'Invalid input'
 
   /api/user:
     get:
       tags:
-        - "회원관리"
-      summary: "모든 회원을 조회합니다"
-      description: ""
-      operationId: "findAllId"
+        - '회원관리'
+      summary: '모든 회원을 조회합니다'
+      description: ''
+      operationId: 'findAllId'
       consumes:
-        - "application/json"
+        - 'application/json'
       produces:
-        - "application/json"
+        - 'application/json'
       parameters: []
       responses:
-        "200":
-          description: "successful operation"
-        "401":
-          description: "Invalid input"
+        '200':
+          description: 'successful operation'
+        '401':
+          description: 'Invalid input'
 
     post:
       tags:
-        - "회원관리"
-      summary: "회원을 등록합니다"
-      description: ""
-      operationId: "createUser"
+        - '회원관리'
+      summary: '회원을 등록합니다'
+      description: ''
+      operationId: 'createUser'
       consumes:
-        - "application/json"
+        - 'application/json'
       produces:
-        - "application/json"
+        - 'application/json'
       parameters:
-      - name: "body"
-        in: "body"
-        description: "회원을 등록합니다"
-        required: true
-        schema:
-          $ref: "#/definitions/UserDTO"      
+        - name: 'body'
+          in: 'body'
+          description: '회원을 등록합니다'
+          required: true
+          schema:
+            $ref: '#/definitions/UserDTO'
       responses:
-        "200":
-          description: "successful operation"
-        "401":
-          description: "Invalid input"
+        '200':
+          description: 'successful operation'
+        '401':
+          description: 'Invalid input'
     put:
       tags:
-        - "회원관리"
-      summary: "회원을 수정합니다"
-      description: ""
-      operationId: "updateUser"
+        - '회원관리'
+      summary: '회원을 수정합니다'
+      description: ''
+      operationId: 'updateUser'
       consumes:
-        - "application/json"
+        - 'application/json'
       produces:
-        - "application/json"
+        - 'application/json'
       parameters:
-      - name: "body"
-        in: "body"
-        description: "회원을 수정합니다"
-        required: true
-        schema:
-          $ref: "#/definitions/UserDTO"      
+        - name: 'body'
+          in: 'body'
+          description: '회원을 수정합니다'
+          required: true
+          schema:
+            $ref: '#/definitions/UserDTO'
       responses:
-        "200":
-          description: "successful operation"
-        "401":
-          description: "Invalid input"
+        '200':
+          description: 'successful operation'
+        '401':
+          description: 'Invalid input'
 
   /api/user/{user_id}:
     get:
       tags:
-        - "회원관리"
-      summary: "회원을 검색합니다"
-      description: ""
-      operationId: "findAId"
+        - '회원관리'
+      summary: '회원을 검색합니다'
+      description: ''
+      operationId: 'findAId'
       consumes:
-        - "application/json"
+        - 'application/json'
       produces:
-        - "application/json"
+        - 'application/json'
       parameters:
-        - name: "user_id"
-          in: "path"
-          description: "회원을 user_id로 상세조회 합니다."
+        - name: 'user_id'
+          in: 'path'
+          description: '회원을 user_id로 상세조회 합니다.'
           required: true
-          type: "string"
-          format: "string"
+          type: 'string'
+          format: 'string'
 
       responses:
-        "200":
-          description: "successful operation"
-        "401":
-          description: "Invalid input"
+        '200':
+          description: 'successful operation'
+        '401':
+          description: 'Invalid input'
 
     delete:
       tags:
-        - "회원관리"
-      summary: "회원을 삭제합니다"
-      description: ""
-      operationId: "deleteUser"
+        - '회원관리'
+      summary: '회원을 삭제합니다'
+      description: ''
+      operationId: 'deleteUser'
       consumes:
-        - "application/json"
+        - 'application/json'
       produces:
-        - "application/json"
+        - 'application/json'
       parameters:
-        - name: "user_id"
-          in: "path"
-          description: "회원을 user_id로 삭제합니다."
+        - name: 'user_id'
+          in: 'path'
+          description: '회원을 user_id로 삭제합니다.'
           required: true
-          type: "string"
-          format: "string"
+          type: 'string'
+          format: 'string'
 
       responses:
-        "200":
-          description: "successful operation"
-        "401":
-          description: "Invalid input"
+        '200':
+          description: 'successful operation'
+        '401':
+          description: 'Invalid input'
 
 securityDefinitions:
   petstore_auth:
-    type: "oauth2"
-    authorizationUrl: "http://petstore.swagger.io/oauth/dialog"
-    flow: "implicit"
+    type: 'oauth2'
+    authorizationUrl: 'http://petstore.swagger.io/oauth/dialog'
+    flow: 'implicit'
     scopes:
-      write:pets: "modify pets in your account"
-      read:pets: "read your pets"
+      write:pets: 'modify pets in your account'
+      read:pets: 'read your pets'
   api_key:
-    type: "apiKey"
-    name: "api_key"
-    in: "header"
+    type: 'apiKey'
+    name: 'api_key'
+    in: 'header'
 
 definitions:
   OrderDTO:
-    type: "object"
+    type: 'object'
     properties:
       userId:
-        type: "string"
-        format: "test@gmail.com"
+        type: 'string'
+        format: 'test@gmail.com'
       productId:
-        type: "string"
-        format: "PD0001"
+        type: 'string'
+        format: 'PD0001'
       startDateTime:
-        type: "string"
-        format: "20210501000000"
+        type: 'string'
+        format: '20210501000000'
       endDateTime:
-        type: "string"
-        format: "20210501000000"
+        type: 'string'
+        format: '20210501000000'
       orderState:
-        type: "string"
-        description: "상태값"
+        type: 'string'
+        description: '상태값'
         enum:
-          - "주문요청"
-          - "주문완료"
-          - "픽업완료"
+          - '주문요청'
+          - '주문완료'
+          - '픽업완료'
 
   PointDTO:
-    type: "object"
+    type: 'object'
     properties:
       pointId:
-        type: "string"
-        format: "string"
+        type: 'string'
+        format: 'string'
       score:
-        type: "integer"
-        format: "int64"
+        type: 'integer'
+        format: 'int64'
       regDate:
-        type: "string"
-        format: "string"
+        type: 'string'
+        format: 'string'
       userId:
-        type: "string"
-        format: "string"
+        type: 'string'
+        format: 'string'
 
   ProductDTO:
-    type: "object"
+    type: 'object'
     properties:
       prodId:
-        type: "string"
-        format: "string"
+        type: 'string'
+        format: 'string'
       name:
-        type: "string"
-        format: "string"
+        type: 'string'
+        format: 'string'
       price:
-        type: "integer"
-        format: "int64"
+        type: 'integer'
+        format: 'int64'
       volume:
-        type: "integer"
-        format: "int64"
+        type: 'integer'
+        format: 'int64'
       size:
-        type: "string"
-        format: "string"
+        type: 'string'
+        format: 'string'
       sort:
-        type: "integer"
-        format: "int64"
+        type: 'integer'
+        format: 'int64'
       imgUrl:
-        type: "string"
-        format: "string"
+        type: 'string'
+        format: 'string'
       useYn:
-        type: "string"
-        format: "string"
+        type: 'string'
+        format: 'string'
       hotIceGb:
-        type: "string"
-        format: "string"
+        type: 'string'
+        format: 'string'
       whippingYn:
-        type: "string"
-        format: "string"
+        type: 'string'
+        format: 'string'
       shotYn:
-        type: "string"
-        format: "string"
+        type: 'string'
+        format: 'string'
       category:
-        type: "string"
-        format: "string"
+        type: 'string'
+        format: 'string'
 
   UserDTO:
-    type: "object"
+    type: 'object'
     properties:
       user_name:
-        type: "string"
-        format: "string"
+        type: 'string'
+        format: 'string'
       user_id:
-        type: "string"
-        format: "string"
+        type: 'string'
+        format: 'string'
       email:
-        type: "string"
-        format: "string"
+        type: 'string'
+        format: 'string'
       password:
-        type: "string"
-        format: "string"
+        type: 'string'
+        format: 'string'
       img_url:
         type: "string"
         format: "string"
+
 externalDocs:
-  description: "Find out more about Swagger"
-  url: "http://swagger.io"
+  description: 'Find out more about Swagger'
+  url: 'http://swagger.io'

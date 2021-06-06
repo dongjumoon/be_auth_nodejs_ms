@@ -10,6 +10,7 @@ export default class ProductService {
     productDTO.prodId = getSeqAutoincrement('PD');
     const result = await this.productRepository.create(productDTO);
     logger.info(`ProductService::createProduct out => ${result}`);
+    return result;
   };
 
   public findByProdAll = async () => {
