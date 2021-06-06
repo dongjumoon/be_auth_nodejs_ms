@@ -1,6 +1,7 @@
 import OrderRepository from '@/biz/order/OrderRepository';
 import { logger } from '@/common/utils/logger';
 import { orderStartDateTime } from '@/common/utils/util';
+import HttpException from '@/exceptions/HttpException';
 import { startSession } from 'mongoose';
 import { OrderDTO } from './OrderDTO';
 import { OrderEntity } from './OrderEntity';
@@ -25,7 +26,7 @@ class OrderService {
     } catch (e) {
       // 비정상 케이스
       logger.error('OrderService::findByUserId exception => ', e);
-      return null;
+      throw new Error(e);
     }
   };
 
@@ -53,14 +54,10 @@ class OrderService {
       session.endSession();
 
     } catch (e) {
-
-      // 트랜잭션 롤백
       await session.abortTransaction();
-      // 트랜잭션 세션 종료 
       session.endSession();
-
       logger.error('OrderService::createOrderId exception => ', e);
-      return null;
+      throw new Error(e);
     }
     logger.info(`OrderService::createOrderId out => ${JSON.stringify(createResult)}`);
     return createResult;
@@ -74,17 +71,24 @@ class OrderService {
     logger.info(`OrderService::orderPushSend in => ${orderDTO}`);
     logger.info(`주문등록 푸시 알람 보내기 : ${orderDTO} send`);
     let orderOne: OrderEntity = new OrderDTO();
+    const session = await startSession();
     try {
+      session.startTransaction();
       orderOne = await this.orderRepository.findOne({ userId: orderDTO.userId });
       if (!orderOne) {
-        return null;
+        throw new HttpException(409, '주문한 내역의 유저정보가 존재하지 않습니다.');
       } else {
         orderOne.orderState = 'PUSH_SUCCESS'; // 푸시성공
-        return this.orderRepository.create(orderOne);
+        const result: OrderEntity | {} = this.orderRepository.create(orderOne);
+        session.endSession();
+        return result;
       }
+      
     } catch (e) {
+      await session.abortTransaction();
+      session.endSession();
       logger.error('OrderService::orderPushSend exception => ', e);
-      return null;
+      throw new Error(e);
     }
   };
 
@@ -96,17 +100,23 @@ class OrderService {
     logger.info(`OrderService::payOrder in => ${userId}`);
     logger.info(`유저ID별 주문결제 : ${userId}`);
     let orderOne: OrderEntity = new OrderDTO();
+    const session = await startSession();
     try {
+      session.startTransaction();
       orderOne = await this.orderRepository.findOne({ userId: userId });
       if (!orderOne) {
-        return null;
+        throw new HttpException(409, '주문한 내역의 유저정보가 존재하지 않습니다.');
       } else {
         orderOne.orderState = 'PAY_COMPLETE'; // 주문결제 성공
-        return this.orderRepository.create(orderOne);
+        const result: OrderEntity | {} = this.orderRepository.create(orderOne);
+        session.endSession();
+        return result;
       }
     } catch (e) {
+      await session.abortTransaction();
+      session.endSession();
       logger.error('OrderService::payOrder exception => ', e);
-      return null;
+      throw new Error(e);
     }
   };
 }
