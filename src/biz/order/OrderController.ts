@@ -18,7 +18,7 @@ export default class OrderController {
    */
   public payOrderUserId = async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const result: any | OrderEntity = await this.orderService.payOrder(req.params.userId);
+      const result: {} | OrderEntity = await this.orderService.payOrder(req.params.userId);
       if (!result) {
         const response = ResponseDTO.errorProc({
           title: 'payOrderUserId',
@@ -46,7 +46,7 @@ export default class OrderController {
    */
   public createOrderId = async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const result: OrderEntity = await this.orderService.createOrderId(req.body);
+      const result: {} | OrderEntity = await this.orderService.createOrderId(req.body);
       if (!result) { // 비정상 
         const response = ResponseDTO.errorProc({
           title: 'createOrderId',
@@ -75,7 +75,7 @@ export default class OrderController {
   public findByUserId = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const userId = req.params.userId as string;
-      const result: OrderEntity = await this.orderService.findByUserId(userId);
+      const result: {} | OrderEntity = await this.orderService.findByUserId(userId);
       if (!result) { // 비정상 조회 일때
         const response = ResponseDTO.errorProc({
           title: 'findByUserId',

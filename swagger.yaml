@@ -23,27 +23,27 @@ schemes:
 paths:
   /api/order:
     post:
-    tags:
-      - '주문관리'
-    summary: '주문등록 합니다. '
-    description: ''
-    operationId: 'createOrderId'
-    consumes:
-      - 'application/json'
-    produces:
-      - 'application/json'
-    parameters:
-      - name: 'body'
-        in: 'body'
-        description: '주문 OrderDTO로 받는다.'
-        required: true
-        schema:
-          $ref: '#/definitions/OrderDTO'
-    responses:
-      '200':
-        description: 'successful operation'
-      '401':
-        description: 'Invalid input'
+      tags:
+        - '주문관리'
+      summary: '주문등록 합니다. '
+      description: ''
+      operationId: 'createOrderId'
+      consumes:
+        - 'application/json'
+      produces:
+        - 'application/json'
+      parameters:
+        - name: 'body'
+          in: 'body'
+          description: '주문 OrderDTO로 받는다.'
+          required: true
+          schema:
+            $ref: '#/definitions/OrderDTO'
+      responses:
+        '200':
+          description: 'successful operation'
+        '401':
+          description: 'Invalid input'
 
   /api/order/{userId}:
     get:
