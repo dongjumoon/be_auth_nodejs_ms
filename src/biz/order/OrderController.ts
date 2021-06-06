@@ -3,6 +3,7 @@ import { ErrorMsgConst } from '@/common/const/ErrorMsgConst';
 import { ResponseDTO } from '@/common/dto/ResponseDTO';
 import { NextFunction, Request, Response } from 'express';
 import { OrderEntity } from './OrderEntity';
+import _ from 'lodash';
 
 export default class OrderController {
   public orderService: OrderService;
@@ -19,7 +20,7 @@ export default class OrderController {
   public payOrderUserId = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const result: {} | OrderEntity = await this.orderService.payOrder(req.params.userId);
-      if (!result) {
+      if (_.isEmpty(result)) {
         const response = ResponseDTO.errorProc({
           title: 'payOrderUserId',
           error: {
@@ -47,7 +48,7 @@ export default class OrderController {
   public createOrderId = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const result: {} | OrderEntity = await this.orderService.createOrderId(req.body);
-      if (!result) { // 비정상 
+      if (_.isEmpty(result)) { // 비정상 
         const response = ResponseDTO.errorProc({
           title: 'createOrderId',
           error: {
@@ -76,7 +77,7 @@ export default class OrderController {
     try {
       const userId = req.params.userId as string;
       const result: {} | OrderEntity = await this.orderService.findByUserId(userId);
-      if (!result) { // 비정상 조회 일때
+      if (_.isEmpty(result)) { // 비정상 조회 일때
         const response = ResponseDTO.errorProc({
           title: 'findByUserId',
           error: {
