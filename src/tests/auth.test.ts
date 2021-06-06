@@ -3,10 +3,11 @@ import bcrypt from 'bcrypt';
 import mongoose from 'mongoose';
 import request from 'supertest';
 import App from '@/app';
-import AuthRoute from '@/common/routes/auth.route';
+//import AuthRoute from '@/common/routes/auth.route';
 import { CreateUserDto } from '@/biz/user/UserDTO';
 import { logger } from '@/common/utils/logger';
 import { User } from '@/biz/user/UserEntity';
+import AuthRoute from '@/biz/auth/AuthRoute';
 
 afterAll(async () => {
   await new Promise<void>(resolve => setTimeout(() => resolve(), 500));

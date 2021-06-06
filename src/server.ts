@@ -4,7 +4,6 @@ process.env['NODE_CONFIG_DIR'] = __dirname + '/configs';
 
 import 'dotenv/config';
 import App from '@/app';
-import AuthRoute from '@/common/routes/auth.route';
 import IndexRoute from '@/common/routes/index.route';
 import validateEnv from '@/common/utils/validateEnv';
 import OrderRoute from './biz/order/OrderRoute';
@@ -12,6 +11,7 @@ import ProductRoute from './biz/product/ProductRoute';
 import CouponRoute from './biz/coupon/CouponRoute';
 import PointRoute from './biz/point/PointRoute';
 import UsersRoute from './biz/user/UserRoute';
+import AuthRoute from './biz/auth/AuthRoute';
 
 validateEnv();
 const Routes = [
