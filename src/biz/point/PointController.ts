@@ -12,7 +12,7 @@ class PointController {
   }
   public findByUserIdPoint = async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const result: PointEntity = await this.pointService.findByUserIdPoint(req.params.userId);
+      const result: {} | PointEntity = await this.pointService.findByUserIdPoint(req.params.userId);
       if (!result) {
         const response = ResponseDTO.errorProc({
           title: 'findByUserIdPoint',
@@ -33,7 +33,7 @@ class PointController {
   };
   public addUserIdPoint = async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const result: any | PointEntity = await this.pointService.addUserIdPoint(req.body);
+      const result: {} | PointEntity = await this.pointService.addUserIdPoint(req.body);
       const response = ResponseDTO.successProc(result);
       res.status(200).json(response);
     } catch (error) {
@@ -42,7 +42,7 @@ class PointController {
   };
   public useUserIdPoint = async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const result: any | PointEntity = await this.pointService.useUserIdPoint(req.body);
+      const result: {} | PointEntity = await this.pointService.useUserIdPoint(req.body);
       const response = ResponseDTO.successProc(result);
       res.status(200).json(response);
     } catch (error) {

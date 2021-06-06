@@ -1,6 +1,7 @@
 import { ErrorMsgConst } from '@/common/const/ErrorMsgConst';
 import { ResponseDTO } from '@/common/dto/ResponseDTO';
 import { NextFunction, Request, Response } from 'express';
+import { PointDTO } from '../point/PointDTO';
 import { PointEntity } from '../point/PointEntity';
 import { ProductEntity } from './ProductEntity';
 import ProductService from './ProductService';
@@ -17,8 +18,14 @@ class ProductController {
    * @param next
    */
   public createProduct = async (req: Request, res: Response, next: NextFunction) => {
+
+    // 비동기 3가지
+    // 1. callback queue function(param, callback) { callback(); }
+    // 2. promise pattern function().then(r => console.log(r)).catch(e => console.log(e))
+    // 3. async await pattern async function() await function()
+    // 4. 반응형 -> rxjs   
     try {
-      const result: any | ProductEntity = await this.productService.createProduct(req.body);
+      const result: {} | ProductEntity = await this.productService.createProduct(req.body);
       const response = ResponseDTO.successProc(result);
       res.status(200).json(response);
     } catch (error) {
@@ -33,7 +40,7 @@ class ProductController {
    */
   public findByProdAll = async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const result: any | PointEntity = await this.productService.findByProdAll();
+      const result: {} | PointEntity = await this.productService.findByProdAll();
       if (!result) {
         const response = ResponseDTO.errorProc({
           title: 'findByProdAll',
@@ -60,7 +67,7 @@ class ProductController {
    */
   public findByProdId = async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const result: any | PointEntity = await this.productService.findByProdId(req.params.prodId);
+      const result: {} | ProductEntity = await this.productService.findByProdId(req.params.prodId);
       if (!result) {
         const response = ResponseDTO.errorProc({
           title: 'findByProdId',
