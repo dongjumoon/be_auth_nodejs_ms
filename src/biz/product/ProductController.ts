@@ -1,4 +1,8 @@
+import { ErrorMsgConst } from '@/common/const/ErrorMsgConst';
+import { ResponseDTO } from '@/common/dto/ResponseDTO';
 import { NextFunction, Request, Response } from 'express';
+import { PointEntity } from '../point/PointEntity';
+import { ProductEntity } from './ProductEntity';
 import ProductService from './ProductService';
 
 class ProductController {
@@ -14,17 +18,9 @@ class ProductController {
    */
   public createProduct = async (req: Request, res: Response, next: NextFunction) => {
     try {
-      await this.productService.createProduct(req.body);
-      res.status(200).json({
-        tranId: '01',
-        code: 200,
-        msg: '상품 등록 성공',
-        body: {},
-        error: {
-          code: 0,
-          msg: '',
-        },
-      });
+      const result: any | ProductEntity = await this.productService.createProduct(req.body);
+      const response = ResponseDTO.successProc(result);
+      res.status(200).json(response);
     } catch (error) {
       next(error);
     }
@@ -37,17 +33,21 @@ class ProductController {
    */
   public findByProdAll = async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const prodAll = await this.productService.findByProdAll();
-      res.status(200).json({
-        tranId: '01',
-        code: 200,
-        msg: '상품 조회 성공',
-        body: { prodAll },
-        error: {
-          code: 0,
-          msg: '',
-        },
-      });
+      const result: any | PointEntity = await this.productService.findByProdAll();
+      if (!result) {
+        const response = ResponseDTO.errorProc({
+          title: 'findByProdAll',
+          error: {
+            code: ErrorMsgConst.PRODUCT_ERROR_DEFINE.RD_3.CODE,
+            msg: ErrorMsgConst.POINT_ERROR_DEFINE.RD_3.MSG,
+          },
+          result: result,
+        });
+        res.status(500).json(response);
+      } else {
+        const response = ResponseDTO.successProc(result);
+        res.status(200).json(response);
+      }
     } catch (error) {
       next(error);
     }
@@ -60,17 +60,21 @@ class ProductController {
    */
   public findByProdId = async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const prod = this.productService.findByProdId(req.params.prodId);
-      res.status(200).json({
-        tranId: '01',
-        code: 200,
-        msg: '상품 상세 조회 성공 ',
-        body: { prod },
-        error: {
-          code: 0,
-          msg: '',
-        },
-      });
+      const result: any | PointEntity = await this.productService.findByProdId(req.params.prodId);
+      if (!result) {
+        const response = ResponseDTO.errorProc({
+          title: 'findByProdId',
+          error: {
+            code: ErrorMsgConst.PRODUCT_ERROR_DEFINE.RD_3.CODE,
+            msg: ErrorMsgConst.POINT_ERROR_DEFINE.RD_3.MSG,
+          },
+          result: result,
+        });
+        res.status(500).json(response);
+      } else {
+        const response = ResponseDTO.successProc(result);
+        res.status(200).json(response);
+      }
     } catch (error) {
       next(error);
     }

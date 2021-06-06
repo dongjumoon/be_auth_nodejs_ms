@@ -1,8 +1,6 @@
 import OrderService from '@/biz/order/OrderService';
 import { ErrorMsgConst } from '@/common/const/ErrorMsgConst';
-import { ResponseMsgConst } from '@/common/const/ResponseMsgConst';
-import { ErrorDTO, ResponseDTO } from '@/common/dto/ResponseDTO';
-import getSeqAutoincrement from '@/common/helper/getSeqAutoincrement';
+import { ResponseDTO } from '@/common/dto/ResponseDTO';
 import { NextFunction, Request, Response } from 'express';
 import { OrderEntity } from './OrderEntity';
 
@@ -12,12 +10,23 @@ export default class OrderController {
     this.orderService = orderService;
   }
 
-  public payOrderUserId = (req: Request, res: Response, next: NextFunction) => {
+  public payOrderUserId = async (req: Request, res: Response, next: NextFunction) => {
     try {
-      this.orderService.payOrder(req.params.userId);
-      res.status(200).json({
-        body: { msg: '결재성공' },
-      });
+      const result: any | OrderEntity = await this.orderService.payOrder(req.params.userId);
+      if (!result) {
+        const response = ResponseDTO.errorProc({
+          title: 'payOrderUserId',
+          error: {
+            code: ErrorMsgConst.ORDER_ERROR_DEFINE.C1_7.CODE,
+            msg: ErrorMsgConst.ORDER_ERROR_DEFINE.C1_7.MSG,
+          },
+          result: result,
+        });
+        res.status(500).json(response);
+      } else {
+        const response = ResponseDTO.successProc(result);
+        res.status(200).json(response);
+      }
     } catch (e) {
       next(e);
     }
@@ -25,10 +34,21 @@ export default class OrderController {
 
   public createOrderId = async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const result = await this.orderService.createOrderId(req.body);
-      res.status(200).json({
-        body: result,
-      });
+      const result: OrderEntity = await this.orderService.createOrderId(req.body);
+      if (!result) { // 비정상 
+        const response = ResponseDTO.errorProc({
+          title: 'createOrderId',
+          error: {
+            code: ErrorMsgConst.ORDER_ERROR_DEFINE.C0_1.CODE,
+            msg: ErrorMsgConst.ORDER_ERROR_DEFINE.C0_1.MSG,
+          },
+          result: result,
+        });
+        res.status(500).json(response);
+      } else { // 정상
+        const response = ResponseDTO.successProc(result);
+        res.status(200).json(response);
+      }
     } catch (e) {
       next(e);
     }
@@ -44,36 +64,18 @@ export default class OrderController {
     try {
       const userId = req.params.userId as string;
       const result: OrderEntity = await this.orderService.findByUserId(userId);
-      let response = new ResponseDTO();
-      let errorDTO = new ErrorDTO();
       if (!result) { // 비정상 조회 일때
-
-        // 응답코드 
-        response.code = ResponseMsgConst.RESP_5XX.CODE; // 200, 400, 500...
-        response.msg =  ResponseMsgConst.RESP_5XX.MSG;
-
-        // 에러코드 정의
-        errorDTO.code = ErrorMsgConst.ORDER_ERROR_DEFINE.RD_3.CODE; // 프로젝트에서 정한 에러코드 
-        errorDTO.msg = ErrorMsgConst.ORDER_ERROR_DEFINE.RD_3.MSG; // 프로젝트에서 정한 에러메세지 
-        response.error = errorDTO;
-        
-        // 추적하는 유니크 아이디 = ObjectId
-        response.transId = getSeqAutoincrement('findByUserId');
-        // res.status(200).json(response);
-
-        throw new Error(JSON.stringify(response));
-
+        const response = ResponseDTO.errorProc({
+          title: 'findByUserId',
+          error: {
+            code: ErrorMsgConst.ORDER_ERROR_DEFINE.RD_3.CODE,
+            msg: ErrorMsgConst.ORDER_ERROR_DEFINE.RD_3.MSG,
+          },
+          result: result,
+        });
+        res.status(500).json(response);
       } else { // 정상일때
-
-        response.code = "200";
-        response.msg =  "정상 조회 되었습니다.";
-
-        errorDTO.code = "";
-        errorDTO.msg = "";
-        response.error = errorDTO;
-
-        response.transId = result._id;
-        response.body = result;
+        const response = ResponseDTO.successProc(result);
         res.status(200).json(response);
       }
     } catch (e) {
