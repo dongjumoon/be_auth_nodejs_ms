@@ -1,6 +1,7 @@
 import OrderRepository from '@/biz/order/OrderRepository';
 import { logger } from '@/common/utils/logger';
 import { orderStartDateTime } from '@/common/utils/util';
+import { startSession } from 'mongoose';
 import { OrderDTO } from './OrderDTO';
 import { OrderEntity } from './OrderEntity';
 
@@ -18,6 +19,7 @@ class OrderService {
       // 정상 케이스
       logger.info(`OrderService::findByUserId in => ${userId}`);
       const orderOne = await this.orderRepository.findOne({ userId: userId });
+      
       logger.info(`OrderService::findByUserId out => ${orderOne}`);
       return orderOne;
     } catch (e) {
@@ -35,11 +37,28 @@ class OrderService {
   public createOrderId = async (orderDTO: OrderDTO) => {
     logger.info(`OrderService::createOrderId in => ${JSON.stringify(orderDTO)}`);
     let createResult: OrderEntity = new OrderDTO();
+
+    // 트랜잭션 세션 획득
+    const session = await startSession();
+
     try {
+      // 트랜잭션 시작
+      session.startTransaction();
+
       orderDTO.startDateTime = orderStartDateTime();
       orderDTO.orderState = 'ORDER_REG_SUCCESS'; // 주문등록성공
       createResult = await this.orderRepository.create(orderDTO);
+
+      // 트랜잭션 세션 종료
+      session.endSession();
+
     } catch (e) {
+
+      // 트랜잭션 롤백
+      await session.abortTransaction();
+      // 트랜잭션 세션 종료 
+      session.endSession();
+
       logger.error('OrderService::createOrderId exception => ', e);
       return null;
     }
