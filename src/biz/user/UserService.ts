@@ -1,213 +1,173 @@
 import bcrypt from 'bcrypt';
-import { isConstructorDeclaration } from 'typescript';
+import { isConstructorDeclaration, updateCommaList } from 'typescript';
 import { isEmpty, dayUtil } from '@/common/utils/util';
 import { CreateUserDto } from '@/biz/user/UserDTO';
-import { User } from '@/biz/user/UserEntity';
+import { User, UserType} from '@/biz/user/UserEntity';
 import UserRepository from '@/biz/user/UserRepository';
 import HttpException from '@/exceptions/HttpException';
 import { ErrorDTO, ResponseDTO } from '@/common/dto/ResponseDTO';
 import { ErrorMsgConst } from '@/common/const/ErrorMsgConst';
 import getSeqAutoincrement from '@/common/helper/getSeqAutoincrement';
+import { logger } from '@/common/utils/logger';
+import _ from 'lodash';
+import { IS_ISBN } from 'class-validator';
+import { util } from 'config';
+import { UpdateWriteOpResult } from 'mongoose';
 
 
 class UserService {
   public users = UserRepository; //const userModel = model<User & Document>('User', userSchema)
-
   public async findAllUser(): Promise<User[]> {
+    logger.info(`UserService::findAllUser in => 모든회원조회`);
     try {
       const users: User[] = await this.users.find(); //noSQL
-      return users;
-    } catch (e) {
-      let response = new ResponseDTO();
-      let errorDTO = new ErrorDTO();
-
-      // 응답코드
-      response.code = "500"; // 200, 400, 500...
-      response.msg = "DB조회 실패";
-
-      const active = process.env.NODE_ENV;
-
-      if (active !== "product") {
-        // 에러코드 정의
-        errorDTO.code = ErrorMsgConst.USER_ERROR.RL_1.CODE; // 프로젝트에서 정한 에러코드
-        errorDTO.msg = ErrorMsgConst.USER_ERROR.RL_1.MSG; // 프로젝트에서 정한 에러메세지
-        response.error = errorDTO;
+      if(!users){
+        return null;
       } else {
-        // 에러코드 정의
-        errorDTO.code = ErrorMsgConst.USER_ERROR.RL_1.CODE; // 프로젝트에서 정한 에러코드
-        errorDTO.msg = ErrorMsgConst.USER_ERROR.RL_1.MSG;
-        response.error = errorDTO;
+        return users;
       }
-
-      // 추적하는 유니크 아이디 = ObjectId
-      response.transId = getSeqAutoincrement("findAllUser");
-      throw new Error(JSON.stringify(response));
+    } catch (e) {
+      logger.error('UserService::findAllUser exception => ', e);
+      return null;
     }
   }
 
-  public async createUser(userData: CreateUserDto): Promise<User> {
+  public async createUser(userData: CreateUserDto): Promise<User | any> {
+    logger.info(`UserService::createUser in => ${userData.user_id}`);
+    logger.info(`유저생성 ------> : ${userData.user_id}`);
     const findUser: User = await this.users.findOne({ user_id: userData.user_id });
     try {
-      if (isEmpty(userData)) throw new HttpException(400, "You're not userData");
+    //if (_.isEmpty(userData)) throw new HttpException(400, "You're not userData");
     //if (findUser) throw new HttpException(409, `You're user_id ${userData.user_id} already exists`);
-      const reg_date = dayUtil();
+      if(findUser) {
+        throw new HttpException(409,'동일한 ID가 존재합니다.');
+      }
       const password = userData.password;
       const encryptedPassowrd = bcrypt.hashSync(password, 10) // sync
-     //serData.reg_date = reg_date;
       userData.password = encryptedPassowrd;
-      userData.point = 0;
-      const createUserData: User = await this.users.create(userData);
-      return createUserData;
-    } catch (e) {
-      let response = new ResponseDTO();
-      let errorDTO = new ErrorDTO();
+      // 1. interface 타입선언해라
+      const userInsertData: UserType = {
+        user_name: userData.user_name,
+        user_id: userData.user_id,
+        email: userData.user_name,
+        password: encryptedPassowrd, 
+        img_url: '',
+        point: 0,
+        reg_date: dayUtil(),
+        reg_writer: userData.user_id
+      };
 
-      //응답코드
-      response.code = "500";
-      response.msg = "DB조회 실패";
+      // 2. 두번째 클래스로 초기화 후 대입 
+      // const userInterData2: User;
 
-      const active = process.env.NODE_ENV;
-      if (active !== "product") {
-        //에러코드 정의
-        errorDTO.code = ErrorMsgConst.USER_ERROR.C0_2.CODE;
-        if(findUser){
-          errorDTO.msg = "동일한 아이디가 존재합니다.";
-        }else{
-          errorDTO.msg = ErrorMsgConst.USER_ERROR.C0_2.MSG;
-        }
-        response.error = errorDTO;
+      // const sum = a >> b; // 10000 -> 00001
+
+     
+      // // 4. 타입 기반 
+      // const userInterData3: UserType = {
+      //   _id: '123123'
+      // };
+
+      // let array = [1,2,3,3,45];
+      // let newArraay: Array<number> = [ ...array, 1, 3, 4 ];
+      // const userInterData5: User = { ...userData };
+      // userInterData5.reg_date = dayUtil();
+      // userInterData5.reg_writer = 'amdin';
+
+
+      const createUserData: User = await this.users.create(userInsertData); // 3. 직접 객체 {} 넣는방법
+      if(!createUserData){
+        return null;
       } else {
-        errorDTO.code = ErrorMsgConst.USER_ERROR.C0_2.CODE;
-        if(findUser){
-          errorDTO.msg = "동일한 아이디가 존재합니다.";
-        }else{
-          errorDTO.msg = ErrorMsgConst.USER_ERROR.C0_2.MSG; // 운영 메세지
-        }
-        response.error = errorDTO;
+        return createUserData;
       }
-      //추적하는 유니크 아이디 = objectId
-      response.transId = getSeqAutoincrement("createUser");
-      throw new Error(JSON.stringify(response));
+    
+    } catch (e) {
+      throw new Error(e);
     }
 
   }
 
-  public async updateUser(userId: string, userData: CreateUserDto): Promise<User> {
+  public async updateUser(userData: CreateUserDto): Promise<User> {
+    logger.info(`UserService::updateUser in => ${userData.user_id}`);
+    logger.info(`유저수정 ------> : ${userData.user_id}`);
     try {
-      if (isEmpty(userData)) throw new HttpException(400, "You're not userData");
+      //if (isEmpty(userData)) throw new HttpException(400, "You're not userData");
       let pw: string;
-      if (userId) {
-        const findUser: User = await this.users.findOne({ user_id: userId });
-        if (findUser && findUser.user_id != userId) throw new HttpException(409, `You're user_id ${userId} already exists`);
-        pw = findUser.password;
-      }
-      if (userData.password) {
+      const findUser: User = await this.users.findOne({ user_id: userData.user_id });
+      pw = findUser.password
+      //if (userId) {
+     
+      //if (findUser && findUser.user_id != userData.user_id) throw new HttpException(409, `You're user_id ${userData.user_id} already exists`);
+      //  pw = findUser.password;
+     // }
+      if (findUser) {
 
         const isPasswordMatching: boolean = await bcrypt.compare(userData.password, pw);
+        console.log('-------------------------',isPasswordMatching);
         if (isPasswordMatching) throw new HttpException(409, "You're password not matching");
         // const updateUserById: User = await this.users.findByIdAndUpdate(userData['_id'], userData);
         //userData.modify_date = dayUtil();
-        const updateUserById = await this.users.updateOne({ user_id: userData['user_id'] }, userData);
-        if (!updateUserById) throw new HttpException(409, "You're not user");
-
-        return updateUserById as User;
+        const userInserData : UserType = {
+          user_name: userData.user_name,
+          email: userData.email,
+          password: pw,
+          img_url: userData.img_url,
+          point: userData.point,
+          modify_date: dayUtil(),
+          modify_writer: userData.user_id,
+        }
+        const updateUserById : User | {} = await this.users.updateOne({ user_id: userData['user_id'] }, userInserData);
+        if (!updateUserById){
+          return null;
+        } else {
+          return updateUserById;
+        }
       } else {
         throw new HttpException(409, `You're user_password ${userData.password} already exists`);
       }
     } catch (e) {
-      let response = new ResponseDTO();
-      let errorDTO = new ErrorDTO();
-
-      //응답코드
-      response.code = "500";
-      response.msg = "DB조회 실패";
-
-      const active = process.env.NODE_ENV;
-      if (active !== "product") {
-        //에러코드 정의
-        errorDTO.code = ErrorMsgConst.USER_ERROR.U0_3.CODE;
-        errorDTO.msg = ErrorMsgConst.USER_ERROR.U0_3.MSG;
-        response.error = errorDTO;
-      } else {
-        errorDTO.code = ErrorMsgConst.USER_ERROR.U0_3.CODE;
-        errorDTO.msg = ErrorMsgConst.USER_ERROR.U0_3.MSG; // 운영 메세지
-        response.error = errorDTO;
-      }
-      //추적하는 유니크 아이디 = objectId
-      response.transId = getSeqAutoincrement("findUserById");
-      throw new Error(JSON.stringify(response));
-
+      throw new Error(e);
     }
-
   }
 
   public async deleteUser(userId: string): Promise<User> {
+    logger.info(`UserService::deleteUser in => ${userId}`);
+    logger.info(`유저삭제 ------> : ${userId}`);
     const findUser: User = await this.users.findOne({ user_id: userId });
     try {
       if(findUser){
-        const deleteUserById: User = await this.users.remove({ user_id: userId });
+        const deleteUserById = await this.users.remove({ user_id: userId });
         return deleteUserById;
+      }else{
+        return null;
       }
-   
     } catch (e){
-      let response = new ResponseDTO();
-      let errorDTO = new ErrorDTO();
-
-       // 응답코드
-       response.code = "500"; // 200, 400, 500...
-       response.msg = "DB조회 실패";
-
-       const active = process.env.NODE_ENV;
-
-       if (active !== "product") {
-        // 에러코드 정의
-        errorDTO.code = ErrorMsgConst.USER_ERROR.D0_5.CODE; // 프로젝트에서 정한 에러코드
-        errorDTO.msg = ErrorMsgConst.USER_ERROR.D0_5.MSG; // 프로젝트에서 정한 에러메세지
-        response.error = errorDTO;
-      } else {
-        // 에러코드 정의
-        errorDTO.code = ErrorMsgConst.USER_ERROR.D0_5.CODE; // 프로젝트에서 정한 에러코드
-        errorDTO.msg = ErrorMsgConst.USER_ERROR.D0_5.MSG;
-        response.error = errorDTO;
-      }
-        // 추적하는 유니크 아이디 = ObjectId
-        response.transId = getSeqAutoincrement("deleteUser");
-        throw new Error(JSON.stringify(response)); //미들웨어가 받음
+      logger.error('UserService::deleteUser exception => ', e);
+      return null;
     }
-  
   }
+  
+
 
   public async findUserById(userId: string): Promise<User> {
+    logger.info(`UserService::findUserById in => ${userId}`);
+    logger.info(`유저ID 조회 : ${userId}`);
     try {
-
-      if (isEmpty(userId)) throw new HttpException(400, "You're not userId");
-
+      if (_.isEmpty(userId)) throw new HttpException(400, "You're not userId");
       const findUser: User = await this.users.findOne({ user_id: userId });
       if (!findUser) throw new HttpException(409, "You're not user");
+      
+      if(!findUser){
+        return null;
+      }else{
+        return findUser;
+      }
 
       return findUser;
     } catch (e) { //비정상 케이스
-      let response = new ResponseDTO();
-      let errorDTO = new ErrorDTO();
-
-      //응답코드
-      response.code = "500";
-      response.msg = "DB조회 실패";
-
-      const active = process.env.NODE_ENV;
-      if (active !== "product") {
-        //에러코드 정의
-        errorDTO.code = ErrorMsgConst.USER_ERROR.RD_4.CODE;
-        errorDTO.msg = ErrorMsgConst.USER_ERROR.RD_4.MSG;
-        response.error = errorDTO;
-      } else {
-        errorDTO.code = ErrorMsgConst.USER_ERROR.RD_4.CODE;
-        errorDTO.msg = ErrorMsgConst.USER_ERROR.RD_4.MSG; // 운영 메세지
-        response.error = errorDTO;
-      }
-      //추적하는 유니크 아이디 = objectId
-      response.transId = getSeqAutoincrement("findUserById");
-      throw new Error(JSON.stringify(response));
+      logger.error('UserService::findUserById exception => ', e);
+      return null;
     }
   }
 }

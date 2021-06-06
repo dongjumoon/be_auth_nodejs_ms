@@ -41,7 +41,7 @@ const userSchema: Schema = new Schema({
     type: String,
   },
   use_yn: {
-    type: Boolean,
+    type: String,
   },
 });
 
