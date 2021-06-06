@@ -1,12 +1,9 @@
-import { BoardDTO } from '@/biz/board/dto/BoardDTO';
-
-class BoardSearchDTO extends BoardDTO {
-  paging?: number;
+export class BoardSearchDTO {
   pageNumber?: number;
   offset?: number;
   max?: number;
-  sort?: string;
+  sort?: any;
   order?: string;
-  keyword?: string;
+  keyword?: any;
   gnb?: string;
 }

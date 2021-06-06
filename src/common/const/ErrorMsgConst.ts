@@ -92,4 +92,23 @@ export class ErrorMsgConst {
     ErrorMsgConst.ORDER_ERROR[ORDER_ERROR_IDX.U0]['MSG']
   }
 
+
+
+
+
+
+
+
+
+
+
+
+
+  static readonly BOARD_ERROR_DEFINE = {
+    C0_1 : { CODE: '001', MSG: '게시글 등록에 실패 했습니다.' },
+    RL_2 : { CODE: '002', MSG: '게시글 목록조회가 실패 했습니다.' },
+    RD_3 : { CODE: '003', MSG: '게시글 상세조회가 실패 했습니다.' },
+    D0_4 : { CODE: '004', MSG: '게시글 삭제가 실패 했습니다.' },
+    U0_5 : { CODE: '005', MSG: '게시글 업데이트가 실패 했습니다.' },
+  }
 }

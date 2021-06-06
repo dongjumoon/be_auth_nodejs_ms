@@ -33,3 +33,72 @@ export const dayUtil = (): any => {
 export const regDate = () => dayUtil();
 export const orderStartDateTime = () => dayUtil();
 
+
+
+
+
+export const board = {
+  createBoard(boardCreateDTO) {
+    let board = { ...boardCreateDTO }
+    board.regDate = regDate();
+    board.useYn = true;
+    board.modifyDate = "";
+    board.modifyWriter = "";
+    board.delDate = "";
+    board.delWriter = "";
+    board.likeAction = 0;
+    board.dislikeAction = 0;
+    board.hideYn = false;
+    board.startDate = "";
+    board.endDate = "";
+    return board;
+  },
+  updateBoard(boardCreateDTO) {
+    let board = { ...boardCreateDTO }
+    board.modifyDate = regDate();
+    return board;
+  },
+  getSearchOption(boardSearchDTO) {
+    let options = { ...boardSearchDTO };
+
+    if (options.pageNumber === undefined) {
+      options.pageNumber = 1;
+    }
+    if (options.max === undefined) {
+      options.max = 10;
+    }
+    if (options.offset === undefined) {
+      options.offset = options.max * options.pageNumber;
+    }
+    if (options.sort === undefined) {
+      options.sort = "bno";
+    }
+    if (options.order === undefined) {
+      options.order = "desc"
+    }
+    if (options.order === "desc") {
+      options.order = -1;
+    } else {
+      options.order = 1;
+    }
+
+    let order = {}
+    order[options.sort] = options.order;
+    options.sort = order;
+    if (options.keyword === undefined) {
+      options.keyword = "";
+    }
+    if (options.gnb === undefined) {
+      options.gnb = "title";
+    }
+
+    let keyword = {};
+    let regex = {
+      $regex: options.keyword
+    }
+    keyword[options.gnb] = regex;
+    options.keyword = keyword;
+
+    return options;
+  },
+}

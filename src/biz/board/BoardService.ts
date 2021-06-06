@@ -1,61 +1,91 @@
-import { BoardDTO } from './dto/BoardDTO';
 import BoardRepository from '@/biz/board/BoardRepository';
 import { logger } from '@/common/utils/logger';
 import { BoardCreateDTO } from '@/biz/board/dto/BoardCreateDTO';
-import { ErrorDTO, ResponseDTO } from '@/common/dto/ResponseDTO';
-import getSeqAutoincrement from '@/common/helper/getSeqAutoincrement';
-import { ErrorMsgConst, BOARD_ERROR_IDX } from '@/common/const/BoardErrorMsgConst';
+import { board } from '@/common/utils/util';
+import { BoardSearchDTO } from '@/biz/board/dto/BoardSearchDTO';
 
 class BoardService {
   // 의존성 주입
   private boardRepository = BoardRepository;
 
   public getBoardList = async () => {
-    return await this.boardRepository.find();
+    let result;
+    try {
+      result = await this.boardRepository.find();
+    } catch (e) {
+      logger.error('boardService::getBoardList exception => ', e);
+      return null;
+    }
+    logger.info(
+      `boardService::getBoardList out => ${JSON.stringify(result)}`,
+    );
+    return result;
+  };
+
+  public getBoardSearchList = async (boardSearchDTO: BoardSearchDTO) => {
+    let result;
+    try {
+      boardSearchDTO = board.getSearchOption(boardSearchDTO);
+
+      result = await this.boardRepository
+        .find(boardSearchDTO.keyword)
+        .sort(boardSearchDTO.sort)
+        .skip(boardSearchDTO.offset)
+        .limit(boardSearchDTO.max);
+    } catch (e) {
+      logger.error('boardService::getBoardSearchList exception => ', e);
+      return null;
+    }
+    logger.info(
+      `boardService::getBoardSearchList out => ${JSON.stringify(result)}`,
+    );
+    return result;
+  };
+
+  public getBoardDetail = async (bno) => {
+    let result;
+    try {
+      result = await this.boardRepository.findOne(bno);
+    } catch (e) {
+      logger.error('boardService::getBoardDetail exception => ', e);
+      return null;
+    }
+    logger.info(
+      `boardService::getBoardDetail out => ${JSON.stringify(result)}`,
+    );
+    return result;
   };
 
   public createBoard = async (boardCreateDTO: BoardCreateDTO) => {
+    logger.info(
+      `boardService::createBoard in => ${JSON.stringify(boardCreateDTO)}`,
+    );
+    let createResult = new BoardCreateDTO();
     try {
-      logger.info(
-        `boardService::createBoard in => ${JSON.stringify(boardCreateDTO)}`,
-      );
-      const createResult = await this.boardRepository.create(boardCreateDTO);
-      logger.info(
-        `boardService::createBoard out => ${JSON.stringify(createResult)}`,
-      );
-      return createResult;
+      boardCreateDTO = board.createBoard(boardCreateDTO);
+      createResult = await this.boardRepository.create(boardCreateDTO);
     } catch (e) {
-      let response = new ResponseDTO();
-      let errorDTO = new ErrorDTO();
-
-      // 응답코드
-      response.code = "500";
-      response.msg = ErrorMsgConst.BOARD_ERROR[BOARD_ERROR_IDX.C].MSG;
-
-      const active = process.env.NODE_ENV;
-      if (active !== "product") {
-        // 에러코드 정의
-        errorDTO.code = ErrorMsgConst.BOARD_ERROR[BOARD_ERROR_IDX.C].CODE;
-        errorDTO.msg = JSON.stringify(e); // 프로젝트에서 정한 에러메세지
-        response.error = errorDTO;
-      } else {
-        // 에러코드 정의
-        errorDTO.code = ErrorMsgConst.BOARD_ERROR[BOARD_ERROR_IDX.C].MSG; // 프로젝트에서 정한 에러코드
-        errorDTO.msg = ErrorMsgConst.BOARD_ERROR[BOARD_ERROR_IDX.C].MSG;
-        response.error = errorDTO;
-      }
-
-      // 추적하는 유니크 아이디 = ObjectId
-      response.transId = getSeqAutoincrement("createBoard");
-      throw new Error(JSON.stringify(response));
+      logger.error('boardService::createBoard exception => ', e);
+      return null;
     }
+    logger.info(
+      `boardService::createBoard out => ${JSON.stringify(createResult)}`,
+    );
+    return createResult;
   };
 
   public updateBoard = async (boardCreateDTO: BoardCreateDTO) => {
     logger.info(
       `boardService::updateBoard in => ${JSON.stringify(boardCreateDTO)}`,
     );
-    const updateResult = await this.boardRepository.updateOne(boardCreateDTO);
+    let updateResult;
+    try {
+      boardCreateDTO = board.updateBoard(boardCreateDTO);
+      updateResult = await this.boardRepository.updateOne({ bno: boardCreateDTO.bno }, boardCreateDTO);
+    } catch (e) {
+      logger.error('boardService::updateBoard exception => ', e);
+      return null;
+    }
     logger.info(
       `boardService::updateBoard out => ${JSON.stringify(updateResult)}`,
     );
@@ -66,11 +96,17 @@ class BoardService {
     logger.info(
       `boardService::deleteBoard in => ${bno}`,
     );
-    const updateResult = await this.boardRepository.remove(bno);
+    let deleteResult;
+    try {
+      deleteResult = await this.boardRepository.remove({bno: bno});
+    } catch (e) {
+      logger.error('boardService::deleteBoard exception => ', e);
+      return null;
+    }
     logger.info(
-      `boardService::deleteBoard out => ${JSON.stringify(updateResult)}`,
+      `boardService::deleteBoard out => ${JSON.stringify(deleteResult)}`,
     );
-    return updateResult;
+    return deleteResult;
   };
 }
 

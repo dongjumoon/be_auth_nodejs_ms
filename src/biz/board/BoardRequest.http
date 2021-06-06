@@ -2,14 +2,14 @@ POST http://localhost:8888/api/board HTTP/1.1
 content-type: application/json
 
 {
-  "title": "글제목2",
-  "content": "안녕하세요 게시내용 입니다.2",
+  "title": "글제목1",
+  "content": "안녕하세요 게시내용 입니다.1",
   "uploadFileId": "",
   "noticeYn": false,
-  "type": "Board",
+  "type": "free",
   "popupYn": false,
   "regWriter": "작성자",
-  "bno": "BD0002"
+  "bno": "BD0011"
 }
 
 ###
@@ -17,17 +17,34 @@ content-type: application/json
 GET http://localhost:8888/api/board HTTP/1.1
 
 ###
+GET http://localhost:8888/api/board?bno=BD0001 HTTP/1.1
+
+###
+GET http://localhost:8888/api/board/paging HTTP/1.1
+content-type: application/json
+
+{
+  "pageNumber": 1,
+  "offset": 0,
+  "max": 5,
+  "sort": "bno",
+  "order": "desc",
+  "keyword": "제목",
+  "gnb": "title"
+}
+
+###
 PUT http://localhost:8888/api/board HTTP/1.1
 content-type: application/json
 
 {
-  "title": "글제목 수정",
+  "title": "글제목 수정1",
   "content": "안녕하세요 게시내용 수정입니다..",
   "uploadFileId": "",
   "noticeYn": false,
-  "type": "Board",
+  "type": "free",
   "popupYn": false,
-  "regWriter": "수정자",
+  "modifyWriter": "수정자",
   "bno": "BD0001"
 }
 

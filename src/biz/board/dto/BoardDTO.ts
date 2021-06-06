@@ -6,12 +6,17 @@ export class BoardDTO {
   noticeYn: boolean;
   type: string;
   popupYn: boolean;
-  useYn: boolean;
+  useYn?: boolean;
   regDate: string;
   regWriter: string;
-  likeAction: number;
-  dislikeAction: number;
+  modifyDate?: string;
+  modifyWriter?: string;
+  delDate?: string;
+  delWriter?: string;
+  likeAction?: number;
+  dislikeAction?: number;
+  hideYn?: boolean;
   bno: string;
-  startDate: string;
-  endDate: string;
+  startDate?: string;
+  endDate?: string;
 }
