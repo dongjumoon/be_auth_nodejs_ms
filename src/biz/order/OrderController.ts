@@ -10,6 +10,12 @@ export default class OrderController {
     this.orderService = orderService;
   }
 
+  /**
+   * 유저별ID 주문 결제 
+   * @param req 
+   * @param res 
+   * @param next 
+   */
   public payOrderUserId = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const result: any | OrderEntity = await this.orderService.payOrder(req.params.userId);
@@ -32,6 +38,12 @@ export default class OrderController {
     }
   };
 
+  /**
+   * 유저별 주문 등록 
+   * @param req 
+   * @param res 
+   * @param next 
+   */
   public createOrderId = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const result: OrderEntity = await this.orderService.createOrderId(req.body);
@@ -55,7 +67,7 @@ export default class OrderController {
   };
 
   /**
-   * 주문조회
+   * 유저별 ID 주문 조회
    * @param req
    * @param res
    * @param next

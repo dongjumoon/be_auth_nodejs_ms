@@ -1,5 +1,6 @@
 import OrderRepository from "@/biz/order/OrderRepository";
 import { logger } from "@/common/utils/logger";
+import { orderStartDateTime, regDate } from "@/common/utils/util";
 import { OrderDTO } from "./OrderDTO";
 import { OrderEntity } from "./OrderEntity";
 // import getSeqAutoincrement from '@/common/helper/getSeqAutoincrement';
@@ -36,6 +37,7 @@ class OrderService {
     );
     let createResult: OrderEntity = new OrderDTO();
     try {
+      orderDTO.startDateTime = orderStartDateTime();
       orderDTO.orderState = 'ORDER_REG_SUCCESS'; // 주문등록성공  
       createResult = await this.orderRepository.create(orderDTO);
     } catch (e) {

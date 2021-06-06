@@ -30,3 +30,6 @@ export const dayUtil = (): any => {
   return nowDay;
 };
 
+export const regDate = () => dayUtil();
+export const orderStartDateTime = () => dayUtil();
+
