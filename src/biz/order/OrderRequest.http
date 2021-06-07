@@ -1,8 +1,19 @@
-POST http://localhost:8888/api/order HTTP/1.1
-content-type: application/json
+@hostname = localhost
+@port = 8888
+@host = {{hostname}}:{{port}}
+@contentType = application/json
+@createdAt = {{$datetime iso8601}}
+@modifiedBy = {{$processEnv USERNAME}}
+
+###
+
+@name = order
+
+POST http://{{host}}/api/{{name}} HTTP/1.1
+content-type: {{contentType}}
   
 {
-    "userId": "박진우9@gmail.com",
+    "userId": "잘들어가나보자@gmail.com",
     "productId": "OR_5278bc4ba1300524dd3fa8db8fd0a9d9",
     "startDateTime": "2021-05-30 04:47",
     "endDateTime": "-",
@@ -11,8 +22,8 @@ content-type: application/json
 
 ###
 
-GET  http://localhost:8888/api/order/박진우9@gmail.com HTTP/1.1
+GET  http://{{host}}/api/{{name}}/test@gmail.com HTTP/1.1
 
 ###
 
-GET  http://localhost:8888/api/order/pay/최영수@gmail.com HTTP/1.1
+GET  http://{{host}}/api/{{name}}/pay/test@gmail.com HTTP/1.1

@@ -1,5 +1,16 @@
-POST http://localhost:8888/api/product HTTP/1.1
-content-type: application/json
+@hostname = localhost
+@port = 8888
+@host = {{hostname}}:{{port}}
+@contentType = application/json
+@createdAt = {{$datetime iso8601}}
+@modifiedBy = {{$processEnv USERNAME}}
+
+###
+
+@name = product
+
+POST http://{{host}}/api/{{name}} HTTP/1.1
+content-type: {{contentType}}
   
 {
     "prodId": "PD0001",
@@ -18,8 +29,8 @@ content-type: application/json
 
 ###
 
-GET  http://localhost:8888/api/product HTTP/1.1
+GET  http://{{host}}/api/{{name}} HTTP/1.1
 
 ###
 
-GET  http://localhost:8888/api/product/PD0001 HTTP/1.1
+GET  hhttp://{{host}}/api/{{name}}/PD0001 HTTP/1.1

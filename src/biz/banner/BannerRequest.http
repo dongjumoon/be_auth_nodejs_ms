@@ -1,0 +1,93 @@
+@hostname = localhost
+@port = 8888
+@host = {{hostname}}:{{port}}
+@contentType = application/json
+@createdAt = {{$datetime iso8601}}
+@modifiedBy = {{$processEnv USERNAME}}
+
+###
+
+@name = banner
+
+POST http://{{host}}/api/{{name}} HTTP/1.1
+content-type: {{contentType}}
+  
+{
+    "bannerId": "BN0001",
+    "name": "임시 배너 입니다.",
+    "imgUrl": "http://banner.com/100x200",
+    "width": "300",
+    "height": "400",
+    "location": "top",
+    "startDate": "20210601000000",
+    "endDate": "20210602240000",
+    "title": "테스트배너 제목",
+    "description": "테스트배너 내용",
+    "sort": "startDate"
+}
+
+###
+
+PUT http://{{host}}/api/{{name}} HTTP/1.1
+content-type: {{contentType}}
+  
+{
+    "bannerId": "BN0001",
+    "name": "임시 배너 입니다.",
+    "imgUrl": "http://banner.com/100x200",
+    "width": "300",
+    "height": "400",
+    "location": "top",
+    "startDate": "20210601000000",
+    "endDate": "20210602240000",
+    "title": "테스트배너 제목",
+    "description": "테스트배너 내용",
+    "sort": "startDate"
+}
+
+###
+
+DELETE http://{{host}}/api/{{name}} HTTP/1.1
+content-type: {{contentType}}
+  
+{
+    "bannerId": "BN0001",
+    "name": "임시 배너 입니다.",
+    "imgUrl": "http://banner.com/100x200",
+    "width": "300",
+    "height": "400",
+    "location": "top",
+    "startDate": "20210601000000",
+    "endDate": "20210602240000",
+    "title": "테스트배너 제목",
+    "description": "테스트배너 내용",
+    "sort": "startDate"
+}
+
+###
+
+PUT http://{{host}}/api/{{name}}/deploy HTTP/1.1
+content-type: {{contentType}}
+  
+{
+    "bannerId": "BN0001",
+    "deployYn": "Y"
+}
+
+###
+
+PUT http://{{host}}/api/{{name}}/cancelDeploy HTTP/1.1
+content-type: {{contentType}}
+  
+{
+    "bannerId": "BN0001",
+    "deployYn": "N"
+}
+
+###
+
+GET  http://{{host}}/api/{{name}} HTTP/1.1
+
+###
+
+GET  http://{{host}}/api/{{name}}/BN0001 HTTP/1.1

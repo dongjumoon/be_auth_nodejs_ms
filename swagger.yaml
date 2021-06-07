@@ -505,6 +505,176 @@ paths:
         "401":
           description: "Invalid input"        
 
+  /api/banner:
+    post:
+      tags:
+        - "배너관리"
+      summary: "배너 등록"
+      description: ""
+      operationId: "reg"
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "body"
+          in: "body"
+          description: "배너 등록을 BannerDTO로 받는다"
+          required: true
+          schema:
+            $ref: "#/definitions/BannerDTO"  
+      responses:
+        "200":
+          description: "successful operation"
+        "401":
+          description: "Invalid input"     
+
+  /api/banner:
+    put:
+      tags:
+        - "배너관리"
+      summary: "배너 수정"
+      description: ""
+      operationId: "edit"
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "body"
+          in: "body"
+          description: "배너 수정을 BannerDTO로 받는다"
+          required: true
+          schema:
+            $ref: "#/definitions/BannerDTO"  
+      responses:
+        "200":
+          description: "successful operation"
+        "401":
+          description: "Invalid input"        
+  /api/banner:
+    delete:
+      tags:
+        - "배너관리"
+      summary: "배너 삭제"
+      description: ""
+      operationId: "remove"
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "body"
+          in: "body"
+          description: "배너 삭제를 BannerDTO로 받는다"
+          required: true
+          schema:
+            $ref: "#/definitions/BannerDTO"  
+      responses:
+        "200":
+          description: "successful operation"
+        "401":
+          description: "Invalid input"       
+
+  /api/banner/deploy:
+    put:
+      tags:
+        - "배너관리"
+      summary: "배너 배포"
+      description: ""
+      operationId: "deploy"
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "body"
+          in: "body"
+          description: "배너 배포를 BannerDTO로 받는다"
+          required: true
+          schema:
+            $ref: "#/definitions/BannerDTO"  
+      responses:
+        "200":
+          description: "successful operation"
+        "401":
+          description: "Invalid input"    
+
+  /api/banner/cancelDeploy:
+    put:
+      tags:
+        - "배너관리"
+      summary: "배너 배포취소"
+      description: ""
+      operationId: "cancelDeploy"
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "body"
+          in: "body"
+          description: "배너 배포취소를 BannerDTO로 받는다"
+          required: true
+          schema:
+            $ref: "#/definitions/BannerDTO"  
+      responses:
+        "200":
+          description: "successful operation"
+        "401":
+          description: "Invalid input"  
+
+  /api/banner/{startDate}:
+    get:
+      tags:
+        - "배너관리"
+      summary: "배너 전체 조회"
+      description: ""
+      operationId: "list"
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "startDate"
+          in: "path"
+          description: "path로 시작일자를 받는다."
+          required: true
+          type: "string"
+          format: "string"
+          
+      responses:
+        "200":
+          description: "successful operation"
+        "401":
+          description: "Invalid input"     
+
+  /api/banner/{bannerId}:
+    get:
+      tags:
+        - "배너관리"
+      summary: "배너 상세 조회"
+      description: ""
+      operationId: "detail"
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "bannerId"
+          in: "path"
+          description: "path로 배너ID를 받는다."
+          required: true
+          type: "string"
+          format: "string"
+          
+      responses:
+        "200":
+          description: "successful operation"
+        "401":
+          description: "Invalid input"     
+
+
 securityDefinitions:
   petstore_auth:
     type: "oauth2"
@@ -769,6 +939,46 @@ definitions:
         type: "string"
         format: "string"
       password:
+        type: "string"
+        format: "string"      
+
+  BannerDTO:
+    type: "object"
+    properties:
+      bannerId:
+        type: "string"
+        format: "string"
+      name:
+        type: "string"
+        format: "string"      
+      imgUrl:
+        type: "string"
+        format: "string"      
+      width:
+        type: "number"
+        format: "number"      
+      height:
+        type: "number"
+        format: "number"      
+      location:
+        type: "string"
+        format: "string"      
+      startDate:
+        type: "string"
+        format: "string"      
+      endDate:
+        type: "string"
+        format: "string"      
+      title:
+        type: "string"
+        format: "string"      
+      description:
+        type: "string"
+        format: "string"      
+      sort:
+        type: "number"
+        format: "number"      
+      deployYn:
         type: "string"
         format: "string"      
 
