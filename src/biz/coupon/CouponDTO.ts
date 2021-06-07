@@ -1,5 +1,4 @@
-export interface CouponEntity {
-  id?: string;
+export class CouponDTO {
   userId: string;
   couponScore: number;
   useDate: string;

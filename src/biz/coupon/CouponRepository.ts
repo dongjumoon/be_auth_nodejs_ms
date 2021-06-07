@@ -2,20 +2,23 @@ import { CouponEntity } from './CouponEntity';
 import { model, Schema, Document } from 'mongoose';
 
 const Coupon: Schema = new Schema({
-  user_id: {
+  userId: {
     type: String,
     required: true,
     unique: true,
   },
 
-  coupon_score: {
+  couponScore: {
     type: Number,
   },
-  use_date: {
+  useDate: {
+    type: String,
+  },
+  regDate: {
     type: String,
   },
   use_yn: {
-    type: Boolean,
+    type: String,
   },
 });
 

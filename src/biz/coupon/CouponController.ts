@@ -2,24 +2,24 @@
 import BasicController from '@/common/controllers/BasicController';
 import { logger } from '@/common/utils/logger';
 import { NextFunction, Request, Response } from 'express';
+import CouponService from './CouponService';
 
-class CouponController extends BasicController {
+class CouponController {
+  private couponService: CouponService;
+  constructor(couponService: CouponService) {
+    this.couponService = couponService;
+  }
   public index = (req: Request, res: Response, next: NextFunction) => {
-    logger.debug('CouponController:index');
-    try {
-      res.status(200).json({
-        tranId: '01',
-        code: 200,
-        msg: '쿠폰 조회 정상 처리 되었습니다.',
-        body: {},
-        error: {
-          code: 0,
-          msg: '',
-        },
-      });
-    } catch (error) {
-      next(error);
-    }
+  };
+  public add = (req: Request, res: Response, next: NextFunction) => {
+  };
+  public use = (req: Request, res: Response, next: NextFunction) => {
+  };
+  public findByUserId = (req: Request, res: Response, next: NextFunction) => {
+  };
+  public findByUserIdAndDate = (req: Request, res: Response, next: NextFunction) => {
+  };
+  public useYnUpdate = (req: Request, res: Response, next: NextFunction) => {
   };
 }
 
