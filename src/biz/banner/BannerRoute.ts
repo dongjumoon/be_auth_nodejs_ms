@@ -14,7 +14,7 @@ class BannerRoute implements Route {
   }
 
   private initializeRoutes() {
-    this.router.get(`${this.path}`, this.BannerController.list);
+    this.router.get(`${this.path}/:startDate`, this.BannerController.list);
     this.router.get(`${this.path}/:bannerId`, this.BannerController.detail);
     this.router.post(`${this.path}`, this.BannerController.reg);
     this.router.put(`${this.path}`, this.BannerController.edit);
