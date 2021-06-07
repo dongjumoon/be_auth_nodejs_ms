@@ -671,6 +671,133 @@ paths:
         "401":
           description: "Invalid input"     
 
+  /api/coupon/{userId}:
+    get:
+      tags:
+        - "쿠폰관리"
+      summary: "쿠폰 사용자별 조회"
+      description: ""
+      operationId: "findByUserIdCoupon"
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "userId"
+          in: "path"
+          description: "path로 사용자ID를 받는다."
+          required: true
+          type: "string"
+          format: "string"
+      responses:
+        "200":
+          description: "successful operation"
+        "401":
+          description: "Invalid input"     
+
+  /api/coupon/{userId}/{regDate}:
+    get:
+      tags:
+        - "쿠폰관리"
+      summary: "쿠폰 사용자별 + 등록일자별 조회"
+      description: ""
+      operationId: "findByUserIdAndDate"
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "userId"
+          in: "path"
+          description: "path로 사용자ID를 받는다."
+          required: true
+          type: "string"
+          format: "string"
+        - name: "regDate"
+          in: "path"
+          description: "path로 등록일자를 받는다."
+          required: true
+          type: "string"
+          format: "string"
+      responses:
+        "200":
+          description: "successful operation"
+        "401":
+          description: "Invalid input"     
+
+  /api/coupon/add:
+    post:
+      tags:
+        - "쿠폰관리"
+      summary: "쿠폰등록"
+      description: ""
+      operationId: "add"
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "body"
+          in: "body"
+          description: "body로 CouponDTO를 받는다."
+          required: true
+          schema:
+            $ref: "#/definitions/CouponDTO"  
+      responses:
+        "200":
+          description: "successful operation"
+        "401":
+          description: "Invalid input"       
+
+  /api/coupon/use:
+    post:
+      tags:
+        - "쿠폰관리"
+      summary: "쿠폰사용"
+      description: ""
+      operationId: "use"
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "body"
+          in: "body"
+          description: "body로 CouponDTO를 받는다."
+          required: true
+          schema:
+            $ref: "#/definitions/CouponDTO"  
+      responses:
+        "200":
+          description: "successful operation"
+        "401":
+          description: "Invalid input"       
+
+  /api/coupon/useYnUpdate:
+    post:
+      tags:
+        - "쿠폰관리"
+      summary: "쿠폰사용유무 수정"
+      description: ""
+      operationId: "useYnUpdate"
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "body"
+          in: "body"
+          description: "body로 CouponDTO를 받는다."
+          required: true
+          schema:
+            $ref: "#/definitions/CouponDTO"  
+            
+      responses:
+        "200":
+          description: "successful operation"
+        "401":
+          description: "Invalid input"     
+
 
 securityDefinitions:
   petstore_auth:
@@ -977,7 +1104,26 @@ definitions:
         format: "number"      
       deployYn:
         type: "string"
-        format: "string"      
+        format: "string"    
+        
+  CouponDTO:
+      type: "object"
+      properties:
+        userId:
+          type: "string"
+          format: "string"
+        couponScore:
+          type: "number"
+          format: "number"
+        useDate:
+          type: "string"
+          format: "string"                      
+        regDate:
+          type: "string"
+          format: "string"                      
+        useYn:
+          type: "string"
+          format: "string"                      
 
 externalDocs:
   description: "Find out more about Swagger"

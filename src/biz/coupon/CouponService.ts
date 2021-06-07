@@ -20,7 +20,7 @@ export default class CouponService {
       session.startTransaction();
       const coupon: CouponEntity = await this.couponRepository.findOne({userId: couponDTO.userId});
       
-      let result: CouponEntity | CouponDTO = new CouponDTO();
+      let result: CouponEntity | CouponDTO | {} = new CouponDTO();
       if (_.isEmpty(coupon)) { // 신규 최초 쿠폰 등록 
         couponDTO.useYn = 'Y';
         couponDTO.couponScore = 1;

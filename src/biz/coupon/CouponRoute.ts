@@ -13,7 +13,7 @@ class CouponRoute implements Route {
   }
 
   private initializeRoutes() {
-    this.router.get(`${this.path}/:userId`, this.CouponController.findByUserId);
+    this.router.get(`${this.path}/:userId`, this.CouponController.findByUserIdCoupon);
     this.router.get(`${this.path}/:userId/:regDate`, this.CouponController.findByUserIdAndDate);
     this.router.post(`${this.path}/add`, this.CouponController.add);
     this.router.post(`${this.path}/use`, this.CouponController.use);

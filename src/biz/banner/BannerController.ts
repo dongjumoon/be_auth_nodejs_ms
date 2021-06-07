@@ -38,8 +38,8 @@ export default class BannerController {
       const bannerId = req.params.bannerId;
       const bannerDTO = new BannerDTO();
       bannerDTO.bannerId = bannerId;
-      const list = this.bannerService.detail(new BannerDTO());
-      const response = ResponseDTO.successProc(list);
+      const result = this.bannerService.detail(new BannerDTO());
+      const response = ResponseDTO.successProc(result);
       res.status(200).json(response);
     } catch(e) {
       next(e);
@@ -54,8 +54,8 @@ export default class BannerController {
   public reg = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const bannerDTO = req.body as unknown as BannerDTO;
-      const list = this.bannerService.reg(bannerDTO);
-      const response = ResponseDTO.successProc(list);
+      const result = this.bannerService.reg(bannerDTO);
+      const response = ResponseDTO.successProc(result);
       res.status(200).json(response);
     } catch(e) {
       next(e);
@@ -70,8 +70,8 @@ export default class BannerController {
   public edit = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const bannerDTO = req.body as unknown as BannerDTO;
-      const list = this.bannerService.edit(bannerDTO);
-      const response = ResponseDTO.successProc(list);
+      const result = this.bannerService.edit(bannerDTO);
+      const response = ResponseDTO.successProc(result);
       res.status(200).json(response);
     } catch(e) {
       next(e);
@@ -86,8 +86,8 @@ export default class BannerController {
   public remove = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const bannerDTO = req.body as unknown as BannerDTO;
-      const list = this.bannerService.remove(bannerDTO);
-      const response = ResponseDTO.successProc(list);
+      const result = this.bannerService.remove(bannerDTO);
+      const response = ResponseDTO.successProc(result);
       res.status(200).json(response);
     } catch(e) {
       next(e);
@@ -102,8 +102,8 @@ export default class BannerController {
   public deploy = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const bannerDTO = req.body as unknown as BannerDTO;
-      const list = this.bannerService.deploy(bannerDTO);
-      const response = ResponseDTO.successProc(list);
+      const result = this.bannerService.deploy(bannerDTO);
+      const response = ResponseDTO.successProc(result);
       res.status(200).json(response);
     } catch(e) {
       next(e);
@@ -118,8 +118,8 @@ export default class BannerController {
   public cancelDeploy = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const bannerDTO = req.body as unknown as BannerDTO;
-      const list = this.bannerService.cancelDeploy(bannerDTO);
-      const response = ResponseDTO.successProc(list);
+      const result = this.bannerService.cancelDeploy(bannerDTO);
+      const response = ResponseDTO.successProc(result);
       res.status(200).json(response);
     } catch(e) {
       next(e);
