@@ -42,8 +42,7 @@ class AuthController {
     try {
       const userData: User = req.user;
       const logOutUserData: User = await this.authService.logout(userData);
-      if(_.isEmpty(logOutUserData)){
-
+      if (_.isEmpty(logOutUserData)) {
         const response = ResponseDTO.errorProc({
           title: 'logOut',
           error: {
@@ -53,16 +52,15 @@ class AuthController {
           result: logOutUserData,
         });
         res.status(500).json(response);
-
       } else {
         res.setHeader('Set-Cookie', ['Authorization=; Max-age=0']);
         const response = ResponseDTO.successProc(logOutUserData);
+        console.log('로그아웃 성공!~!!!!!!!');
         res.status(200).json(response);
       }
     } catch (e) {
       next(e);
     }
   };
-
 }
 export default AuthController;
