@@ -1,0 +1,46 @@
+@hostname = localhost
+@port = 8888
+@host = {{hostname}}:{{port}}
+@contentType = application/json
+@createdAt = {{$datetime iso8601}}
+@modifiedBy = {{$processEnv USERNAME}}
+
+###
+
+@name = coupon
+
+POST http://{{host}}/api/{{name}}/add HTTP/1.1
+content-type: {{contentType}}
+  
+{
+    "userId": "user01",
+    "regDate": "20210601000000",
+}
+
+###
+
+POST http://{{host}}/api/{{name}}/use HTTP/1.1
+content-type: {{contentType}}
+  
+{
+    "userId": "user01",
+    "useDate": "20210601000000",
+}
+
+###
+
+PUT http://{{host}}/api/{{name}}/useYnUpdate HTTP/1.1
+content-type: {{contentType}}
+  
+{
+    "userId": "user01",
+    "useYn": "N",
+}
+
+###
+
+GET  http://{{host}}/api/{{name}}/user01 HTTP/1.1
+
+###
+
+GET  http://{{host}}/api/{{name}}/user01/20210607000000 HTTP/1.1
