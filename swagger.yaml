@@ -528,8 +528,6 @@ paths:
           description: "successful operation"
         "401":
           description: "Invalid input"     
-
-  /api/banner:
     put:
       tags:
         - "배너관리"
@@ -552,7 +550,6 @@ paths:
           description: "successful operation"
         "401":
           description: "Invalid input"        
-  /api/banner:
     delete:
       tags:
         - "배너관리"
@@ -624,7 +621,7 @@ paths:
         "401":
           description: "Invalid input"  
 
-  /api/banner/{startDate}:
+  /api/banner/all/{startDate}:
     get:
       tags:
         - "배너관리"
@@ -649,7 +646,7 @@ paths:
         "401":
           description: "Invalid input"     
 
-  /api/banner/{bannerId}:
+  /api/banner/detail/{bannerId}:
     get:
       tags:
         - "배너관리"

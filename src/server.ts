@@ -12,6 +12,7 @@ import CouponRoute from './biz/coupon/CouponRoute';
 import PointRoute from './biz/point/PointRoute';
 import UsersRoute from './biz/user/UserRoute';
 import AuthRoute from './biz/auth/AuthRoute';
+import BannerRoute from './biz/banner/BannerRoute';
 
 validateEnv();
 const Routes = [
@@ -25,6 +26,8 @@ const Routes = [
   new PointRoute(),
   new CouponRoute(),
   new BoardRoute(),
+  new BannerRoute(),
+  new CouponRoute(),
 ];
 const app = new App(Routes);
 
