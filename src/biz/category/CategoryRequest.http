@@ -1,0 +1,59 @@
+@hostname = localhost
+@port = 8888
+@host = {{hostname}}:{{port}}
+@contentType = application/json
+@createdAt = {{$datetime iso8601}}
+@modifiedBy = {{$processEnv USERNAME}}
+
+###
+
+@name = category
+
+POST http://{{host}}/api/{{name}} HTTP/1.1
+content-type: {{contentType}}
+  
+{
+    "code": "N0001",
+    "codeName": "공지사항",
+    "type": "게시판",
+    "useYn": "Y",
+}
+
+###
+
+PUT http://{{host}}/api/{{name}}/edit HTTP/1.1
+content-type: {{contentType}}
+  
+{
+    "code": "N0001",
+    "codeName": "자유게시판",
+    "type": "게시판",
+    "useYn": "Y",
+}
+
+###
+
+PUT http://{{host}}/api/{{name}}/remove HTTP/1.1
+content-type: {{contentType}}
+  
+{
+    "code": "N0001",
+    "useYn": "N",
+}
+
+###
+
+DELETE http://{{host}}/api/{{name}} HTTP/1.1
+content-type: {{contentType}}
+  
+{
+   "code": "N0001",
+}
+
+###
+
+GET  http://{{host}}/api/{{name}}/type/게시판 HTTP/1.1
+
+###
+
+GET  http://{{host}}/api/{{name}}/detail/N0001 HTTP/1.1

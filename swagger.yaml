@@ -804,7 +804,7 @@ paths:
         - "카테고리관리"
       summary: "카테고리 등록"
       description: ""
-      operationId: "reg"
+      operationId: "regCate"
       consumes:
         - "application/json"
       produces:
@@ -822,6 +822,30 @@ paths:
           description: "successful operation"
         "401":
           description: "Invalid input"     
+    
+    delete:
+      tags:
+        - "카테고리관리"
+      summary: "카테고리 물리삭제"
+      description: ""
+      operationId: "deleteCate"
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "body"
+          in: "body"
+          description: "body로 CategoryDTO를 받는다."
+          required: true
+          schema:
+            $ref: "#/definitions/CategoryDTO"  
+            
+      responses:
+        "200":
+          description: "successful operation"
+        "401":
+          description: "Invalid input"            
 
   /api/category/edit:
     put:
@@ -829,7 +853,7 @@ paths:
         - "카테고리관리"
       summary: "카테고리 수정"
       description: ""
-      operationId: "edit"
+      operationId: "editCate"
       consumes:
         - "application/json"
       produces:
@@ -854,32 +878,7 @@ paths:
         - "카테고리관리"
       summary: "카테고리 논리삭제"
       description: ""
-      operationId: "remove"
-      consumes:
-        - "application/json"
-      produces:
-        - "application/json"
-      parameters:
-        - name: "body"
-          in: "body"
-          description: "body로 CategoryDTO를 받는다."
-          required: true
-          schema:
-            $ref: "#/definitions/CategoryDTO"  
-            
-      responses:
-        "200":
-          description: "successful operation"
-        "401":
-          description: "Invalid input"     
-
-  /api/category:
-    delete:
-      tags:
-        - "카테고리관리"
-      summary: "카테고리 물리삭제"
-      description: ""
-      operationId: "reg"
+      operationId: "removeCate"
       consumes:
         - "application/json"
       produces:
@@ -934,7 +933,7 @@ paths:
       produces:
         - "application/json"
       parameters:
-        - name: "type"
+        - name: "code"
           in: "path"
           description: "path로 code를 받는다."
           required: true
