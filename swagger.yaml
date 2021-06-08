@@ -796,7 +796,96 @@ paths:
         "200":
           description: "successful operation"
         "401":
-          description: "Invalid input"     
+          description: "Invalid input" 
+  
+  /api/menu:
+    get:
+      tags:
+        - "매뉴관리"
+      summary: "매뉴전체조회"
+      description: "매뉴조회"
+      operationId: "listMenu"
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters: []
+      responses:
+        "200":
+          description: "successful operation"
+        "401":
+          description: "Invalid input" 
+    post:
+      tags:
+        - "매뉴관리"
+      summary: "매뉴등록"
+      description: "regMenu"
+      operationId: "listMenu"
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "body"
+          in: "body"
+          description: "매뉴등록을 합니다."
+          required: true
+          schema:
+            $ref: '#/definitions/MenuDTO' 
+      responses:
+        "200":
+          description: "successful operation"
+        "401":
+          description: "Invalid input"
+    put:
+      tags:
+        - "매뉴관리"
+      summary: "매뉴수정"
+      description: "regMenu"
+      operationId: "listMenu"
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "body"
+          in: "body"
+          description: "매뉴수정을 합니다."
+          required: true
+          schema:
+            $ref: '#/definitions/MenuDTO' 
+      responses:
+        "200":
+          description: "successful operation"
+        "401":
+          description: "Invalid input"               
+
+  /api/menu{menuId}:
+   delete:
+      tags:
+        - "매뉴관리"
+      summary: "매뉴를 삭제합니다"
+      description: ""
+      operationId: "deleteMenu"
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "menuId"
+          in: "path"
+          description: "매뉴를 삭제합니다."
+          required: true
+          type: "string"
+          format: "string"
+
+      responses:
+        "200":
+          description: "successful operation"
+        "401":
+          description: "Invalid input"
+
+
 
   /api/category:
     post:
@@ -1268,6 +1357,22 @@ definitions:
           type: "string"
           format: "string"                      
         useYn:
+          type: "string"
+          format: "string"
+  
+  MenuDTO:
+      type: "object"
+      properties:
+        menuId:
+          type: "string"
+          format: "string"
+        menuName:
+          type: "string"
+          format: "string"
+        useYn:
+          type: "string"
+          format: "string"                      
+        menuCheck:
           type: "string"
           format: "string"                      
         
