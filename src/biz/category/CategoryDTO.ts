@@ -1,4 +1,4 @@
-export interface CategoryEntity {
+export class CategoryDTO {
   id?:string;
   code: string;
   codeName: string;
