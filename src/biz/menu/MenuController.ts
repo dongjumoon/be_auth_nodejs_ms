@@ -2,6 +2,7 @@ import { ResponseDTO } from '@/common/dto/ResponseDTO';
 import { NextFunction, Request, Response } from 'express';
 import { MenuDTO } from './MenuDTO';
 import MenuService from './MenuService';
+import { MenuEntity } from './MenuEntity';
 
 export default class MenuController {
   public menuService: MenuService;
@@ -15,9 +16,9 @@ export default class MenuController {
    * @param res
    * @param next
    */
-  public list = async (req: Request, res: Response, next: NextFunction) => {
+  public listMenu = async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const menulist = this.menuService.list();
+      const menulist: {} | MenuEntity[] = await this.menuService.list();
       const response = ResponseDTO.successProc(menulist);
       res.status(200).json(response);
     } catch (e) {
@@ -25,12 +26,35 @@ export default class MenuController {
     }
   };
 
-  public reg = async (req: Request, res: Response, next: NextFunction) => {
-    console.log("서비스 진입");
+  public deleteMenu = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      console.log('dsafsdafsda');
+      const menuDTO: string = req.params.id;
+      console.log('menuDTOmenuDTO',menuDTO);
+      const result = await this.menuService.delete(menuDTO);
+      const response = ResponseDTO.successProc(result);
+      res.status(200).json(response);
+    } catch (e) {
+      next(e);
+    }
+  };
+
+  public regMenu = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const menuDTO = req.body as unknown as MenuDTO;
-      const list = this.menuService.reg(menuDTO);
+      const list = await this.menuService.reg(menuDTO);
       const response = ResponseDTO.successProc(list);
+      res.status(200).json(response);
+    } catch (e) {
+      next(e);
+    }
+  };
+
+  public editMenu = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const menuDTO = req.body as unknown as MenuDTO;
+      const result = this.menuService.edit(menuDTO);
+      const response = ResponseDTO.successProc(result);
       res.status(200).json(response);
     } catch (e) {
       next(e);
