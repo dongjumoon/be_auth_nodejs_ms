@@ -96,7 +96,7 @@ describe('Testing Auth', () => {
       return request(app.getServer())
         .post(`${authRoute.path}/logout`)
         .send(userData)
-        .set('Set-Cookie', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ')
+        .set('Cookie', 'Authorization= eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ')
         .expect('Set-Cookie', /^Authorization=\; Max-age=0/)
         .expect(200);
     });
