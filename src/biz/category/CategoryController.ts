@@ -47,10 +47,10 @@ export default class CategoryController {
    * @param res 
    * @param next 
    */
-  public reg = async (req: Request, res: Response, next: NextFunction) => {
+  public regCate = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const categoryDTO = req.body as unknown as CategoryDTO;
-      const result = this.categoryService.reg(categoryDTO);
+      const result = await this.categoryService.reg(categoryDTO);
       const response = ResponseDTO.successProc(result);
       res.status(200).json(response);
     } catch(e) {
@@ -63,10 +63,10 @@ export default class CategoryController {
    * @param res 
    * @param next 
    */
-  public edit = async (req: Request, res: Response, next: NextFunction) => {
+  public editCate = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const categoryDTO = req.body as unknown as CategoryDTO;
-      const result = this.categoryService.edit(categoryDTO);
+      const result = await this.categoryService.edit(categoryDTO);
       const response = ResponseDTO.successProc(result);
       res.status(200).json(response);
     } catch(e) {
@@ -79,10 +79,10 @@ export default class CategoryController {
    * @param res 
    * @param next 
    */
-  public remove = async (req: Request, res: Response, next: NextFunction) => {
+  public removeCate = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const categoryDTO = req.body as unknown as CategoryDTO;
-      const result = this.categoryService.remove(categoryDTO);
+      const result = await this.categoryService.remove(categoryDTO);
       const response = ResponseDTO.successProc(result);
       res.status(200).json(response);
     } catch(e) {
@@ -95,10 +95,10 @@ export default class CategoryController {
    * @param res 
    * @param next 
    */
-  public delete = async (req: Request, res: Response, next: NextFunction) => {
+  public deleteCate = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const categoryDTO = req.body as unknown as CategoryDTO;
-      const result = this.categoryService.delete(categoryDTO);
+      const result = await this.categoryService.delete(categoryDTO);
       const response = ResponseDTO.successProc(result);
       res.status(200).json(response);
     } catch(e) {
