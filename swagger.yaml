@@ -798,6 +798,153 @@ paths:
         "401":
           description: "Invalid input"     
 
+  /api/category:
+    post:
+      tags:
+        - "카테고리관리"
+      summary: "카테고리 등록"
+      description: ""
+      operationId: "reg"
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "body"
+          in: "body"
+          description: "body로 CategoryDTO를 받는다."
+          required: true
+          schema:
+            $ref: "#/definitions/CategoryDTO"  
+            
+      responses:
+        "200":
+          description: "successful operation"
+        "401":
+          description: "Invalid input"     
+
+  /api/category/edit:
+    put:
+      tags:
+        - "카테고리관리"
+      summary: "카테고리 수정"
+      description: ""
+      operationId: "edit"
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "body"
+          in: "body"
+          description: "body로 CategoryDTO를 받는다."
+          required: true
+          schema:
+            $ref: "#/definitions/CategoryDTO"  
+            
+      responses:
+        "200":
+          description: "successful operation"
+        "401":
+          description: "Invalid input"     
+
+  /api/category/remove:
+    put:
+      tags:
+        - "카테고리관리"
+      summary: "카테고리 논리삭제"
+      description: ""
+      operationId: "remove"
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "body"
+          in: "body"
+          description: "body로 CategoryDTO를 받는다."
+          required: true
+          schema:
+            $ref: "#/definitions/CategoryDTO"  
+            
+      responses:
+        "200":
+          description: "successful operation"
+        "401":
+          description: "Invalid input"     
+
+  /api/category:
+    delete:
+      tags:
+        - "카테고리관리"
+      summary: "카테고리 물리삭제"
+      description: ""
+      operationId: "reg"
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "body"
+          in: "body"
+          description: "body로 CategoryDTO를 받는다."
+          required: true
+          schema:
+            $ref: "#/definitions/CategoryDTO"  
+            
+      responses:
+        "200":
+          description: "successful operation"
+        "401":
+          description: "Invalid input"     
+
+  /api/category/type/{type}:
+    get:
+      tags:
+        - "카테고리관리"
+      summary: "카테고리 타입별 조회"
+      description: ""
+      operationId: "listByType"
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "type"
+          in: "path"
+          description: "path로 type를 받는다."
+          required: true
+          type: "string"
+          format: "string"
+      responses:
+        "200":
+          description: "successful operation"
+        "401":
+          description: "Invalid input"   
+
+  /api/category/detail/{code}:
+    get:
+      tags:
+        - "카테고리관리"
+      summary: "카테고리 코드별 상세 조회"
+      description: ""
+      operationId: "detailByCode"
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "type"
+          in: "path"
+          description: "path로 code를 받는다."
+          required: true
+          type: "string"
+          format: "string"
+      responses:
+        "200":
+          description: "successful operation"
+        "401":
+          description: "Invalid input"   
 
 securityDefinitions:
   petstore_auth:
@@ -1119,6 +1266,22 @@ definitions:
           type: "string"
           format: "string"                      
         regDate:
+          type: "string"
+          format: "string"                      
+        useYn:
+          type: "string"
+          format: "string"                      
+        
+  CategoryDTO:
+      type: "object"
+      properties:
+        code:
+          type: "string"
+          format: "string"
+        codeName:
+          type: "string"
+          format: "string"
+        type:
           type: "string"
           format: "string"                      
         useYn:
