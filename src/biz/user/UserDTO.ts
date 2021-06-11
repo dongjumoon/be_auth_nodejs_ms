@@ -9,4 +9,9 @@ export class CreateUserDto {
   public password?: string;
   public img_url?: string;
   public point?: number;
+
+  // TODO: 닉네임 
+
+  // TODO: 임직원 번호 설정 
+
 }
