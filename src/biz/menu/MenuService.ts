@@ -10,7 +10,7 @@ export default class MenuService {
   private menuRepo = MenuRepository;
 
   public async list() {
-    const result: MenuEntity[] = this.menuRepo.find();
+    const result = this.menuRepo.find();
     if (_.isEmpty(result)) {
       throw new HttpException(401, '데이터가 없습니다.');
     }

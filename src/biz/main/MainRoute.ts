@@ -14,7 +14,7 @@ class MainRoute implements Route {
   }
 
   private initializeRoutes() {
-    this.router.get(`${this.path}/all/:startDate`, this.MainController.list);
+    // this.router.get(`${this.path}/all/:startDate`, this.MainController.list);
     
   }
 }
