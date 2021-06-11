@@ -1,14 +1,10 @@
 import { ErrorMsgConst } from '@/common/const/ErrorMsgConst';
-import { ResponseMsgConst } from '@/common/const/ResponseMsgConst';
-import { ErrorDTO, ResponseDTO } from '@/common/dto/ResponseDTO';
-import getSeqAutoincrement from '@/common/helper/getSeqAutoincrement';
+import { ResponseDTO } from '@/common/dto/ResponseDTO';
 import bcrypt from 'bcrypt';
 import { NextFunction, Request, Response } from 'express';
-import { CreateUserDto } from './UserDTO';
+import _ from 'lodash';
 import { User } from './UserEntity';
 import userService from './UserService';
-import _ from 'lodash';
-import { UpdateWriteOpResult } from 'mongoose';
 
 class UsersController {
   public userService = new userService();

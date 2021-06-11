@@ -3,7 +3,7 @@ import HttpException from '@exceptions/HttpException';
 import { NextFunction, Request, Response } from 'express';
 import { ResponseMsgConst } from '../const/ResponseMsgConst';
 import { ResponseDTO } from '../dto/ResponseDTO';
-import getSeqAutoincrement from '../helper/getSeqAutoincrement';
+import AutoHelper from '@/common/helper/getSeqAutoincrement';
 
 const errorMiddleware = (error: HttpException, req: Request, res: Response, next: NextFunction) => {
   try {
@@ -12,7 +12,7 @@ const errorMiddleware = (error: HttpException, req: Request, res: Response, next
     logger.error(`[${req.method}] ${req.path} >> StatusCode:: ${status}, Message:: ${message}`);
 
     const response: ResponseDTO = {
-      transId: getSeqAutoincrement('error'), // 출력예상모양: error_uuidsdxxkljslkfjsl
+      transId: AutoHelper.getSeqAutoincrement('error'), // 출력예상모양: error_uuidsdxxkljslkfjsl
       code: ResponseMsgConst.RESP_5XX.CODE,
       msg: ResponseMsgConst.RESP_5XX.MSG,
       body: '서비스 에러 입니다.',
