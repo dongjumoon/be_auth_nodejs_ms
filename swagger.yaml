@@ -860,7 +860,7 @@ paths:
         "401":
           description: "Invalid input"               
 
-  /api/menu{menuId}:
+  /api/menu/{menuId}:
    delete:
       tags:
         - "매뉴관리"
