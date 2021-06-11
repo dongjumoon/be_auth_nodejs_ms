@@ -3,7 +3,7 @@ import HttpException from '@exceptions/HttpException';
 import { NextFunction, Request, Response } from 'express';
 import { ResponseMsgConst } from '../const/ResponseMsgConst';
 import { ResponseDTO } from '../dto/ResponseDTO';
-import AutoHelper from '@/common/helper/getSeqAutoincrement';
+import AutoHelper from '@/common/helper/AutoHelper';
 
 const errorMiddleware = (error: HttpException, req: Request, res: Response, next: NextFunction) => {
   try {

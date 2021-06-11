@@ -1,5 +1,5 @@
 import { ResponseMsgConst } from '../const/ResponseMsgConst';
-import AutoHelper from '@/common/helper/getSeqAutoincrement';
+import AutoHelper from '@/common/helper/AutoHelper';
 
 export class ErrorDTO {
   public code: string;
