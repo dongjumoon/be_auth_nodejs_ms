@@ -1,4 +1,4 @@
-import AutoHelper from '@/common/helper/getSeqAutoincrement';
+import AutoHelper from '@/common/helper/AutoHelper';
 import { logger } from '@/common/utils/logger';
 import { startSession } from 'mongoose';
 import { ProductDTO } from './ProductDTO';
