@@ -1,4 +1,4 @@
-import getSeqAutoincrement from '@/common/helper/getSeqAutoincrement';
+import AutoHelper from '@/common/helper/getSeqAutoincrement';
 import { logger } from '@/common/utils/logger';
 import { startSession } from 'mongoose';
 import { ProductDTO } from './ProductDTO';
@@ -12,7 +12,7 @@ export default class ProductService {
 
     try {
       session.startTransaction();
-      productDTO.prodId = getSeqAutoincrement('PD');
+      productDTO.prodId = AutoHelper.getSeqAutoincrement('PD');
       const result = await this.productRepository.create(productDTO);
       session.endSession();
       logger.info(`ProductService::createProduct out => ${result}`);
