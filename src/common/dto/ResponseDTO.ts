@@ -1,5 +1,5 @@
 import { ResponseMsgConst } from '../const/ResponseMsgConst';
-import getSeqAutoincrement from '../helper/getSeqAutoincrement';
+import AutoHelper from '@/common/helper/getSeqAutoincrement';
 
 export class ErrorDTO {
   public code: string;
@@ -15,7 +15,7 @@ export class ResponseDTO {
 
   static errorProc(body: { title: string; error: { code: string; msg: {} }; result: any }) {
     const response: ResponseDTO = {
-      transId: getSeqAutoincrement(body.title),
+      transId: AutoHelper.getSeqAutoincrement(body.title),
       code: ResponseMsgConst.RESP_5XX.CODE,
       msg: ResponseMsgConst.RESP_5XX.MSG,
       body: body.result,
