@@ -62,7 +62,9 @@ class App {
     //   // this.app.use(cors({ origin: 'coffee-front.co.kr', credentials: true }));
     //   // this.app.use(cors());
     // }
-    this.app.use(cors());
+    this.app.use (cors ({ 
+      credentials : true, 
+    }));
     this.app.use(hpp());
     this.app.use(compression());
     this.app.use(express.json());
