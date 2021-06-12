@@ -63,6 +63,12 @@ class App {
       this.app.use(cors())
     }
 
+    this.app.all('/*', function(req, res, next) {
+      res.header("Access-Control-Allow-Origin", "*");
+      res.header("Access-Control-Allow-Headers", "X-Requested-With");
+      next();
+    });
+
     this.app.use(hpp());
     this.app.use(compression());
     this.app.use(express.json());
