@@ -60,15 +60,9 @@ class App {
     // } else {
     //   this.app.use(morgan('dev', { stream }));
     //   // this.app.use(cors({ origin: 'coffee-front.co.kr', credentials: true }));
-    //   this.app.use(cors())
+    //   // this.app.use(cors());
     // }
-
-    this.app.all('/*', function(req, res, next) {
-      res.header("Access-Control-Allow-Origin", "*");
-      res.header("Access-Control-Allow-Headers", "X-Requested-With");
-      next();
-    });
-
+    this.app.use(cors());
     this.app.use(hpp());
     this.app.use(compression());
     this.app.use(express.json());
