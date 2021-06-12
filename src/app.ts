@@ -63,12 +63,14 @@ class App {
     //   // this.app.use(cors());
     // }
 
+    // 모든 도메인의 통신을 허용합니다.
     const issue2options = {
       origin: true,
       methods: ["POST"],
       credentials: true,
       maxAge: 3600
     };
+    // 모든 options 메서드로의 사전 전달 접근을 허용합니다.
     this.app.options("*", cors(issue2options));
 
     this.app.use(hpp());
@@ -79,8 +81,16 @@ class App {
   }
 
   private initializeRoutes(routes: Routes[]) {
+     // 모든 도메인의 통신을 허용합니다.
+     const issue2options = {
+      origin: true,
+      methods: ["POST"],
+      credentials: true,
+      maxAge: 3600
+    };
+    
     routes.forEach(route => {
-      this.app.use('/', route.router);
+      this.app.use('/', cors(issue2options), route.router);
     });
   }
 
