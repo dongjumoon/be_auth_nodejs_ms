@@ -34,7 +34,6 @@
       "@utils/*": ["utils/*"]
     }
   },
-  "files": ["package.json"], 
   "include": ["src/**/*.ts", "src/**/*.json", ".env", "src/common/utils/autoIdSetter.js"],
-  "exclude": ["node_modules", "build"]
+  "exclude": ["node_modules"]
 }
