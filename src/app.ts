@@ -54,14 +54,14 @@ class App {
   }
 
   private initializeMiddlewares() {
-    if (this.env === 'production') {
-      this.app.use(morgan('combined', { stream }));
-      this.app.use(cors({ origin: 'your.domain.com', credentials: true }));
-    } else {
-      this.app.use(morgan('dev', { stream }));
-      // this.app.use(cors({ origin: 'coffee-front.co.kr', credentials: true }));
-      this.app.use(cors())
-    }
+    // if (this.env === 'production') {
+    //   this.app.use(morgan('combined', { stream }));
+    //   this.app.use(cors({ origin: 'your.domain.com', credentials: true }));
+    // } else {
+    //   this.app.use(morgan('dev', { stream }));
+    //   // this.app.use(cors({ origin: 'coffee-front.co.kr', credentials: true }));
+    //   this.app.use(cors())
+    // }
 
     this.app.all('/*', function(req, res, next) {
       res.header("Access-Control-Allow-Origin", "*");
@@ -96,7 +96,7 @@ class App {
 
     const specs = swaggerJSDoc(options);
     this.app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
-    this.app.use(helmet());
+    // this.app.use(helmet());
   }
 
   private initializeErrorHandling() {
