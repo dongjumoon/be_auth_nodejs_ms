@@ -19,6 +19,11 @@ class UsersRoute implements Route {
     this.router.post(`${this.path}`, validationMiddleware(CreateUserDto, 'body'), this.usersController.createUser);
     this.router.put(`${this.path}`, validationMiddleware(CreateUserDto, 'body'), this.usersController.updateUser);
     this.router.delete(`${this.path}/:id`, this.usersController.deleteUser);
+
+    // TODO: 친구관리 
+
+    // TODO: 그룹관리 
+
   }
 }
 
