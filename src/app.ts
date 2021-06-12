@@ -59,7 +59,8 @@ class App {
       this.app.use(cors({ origin: 'your.domain.com', credentials: true }));
     } else {
       this.app.use(morgan('dev', { stream }));
-      this.app.use(cors({ origin: 'coffee-front.co.kr', credentials: true }));
+      // this.app.use(cors({ origin: 'coffee-front.co.kr', credentials: true }));
+      this.app.use(cors())
     }
 
     this.app.use(hpp());
