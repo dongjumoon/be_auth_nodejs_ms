@@ -63,12 +63,13 @@ class App {
     //   // this.app.use(cors());
     // }
 
-    var corsOptions = {
-      origin: 'http://front.coffee.co.kr',
-      optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
-    }
+    this.app.options('*', cors()) // include before other routes
+    // var corsOptions = {
+    //   origin: 'http://front.coffee.co.kr',
+    //   optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+    // }
 
-    this.app.use (cors (corsOptions));
+    // this.app.use (cors (corsOptions));
     this.app.use(hpp());
     this.app.use(compression());
     this.app.use(express.json());
