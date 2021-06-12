@@ -11,6 +11,8 @@ const validationMiddleware = (
   //forbidNonWhitelisted = true,
 ): RequestHandler => {
   return (req, res, next) => {
+    res.set({'access-control-allow-origin': '*'});
+    
     validate(plainToClass(type, req[value]), {}).then((errors: ValidationError[]) => {
       if (errors.length > 0) {
         const message = errors.map((error: ValidationError) => Object.values(error.constraints)).join(', ');
