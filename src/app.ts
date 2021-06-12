@@ -63,13 +63,14 @@ class App {
     //   // this.app.use(cors());
     // }
 
-    this.app.options('*', cors()) // include before other routes
-    // var corsOptions = {
-    //   origin: 'http://front.coffee.co.kr',
-    //   optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
-    // }
+    const issue2options = {
+      origin: true,
+      methods: ["POST"],
+      credentials: true,
+      maxAge: 3600
+    };
+    this.app.options("*", cors(issue2options));
 
-    // this.app.use (cors (corsOptions));
     this.app.use(hpp());
     this.app.use(compression());
     this.app.use(express.json());
