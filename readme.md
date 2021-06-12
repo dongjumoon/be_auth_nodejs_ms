@@ -21,8 +21,8 @@ yarn start
 - param : user_id=[이메일]
 
 ### 도커빌드
-docker build --tag be_auth_nodejs_ms_prod:0.1 .
-docker build -f Dockerfile-Dev --tag be_auth_nodejs_ms_dev:0.1 .
+docker build -t be_auth_nodejs_ms_prod:0.1 .
+docker build -f Dockerfile-Dev -t be_auth_nodejs_ms_dev:0.1 .
 ### 도커운영 실행 
 docker run --name be-auth-nodejs-ms-prod -e MONGO_HOST=$MONGO_HOST -d -p 4000:8888 be_auth_node_ms_prod:0.1
 ### 도커데브 실행 

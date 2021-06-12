@@ -34,7 +34,7 @@
       "@utils/*": ["utils/*"]
     }
   },
-  "files": ["package.json"], // to avoid error TS6307
+  "files": ["package.json"], 
   "include": ["src/**/*.ts", "src/**/*.json", ".env", "src/common/utils/autoIdSetter.js"],
   "exclude": ["node_modules", "build"]
 }
