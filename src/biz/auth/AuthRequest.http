@@ -2,10 +2,10 @@ POST http://localhost:8888/api/auth/login HTTP/1.1
 content-type: application/json
 
 {
- "user_id": "jinu9843@naver.com",
+ "user_id": "guest",
  "password": "1234"
 }
 
 ###
-POST  http://localhost:8888/api/auth/logout HTTP/1.1
+GET  http://localhost:8888/api/auth/logout/guest HTTP/1.1
 
