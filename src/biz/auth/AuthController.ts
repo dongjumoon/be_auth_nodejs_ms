@@ -15,7 +15,7 @@ class AuthController {
     try {
       //const password = req.body.password;
       //const encryptedPassowrd = bcrypt.hashSync(password, 10); // sync
-      const { cookie, findUser } = await this.authService.login(req.body);
+      let { cookie, findUser } = await this.authService.login(req.body);
       if (_.isEmpty(cookie)){
 
         const response = ResponseDTO.errorProc({
@@ -30,7 +30,8 @@ class AuthController {
 
       } else {
         res.setHeader('Set-Cookie', cookie);
-        const response = ResponseDTO.successProc(findUser);
+        let response : ResponseDTO = ResponseDTO.successProc(findUser);
+        response.token = cookie;
         res.status(200).json(response);
       }
     } catch (e) {
