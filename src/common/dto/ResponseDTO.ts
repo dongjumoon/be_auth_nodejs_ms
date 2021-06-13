@@ -12,6 +12,7 @@ export class ResponseDTO {
   public msg: string;
   public body: {};
   public error: ErrorDTO;
+  public token?: string;
 
   static errorProc(body: { title: string; error: { code: string; msg: {} }; result: any }) {
     const response: ResponseDTO = {
