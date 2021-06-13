@@ -45,10 +45,10 @@ class AuthService {
     }
   }
   //if (!findUser) throw new HttpException(409, `You're user_id ${userData.user_id} not found`);
-  public async logout(userData: User): Promise<User> {
+  public async logout(userData: string): Promise<User> {
     if (isEmpty(userData)) throw new HttpException(400, "You're not userData");
-    const findUser: User = await this.users.findOne({ user_id: userData.user_id, password: userData.password });
-    if (!findUser) throw new HttpException(409, `You're email ${userData.user_id} not found`);
+    const findUser: User = await this.users.findOne({ user_id: userData });
+    if (!findUser) throw new HttpException(409, `You're email ${userData} not found`);
     return findUser;
   }
 

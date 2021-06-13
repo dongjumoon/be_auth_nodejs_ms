@@ -488,8 +488,8 @@ paths:
         "401":
           description: "Invalid input"
 
-  /api/auth/logout:
-    post:
+  /api/auth/logout/{user_id}:
+    get:
       tags:
         - "로그인/로그아웃관리"
       summary: "회원 로그아웃"
@@ -499,6 +499,13 @@ paths:
         - "application/json"
       produces:
         - "application/json"
+      parameters:
+      - name: "user_id"
+        in: "path"
+        description: "회원 logout 합니다."
+        required: true
+        type: "string"
+        format: "string"  
       responses:
         "200":
           description: "successful operation"
@@ -820,7 +827,7 @@ paths:
         - "매뉴관리"
       summary: "매뉴등록"
       description: "regMenu"
-      operationId: "listMenu"
+      operationId: "regMenu"
       consumes:
         - "application/json"
       produces:
@@ -841,8 +848,8 @@ paths:
       tags:
         - "매뉴관리"
       summary: "매뉴수정"
-      description: "regMenu"
-      operationId: "listMenu"
+      description: "updateMenu"
+      operationId: "updateMenu"
       consumes:
         - "application/json"
       produces:
@@ -865,7 +872,7 @@ paths:
       tags:
         - "매뉴관리"
       summary: "매뉴를 삭제합니다"
-      description: ""
+      description: "deleteMenu"
       operationId: "deleteMenu"
       consumes:
         - "application/json"
