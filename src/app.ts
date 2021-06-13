@@ -54,16 +54,26 @@ class App {
   }
 
   private initializeMiddlewares() {
-    if (this.env === 'production') {
-      this.app.use(morgan('combined', { stream }));
-      this.app.use(cors({ origin: 'your.domain.com', credentials: true }));
-    } else {
-      this.app.use(morgan('dev', { stream }));
-      this.app.use(cors({ origin: 'localhost', credentials: true }));
-    }
+    // if (this.env === 'production') {
+    //   this.app.use(morgan('combined', { stream }));
+    //   this.app.use(cors({ origin: 'your.domain.com', credentials: true }));
+    // } else {
+    //   this.app.use(morgan('dev', { stream }));
+    //   // this.app.use(cors({ origin: 'coffee-front.co.kr', credentials: true }));
+    //   // this.app.use(cors());
+    // }
+
+    // 모든 도메인의 통신을 허용합니다.
+    const issue2options = {
+      origin: true,
+      methods: ["POST"],
+      credentials: true,
+      maxAge: 3600
+    };
+    // 모든 options 메서드로의 사전 전달 접근을 허용합니다.
+    this.app.options("*", cors(issue2options));
 
     this.app.use(hpp());
-    this.app.use(helmet());
     this.app.use(compression());
     this.app.use(express.json());
     this.app.use(express.urlencoded({ extended: true }));
@@ -71,8 +81,16 @@ class App {
   }
 
   private initializeRoutes(routes: Routes[]) {
+     // 모든 도메인의 통신을 허용합니다.
+     const issue2options = {
+      origin: true,
+      methods: ["POST"],
+      credentials: true,
+      maxAge: 3600
+    };
+    
     routes.forEach(route => {
-      this.app.use('/', route.router);
+      this.app.use('/', cors(issue2options), route.router);
     });
   }
 
@@ -90,6 +108,7 @@ class App {
 
     const specs = swaggerJSDoc(options);
     this.app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
+    this.app.use(helmet());
   }
 
   private initializeErrorHandling() {
