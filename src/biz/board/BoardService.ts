@@ -45,7 +45,7 @@ class BoardService {
   public getBoardDetail = async (bno) => {
     let result;
     try {
-      result = await this.boardRepository.findOne(bno);
+      result = await this.boardRepository.findOne({ bno });
     } catch (e) {
       logger.error('boardService::getBoardDetail exception => ', e);
       return null;
@@ -98,7 +98,9 @@ class BoardService {
     );
     let deleteResult;
     try {
-      deleteResult = await this.boardRepository.remove({bno: bno});
+      deleteResult = await this.boardRepository.remove({ bno });
+      // 존재하지 않는 게시글(bno) 삭제할 시
+      if (deleteResult.deletedCount === 0) return null;
     } catch (e) {
       logger.error('boardService::deleteBoard exception => ', e);
       return null;

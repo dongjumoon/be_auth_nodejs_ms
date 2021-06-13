@@ -402,19 +402,55 @@ paths:
       produces:
         - "application/json"
       parameters:
-        - name: "body"
-          in: "body"
-          description: "게시글 검색 BoardSearchDTO로 받는다"
-          required: true
-          schema:
-            $ref: "#/definitions/BoardSearchDTO"
+        - name: "pageNumber"
+          in: "query"
+          description: "요청 페이지 번호"
+          required: false
+          type: "number"
+          format: "number"
+        - name: "offset"
+          in: "query"
+          description: "검색 결과 목록에서 제외할 갯수. ('10개 글 중 offset 3 을 주면 앞의 3개를 제외한 7개를 받아옴')"
+          required: false
+          type: "number"
+          format: "number"
+        - name: "max"
+          in: "query"
+          description: "받아올 갯수"
+          required: false
+          type: "number"
+          format: "number"
+        - name: "sort"
+          in: "query"
+          description: "정렬 기준(bno, title ...)"
+          required: false
+          type: "string"
+          format: "string"
+        - name: "order"
+          in: "query"
+          description: "정렬 방법(asc & desc)"
+          required: false
+          type: "string"
+          format: "string"
+        - name: "keyword"
+          in: "query"
+          description: "검색어"
+          required: false
+          type: "string"
+          format: "string"
+        - name: "gnb"
+          in: "query"
+          description: "검색 구분.(title 로 요청시 title='%검색어%' 인 결과를 찾음)"
+          required: false
+          type: "string"
+          format: "string"
       responses:
         "200":
           description: "successful operation"
         "401":
           description: "Invalid input"
 
-  /api/board/detail:
+  /api/board/detail/{bno}:
     get:
       tags:
         - "게시판"
@@ -427,7 +463,7 @@ paths:
         - "application/json"
       parameters:
         - name: "bno"
-          in: "query"
+          in: "path"
           description: "게시글을 bno로 조회 합니다."
           required: true
           type: "string"
@@ -463,7 +499,7 @@ paths:
           description: "successful operation"
         "401":
           description: "Invalid input"
-  
+
   /api/auth/login:
     post:
       tags:
@@ -481,7 +517,7 @@ paths:
           description: "로그인을 합니다."
           required: true
           schema:
-            $ref: '#/definitions/AuthDTO' 
+            $ref: '#/definitions/AuthDTO'
       responses:
         "200":
           description: "successful operation"
@@ -500,17 +536,17 @@ paths:
       produces:
         - "application/json"
       parameters:
-      - name: "user_id"
-        in: "path"
-        description: "회원 logout 합니다."
-        required: true
-        type: "string"
-        format: "string"  
+        - name: "user_id"
+          in: "path"
+          description: "회원 logout 합니다."
+          required: true
+          type: "string"
+          format: "string"
       responses:
         "200":
           description: "successful operation"
         "401":
-          description: "Invalid input"        
+          description: "Invalid input"
 
   /api/banner:
     post:
@@ -529,12 +565,12 @@ paths:
           description: "배너 등록을 BannerDTO로 받는다"
           required: true
           schema:
-            $ref: "#/definitions/BannerDTO"  
+            $ref: "#/definitions/BannerDTO"
       responses:
         "200":
           description: "successful operation"
         "401":
-          description: "Invalid input"     
+          description: "Invalid input"
     put:
       tags:
         - "배너관리"
@@ -551,12 +587,12 @@ paths:
           description: "배너 수정을 BannerDTO로 받는다"
           required: true
           schema:
-            $ref: "#/definitions/BannerDTO"  
+            $ref: "#/definitions/BannerDTO"
       responses:
         "200":
           description: "successful operation"
         "401":
-          description: "Invalid input"        
+          description: "Invalid input"
     delete:
       tags:
         - "배너관리"
@@ -573,12 +609,12 @@ paths:
           description: "배너 삭제를 BannerDTO로 받는다"
           required: true
           schema:
-            $ref: "#/definitions/BannerDTO"  
+            $ref: "#/definitions/BannerDTO"
       responses:
         "200":
           description: "successful operation"
         "401":
-          description: "Invalid input"       
+          description: "Invalid input"
 
   /api/banner/deploy:
     put:
@@ -597,12 +633,12 @@ paths:
           description: "배너 배포를 BannerDTO로 받는다"
           required: true
           schema:
-            $ref: "#/definitions/BannerDTO"  
+            $ref: "#/definitions/BannerDTO"
       responses:
         "200":
           description: "successful operation"
         "401":
-          description: "Invalid input"    
+          description: "Invalid input"
 
   /api/banner/cancelDeploy:
     put:
@@ -621,12 +657,12 @@ paths:
           description: "배너 배포취소를 BannerDTO로 받는다"
           required: true
           schema:
-            $ref: "#/definitions/BannerDTO"  
+            $ref: "#/definitions/BannerDTO"
       responses:
         "200":
           description: "successful operation"
         "401":
-          description: "Invalid input"  
+          description: "Invalid input"
 
   /api/banner/all/{startDate}:
     get:
@@ -646,12 +682,12 @@ paths:
           required: true
           type: "string"
           format: "string"
-          
+
       responses:
         "200":
           description: "successful operation"
         "401":
-          description: "Invalid input"     
+          description: "Invalid input"
 
   /api/banner/detail/{bannerId}:
     get:
@@ -671,12 +707,12 @@ paths:
           required: true
           type: "string"
           format: "string"
-          
+
       responses:
         "200":
           description: "successful operation"
         "401":
-          description: "Invalid input"     
+          description: "Invalid input"
 
   /api/coupon/{userId}:
     get:
@@ -700,7 +736,7 @@ paths:
         "200":
           description: "successful operation"
         "401":
-          description: "Invalid input"     
+          description: "Invalid input"
 
   /api/coupon/{userId}/{regDate}:
     get:
@@ -730,7 +766,7 @@ paths:
         "200":
           description: "successful operation"
         "401":
-          description: "Invalid input"     
+          description: "Invalid input"
 
   /api/coupon/add:
     post:
@@ -749,12 +785,12 @@ paths:
           description: "body로 CouponDTO를 받는다."
           required: true
           schema:
-            $ref: "#/definitions/CouponDTO"  
+            $ref: "#/definitions/CouponDTO"
       responses:
         "200":
           description: "successful operation"
         "401":
-          description: "Invalid input"       
+          description: "Invalid input"
 
   /api/coupon/use:
     post:
@@ -773,12 +809,12 @@ paths:
           description: "body로 CouponDTO를 받는다."
           required: true
           schema:
-            $ref: "#/definitions/CouponDTO"  
+            $ref: "#/definitions/CouponDTO"
       responses:
         "200":
           description: "successful operation"
         "401":
-          description: "Invalid input"       
+          description: "Invalid input"
 
   /api/coupon/useYnUpdate:
     post:
@@ -797,14 +833,14 @@ paths:
           description: "body로 CouponDTO를 받는다."
           required: true
           schema:
-            $ref: "#/definitions/CouponDTO"  
-            
+            $ref: "#/definitions/CouponDTO"
+
       responses:
         "200":
           description: "successful operation"
         "401":
-          description: "Invalid input" 
-  
+          description: "Invalid input"
+
   /api/menu:
     get:
       tags:
@@ -821,7 +857,7 @@ paths:
         "200":
           description: "successful operation"
         "401":
-          description: "Invalid input" 
+          description: "Invalid input"
     post:
       tags:
         - "매뉴관리"
@@ -838,7 +874,7 @@ paths:
           description: "매뉴등록을 합니다."
           required: true
           schema:
-            $ref: '#/definitions/MenuDTO' 
+            $ref: '#/definitions/MenuDTO'
       responses:
         "200":
           description: "successful operation"
@@ -860,15 +896,15 @@ paths:
           description: "매뉴수정을 합니다."
           required: true
           schema:
-            $ref: '#/definitions/MenuDTO' 
+            $ref: '#/definitions/MenuDTO'
       responses:
         "200":
           description: "successful operation"
         "401":
-          description: "Invalid input"               
+          description: "Invalid input"
 
   /api/menu/{menuId}:
-   delete:
+    delete:
       tags:
         - "매뉴관리"
       summary: "매뉴를 삭제합니다"
@@ -911,14 +947,14 @@ paths:
           description: "body로 CategoryDTO를 받는다."
           required: true
           schema:
-            $ref: "#/definitions/CategoryDTO"  
-            
+            $ref: "#/definitions/CategoryDTO"
+
       responses:
         "200":
           description: "successful operation"
         "401":
-          description: "Invalid input"     
-    
+          description: "Invalid input"
+
     delete:
       tags:
         - "카테고리관리"
@@ -935,13 +971,13 @@ paths:
           description: "body로 CategoryDTO를 받는다."
           required: true
           schema:
-            $ref: "#/definitions/CategoryDTO"  
-            
+            $ref: "#/definitions/CategoryDTO"
+
       responses:
         "200":
           description: "successful operation"
         "401":
-          description: "Invalid input"            
+          description: "Invalid input"
 
   /api/category/edit:
     put:
@@ -960,13 +996,13 @@ paths:
           description: "body로 CategoryDTO를 받는다."
           required: true
           schema:
-            $ref: "#/definitions/CategoryDTO"  
-            
+            $ref: "#/definitions/CategoryDTO"
+
       responses:
         "200":
           description: "successful operation"
         "401":
-          description: "Invalid input"     
+          description: "Invalid input"
 
   /api/category/remove:
     put:
@@ -985,13 +1021,13 @@ paths:
           description: "body로 CategoryDTO를 받는다."
           required: true
           schema:
-            $ref: "#/definitions/CategoryDTO"  
-            
+            $ref: "#/definitions/CategoryDTO"
+
       responses:
         "200":
           description: "successful operation"
         "401":
-          description: "Invalid input"     
+          description: "Invalid input"
 
   /api/category/type/{type}:
     get:
@@ -1015,7 +1051,7 @@ paths:
         "200":
           description: "successful operation"
         "401":
-          description: "Invalid input"   
+          description: "Invalid input"
 
   /api/category/detail/{code}:
     get:
@@ -1039,7 +1075,7 @@ paths:
         "200":
           description: "successful operation"
         "401":
-          description: "Invalid input"   
+          description: "Invalid input"
 
 securityDefinitions:
   petstore_auth:
@@ -1273,31 +1309,6 @@ definitions:
         type: "string"
         format: "string"
 
-  BoardSearchDTO:
-    type: "object"
-    properties:
-      pageNumber:
-        type: "number"
-        format: "number"
-      offset:
-        type: "number"
-        format: "number"
-      max:
-        type: "number"
-        format: "number"
-      sort:
-        type: "string"
-        format: "string"
-      order:
-        type: "string"
-        format: "string"
-      keyword:
-        type: "string"
-        format: "string"
-      gnb:
-        type: "string"
-        format: "string"
-  
   AuthDTO:
     type: "object"
     properties:
@@ -1306,7 +1317,7 @@ definitions:
         format: "string"
       password:
         type: "string"
-        format: "string"      
+        format: "string"
 
   BannerDTO:
     type: "object"
@@ -1316,88 +1327,88 @@ definitions:
         format: "string"
       name:
         type: "string"
-        format: "string"      
+        format: "string"
       imgUrl:
         type: "string"
-        format: "string"      
+        format: "string"
       width:
         type: "number"
-        format: "number"      
+        format: "number"
       height:
         type: "number"
-        format: "number"      
+        format: "number"
       location:
         type: "string"
-        format: "string"      
+        format: "string"
       startDate:
         type: "string"
-        format: "string"      
+        format: "string"
       endDate:
         type: "string"
-        format: "string"      
+        format: "string"
       title:
         type: "string"
-        format: "string"      
+        format: "string"
       description:
         type: "string"
-        format: "string"      
+        format: "string"
       sort:
         type: "number"
-        format: "number"      
+        format: "number"
       deployYn:
         type: "string"
-        format: "string"    
-        
+        format: "string"
+
   CouponDTO:
-      type: "object"
-      properties:
-        userId:
-          type: "string"
-          format: "string"
-        couponScore:
-          type: "number"
-          format: "number"
-        useDate:
-          type: "string"
-          format: "string"                      
-        regDate:
-          type: "string"
-          format: "string"                      
-        useYn:
-          type: "string"
-          format: "string"
-  
+    type: "object"
+    properties:
+      userId:
+        type: "string"
+        format: "string"
+      couponScore:
+        type: "number"
+        format: "number"
+      useDate:
+        type: "string"
+        format: "string"
+      regDate:
+        type: "string"
+        format: "string"
+      useYn:
+        type: "string"
+        format: "string"
+
   MenuDTO:
-      type: "object"
-      properties:
-        menuId:
-          type: "string"
-          format: "string"
-        menuName:
-          type: "string"
-          format: "string"
-        useYn:
-          type: "string"
-          format: "string"                      
-        menuCheck:
-          type: "string"
-          format: "string"                      
-        
+    type: "object"
+    properties:
+      menuId:
+        type: "string"
+        format: "string"
+      menuName:
+        type: "string"
+        format: "string"
+      useYn:
+        type: "string"
+        format: "string"
+      menuCheck:
+        type: "string"
+        format: "string"
+
   CategoryDTO:
-      type: "object"
-      properties:
-        code:
-          type: "string"
-          format: "string"
-        codeName:
-          type: "string"
-          format: "string"
-        type:
-          type: "string"
-          format: "string"                      
-        useYn:
-          type: "string"
-          format: "string"                      
+    type: "object"
+    properties:
+      code:
+        type: "string"
+        format: "string"
+      codeName:
+        type: "string"
+        format: "string"
+      type:
+        type: "string"
+        format: "string"
+      useYn:
+        type: "string"
+        format: "string"
 
 externalDocs:
   description: "Find out more about Swagger"

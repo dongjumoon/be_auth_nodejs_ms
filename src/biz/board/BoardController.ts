@@ -56,7 +56,7 @@ export default class BoardController {
 
   public getBoardSearchList = async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const result = await this.boardService.getBoardSearchList(req.body);
+      const result = await this.boardService.getBoardSearchList(req.query);
       if (_.isEmpty(result)) {
         const response = ResponseDTO.errorProc({
           title: 'getBoardSearchList',

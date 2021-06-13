@@ -63,13 +63,22 @@ export const board = {
 
     if (options.pageNumber === undefined) {
       options.pageNumber = 1;
+    } else {
+      options.pageNumber = Number(options.pageNumber);
     }
+
     if (options.max === undefined) {
       options.max = 10;
+    } else {
+      options.max = Number(options.max);
     }
+
     if (options.offset === undefined) {
-      options.offset = options.max * options.pageNumber;
+      options.offset = options.max * (options.pageNumber - 1);
+    } else {
+      options.offset = Number(options.offset);
     }
+
     if (options.sort === undefined) {
       options.sort = "bno";
     }

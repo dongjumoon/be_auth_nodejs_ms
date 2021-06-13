@@ -25,18 +25,7 @@ content-type: application/json
 }
 
 ###
-GET http://localhost:8888/api/board/paging HTTP/1.1
-content-type: application/json
-
-{
-  "pageNumber": 1,
-  "offset": 0,
-  "max": 5,
-  "sort": "bno",
-  "order": "desc",
-  "keyword": "제목",
-  "gnb": "title"
-}
+GET http://localhost:8888/api/board/paging?pageNumber=1&offset=0&max=5&sort=bno&order=desc&keyword=제목&gnb=title HTTP/1.1
 
 ###
 PUT http://localhost:8888/api/board HTTP/1.1
