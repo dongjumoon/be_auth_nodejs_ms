@@ -3,6 +3,8 @@ import { User } from '@/biz/user/UserEntity';
 
 export interface DataStoredInToken {
   _id: string;
+  user_id: string;
+  auth: string;
 }
 
 export interface TokenData {

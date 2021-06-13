@@ -41,7 +41,9 @@ class AuthController {
 
   public logOut = async (req: RequestWithUser, res: Response, next: NextFunction) => {
     try {
-      const userData: User = req.user;
+      let userData: User = new CreateUserDto();
+      const userId = req.params.userId;
+      userData.user_id = userId;
       const logOutUserData: User = await this.authService.logout(userData);
       if (_.isEmpty(logOutUserData)) {
         const response = ResponseDTO.errorProc({
