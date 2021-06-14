@@ -22,6 +22,25 @@ schemes:
   - "http"
 paths:
   /api/order:
+    get:
+      tags:
+        - "주문관리"
+      summary: "전체 주문조회를 합니다. "
+      description: ""
+      operationId: "findByUserId"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "userId"
+          in: "query"
+          description: "사용자ID를 Path를 받습니다."
+          type: "string"
+          format: "string"
+      responses:
+        "200":
+          description: "successful operation"
+        "401":
+          description: "Invalid input"
     post:
       tags:
         - "주문관리"
@@ -49,7 +68,7 @@ paths:
     get:
       tags:
         - "주문관리"
-      summary: "주문조회를 합니다. "
+      summary: "유저별 주문조회를 합니다. "
       description: ""
       operationId: "findByUserId"
       produces:

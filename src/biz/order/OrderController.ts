@@ -1,3 +1,4 @@
+import { OrderDTO } from './OrderDTO';
 import OrderService from '@/biz/order/OrderService';
 import { ErrorMsgConst } from '@/common/const/ErrorMsgConst';
 import { ResponseDTO } from '@/common/dto/ResponseDTO';
@@ -10,6 +11,16 @@ export default class OrderController {
   constructor(orderService: OrderService) {
     this.orderService = orderService;
   }
+
+  public findAll = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const result = await this.orderService.findAll(req.query as unknown as OrderDTO);
+      const response = ResponseDTO.successProc(result);
+      res.status(200).json(response);
+    } catch (e) {
+      next(e);
+    }
+  };
 
   /**
    * 유저별ID 주문 결제 

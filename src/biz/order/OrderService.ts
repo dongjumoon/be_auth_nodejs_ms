@@ -5,10 +5,30 @@ import HttpException from '@/exceptions/HttpException';
 import { startSession } from 'mongoose';
 import { OrderDTO } from './OrderDTO';
 import { OrderEntity } from './OrderEntity';
+import _ from 'lodash';
 
 class OrderService {
   // 의존성 주입
   public orderRepository = OrderRepository;
+
+  public findAll = async (orderDTO: OrderDTO) => {
+    try {
+      logger.info(`OrderService::findAll in => ${orderDTO}`);
+      let orderList;
+      if (_.isEmpty(orderDTO)) {
+        orderList = await this.orderRepository.find({});
+      } else {
+        orderList = await this.orderRepository.find({...orderDTO});
+      }
+      logger.info(`OrderService::findByUserId out => ${orderDTO}`);
+      return orderList;
+      
+    } catch (e) {
+      // 비정상 케이스
+      logger.error('OrderService::findAll exception => ', e);
+      throw new Error(e);
+    }
+  }
 
   /**
    * 유저ID별 주문조회
