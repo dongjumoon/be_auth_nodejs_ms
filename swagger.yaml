@@ -1291,9 +1291,6 @@ definitions:
       regWriter:
         type: "string"
         format: "string"
-      bno:
-        type: "string"
-        format: "string"
 
   BoardUpdateDTO:
     type: "object"

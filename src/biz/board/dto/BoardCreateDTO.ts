@@ -8,5 +8,5 @@ export class BoardCreateDTO {
   popupYn: boolean;
   regDate?: string;
   regWriter: string;
-  bno: string;
+  bno?: string;
 }
