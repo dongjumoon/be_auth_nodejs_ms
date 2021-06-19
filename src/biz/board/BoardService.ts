@@ -11,7 +11,7 @@ class BoardService {
   public getBoardList = async () => {
     let result;
     try {
-      result = await this.boardRepository.find();
+      result = await this.boardRepository.find().limit(board.MAX_QUERY);
     } catch (e) {
       logger.error('boardService::getBoardList exception => ', e);
       return null;
@@ -82,6 +82,8 @@ class BoardService {
     try {
       boardCreateDTO = board.updateBoard(boardCreateDTO);
       updateResult = await this.boardRepository.updateOne({ bno: boardCreateDTO.bno }, boardCreateDTO);
+      // 존재하지 않는 게시글(bno)을 수정 요청할 시
+      if (updateResult.nModified === 0) return null;
     } catch (e) {
       logger.error('boardService::updateBoard exception => ', e);
       return null;
