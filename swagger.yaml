@@ -27,15 +27,10 @@ paths:
         - "주문관리"
       summary: "전체 주문조회를 합니다. "
       description: ""
-      operationId: "findByUserId"
+      operationId: "findAll"
       produces:
         - "application/json"
-      parameters:
-        - name: "userId"
-          in: "query"
-          description: "사용자ID를 Path를 받습니다."
-          type: "string"
-          format: "string"
+      parameters: []
       responses:
         "200":
           description: "successful operation"
