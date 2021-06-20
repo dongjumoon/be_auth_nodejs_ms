@@ -17,6 +17,10 @@ class AuthRoute implements Route {
   private initializeRoutes() {
     this.router.post(`${this.path}/login`, validationMiddleware(CreateUserDto, 'body'), this.authController.logIn);
     this.router.get(`${this.path}/logout/:userId`, authMiddleware, this.authController.logOut); // TODO: 로그아웃 아이디 받아서 처리 기능 개선
+    this.router.get(`${this.path}/refreshToken`, this.authController.refreshToken);
+    this.router.get(`${this.path}/isDuplicate/:userId`, this.authController.isDuplicateUserId);
+    
+    
 
     // TODO: OAuth2[카카오,네이버,구글] 로그인 붙이기 : GET, OPEN API
 

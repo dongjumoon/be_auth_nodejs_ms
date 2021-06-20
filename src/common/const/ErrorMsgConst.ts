@@ -35,6 +35,7 @@ export class ErrorMsgConst {
   static readonly AUTH_ERROR = {
     RD_1: { CODE: '001', MSG: '회원 로그인에 실패했습니다.' },
     RD_2: { CODE: '002', MSG: '회원 로그아웃에 실패했습니다.' },
+    RD_3: { CODE: '003', MSG: '동일한 ID가 있습니다.' }
   }
 
   // 주문관리 객체방식: key, value 

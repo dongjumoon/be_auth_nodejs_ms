@@ -44,6 +44,17 @@ class AuthService {
       throw new Error(e);
     }
   }
+
+  
+  public async isDuplicateUserId(userData: CreateUserDto):Promise<User | any> {
+    logger.info(`isDuplicateUserIdService::login in => ${userData.user_id}`);
+    logger.info(`동일아이디체크 ------> : ${userData.user_id}`);
+      const findUser: User = await this.users.findOne({ user_id: userData.user_id });
+      if (findUser) {
+        return new HttpException(409,'동일한 ID가 존재합니다.');
+      }
+      return findUser;
+  }
   //if (!findUser) throw new HttpException(409, `You're user_id ${userData.user_id} not found`);
   public async logout(userData: User): Promise<User> {
     if (isEmpty(userData)) throw new HttpException(400, "You're not userData");
@@ -55,7 +66,7 @@ class AuthService {
   public createToken(user: User): TokenData {
     const dataStoredInToken: DataStoredInToken = { _id: user._id, user_id: user.user_id, auth: 'member'};
     const secret: string = config.get('secretKey');
-    const expiresIn: number = 60 * 60;
+    const expiresIn: number = 60 * 60;//3600 60:1초  총 1시간
     return { expiresIn, token: jwt.sign(dataStoredInToken, secret, { expiresIn }) };
   }
 
