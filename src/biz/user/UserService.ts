@@ -39,7 +39,7 @@ class UserService {
       const encryptedPassowrd = bcrypt.hashSync(password, 10) // sync
       userData.password = encryptedPassowrd;
       // 1. interface 타입선언해라
-      const userInsertData: UserType = {
+      const userInsertData: User = {
         user_name: userData.user_name,
         user_id: userData.user_id,
         email: userData.user_name,
@@ -68,7 +68,7 @@ class UserService {
       // userInterData5.reg_writer = 'amdin';
 
 
-      const createUserData: User = await this.users.create(userInsertData); // 3. 직접 객체 {} 넣는방법
+      const createUserData: UserType = await this.users.create(userInsertData); // 3. 직접 객체 {} 넣는방법
       if(!createUserData){
         return null;
       } else {
