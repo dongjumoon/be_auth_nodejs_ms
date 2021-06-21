@@ -45,16 +45,6 @@ class AuthService {
     }
   }
 
-  
-  public async isDuplicateUserId(userData: CreateUserDto):Promise<User | any> {
-    logger.info(`isDuplicateUserIdService::login in => ${userData.user_id}`);
-    logger.info(`동일아이디체크 ------> : ${userData.user_id}`);
-      const findUser: User = await this.users.findOne({ user_id: userData.user_id });
-      if (findUser) {
-        return new HttpException(409,'동일한 ID가 존재합니다.');
-      }
-      return findUser;
-  }
   //if (!findUser) throw new HttpException(409, `You're user_id ${userData.user_id} not found`);
   public async logout(userData: User): Promise<User> {
     if (isEmpty(userData)) throw new HttpException(400, "You're not userData");

@@ -19,6 +19,8 @@ class UsersRoute implements Route {
     this.router.post(`${this.path}`, validationMiddleware(CreateUserDto, 'body'), this.usersController.createUser);
     this.router.put(`${this.path}`, validationMiddleware(CreateUserDto, 'body'), this.usersController.updateUser);
     this.router.delete(`${this.path}/:id`, this.usersController.deleteUser);
+    this.router.get(`${this.path}/isDuplicate/:userId`, this.usersController.isDuplicateUserId);
+    
 
     // TODO: 친구관리 
 
