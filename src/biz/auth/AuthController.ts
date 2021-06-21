@@ -94,18 +94,5 @@ class AuthController {
     }
   };
 
-  public isDuplicateUserId = async (req: RequestWithUser, res: Response, next: NextFunction) => {
-    try{
-    let userData: User = new CreateUserDto();
-    const userId = req.params.userId;
-    userData.user_id = userId;
-    
-    const isDuplicateUserIdData: {} | User = await this.authService.isDuplicateUserId(userData);
-    const response = ResponseDTO.successProc(isDuplicateUserIdData);
-    res.status(200).json(response);
-    }catch(e){
-      throw new HttpException(500,e);
-    }
-  };
 }
 export default AuthController;

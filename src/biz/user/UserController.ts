@@ -1,8 +1,10 @@
 import { ErrorMsgConst } from '@/common/const/ErrorMsgConst';
 import { ResponseDTO } from '@/common/dto/ResponseDTO';
+import HttpException from '@/exceptions/HttpException';
 import bcrypt from 'bcrypt';
 import { NextFunction, Request, Response } from 'express';
 import _ from 'lodash';
+import { CreateUserDto } from './UserDTO';
 import { User } from './UserEntity';
 import userService from './UserService';
 
@@ -12,7 +14,8 @@ class UsersController {
     try {
       const result: {} | User[] = await this.userService.findAllUser();
       //service 처리 결과 실패 시 성공 시
-      if (_.isEmpty(result)) { // 실패(lodash사용)
+      if (_.isEmpty(result)) {
+        // 실패(lodash사용)
         // 응답코드
         const response = ResponseDTO.errorProc({
           title: 'getUsers',
@@ -23,11 +26,11 @@ class UsersController {
           result: result,
         });
         res.status(500).json(response);
-      } else { //성공
+      } else {
+        //성공
         const response = ResponseDTO.successProc(result);
         res.status(200).json(response);
       }
-
     } catch (e) {
       next(e);
     }
@@ -35,9 +38,10 @@ class UsersController {
 
   public getUserById = async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const result:  {} | User = await this.userService.findUserById(req.params.id);
+      const result: {} | User = await this.userService.findUserById(req.params.id);
       //service 처리 결과 실패 시 성공 시
-      if (_.isEmpty(result)){ //실패(lodash사용)
+      if (_.isEmpty(result)) {
+        //실패(lodash사용)
         const response = ResponseDTO.errorProc({
           title: 'getUserById',
           error: {
@@ -47,7 +51,8 @@ class UsersController {
           result: result,
         });
         res.status(500).json(response);
-      } else { //성공
+      } else {
+        //성공
         const response = ResponseDTO.successProc(result);
         res.status(200).json(response);
       }
@@ -59,8 +64,8 @@ class UsersController {
   public deleteUser = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const userId: string = req.params.id;
-      const result:  {} | User = await this.userService.deleteUser(userId);
-      if (_.isEmpty(result)){
+      const result: {} | User = await this.userService.deleteUser(userId);
+      if (_.isEmpty(result)) {
         const response = ResponseDTO.errorProc({
           title: 'deleteUser',
           error: {
@@ -70,7 +75,6 @@ class UsersController {
           result: result,
         });
         res.status(500).json(response);
-
       } else {
         const response = ResponseDTO.successProc(result);
         res.status(200).json(response);
@@ -83,7 +87,8 @@ class UsersController {
   public createUser = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const result: {} | User = await this.userService.createUser(req.body);
-      if (_.isEmpty(result)){ //실패(lodash사용)
+      if (_.isEmpty(result)) {
+        //실패(lodash사용)
         const response = ResponseDTO.errorProc({
           title: 'createUser',
           error: {
@@ -93,7 +98,8 @@ class UsersController {
           result: result,
         });
         res.status(500).json(response);
-      } else { // 정상일때
+      } else {
+        // 정상일때
         const response = ResponseDTO.successProc(result);
         res.status(200).json(response);
       }
@@ -110,8 +116,8 @@ class UsersController {
       // };
       const hashedPassword = await bcrypt.hash(req.body.password, 10);
       req.body.password = hashedPassword;
-      const result:  User | {} = await this.userService.updateUser(req.body);
-      if (_.isEmpty(result)){
+      const result: User | {} = await this.userService.updateUser(req.body);
+      if (_.isEmpty(result)) {
         const response = ResponseDTO.errorProc({
           title: 'updateUser',
           error: {
@@ -127,6 +133,20 @@ class UsersController {
       }
     } catch (e) {
       next(e);
+    }
+  };
+  public isDuplicateUserId = async (req: RequestWithUser, res: Response, next: NextFunction) => {
+    console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@');
+    try {
+      let userData: User = new CreateUserDto();
+      const userId = req.params.userId;
+      userData.user_id = userId;
+
+      const isDuplicateUserIdData: {} | User = await this.userService.isDuplicateUserId(userData);
+      const response = ResponseDTO.successProc(isDuplicateUserIdData);
+      res.status(200).json(response);
+    } catch (e) {
+      throw new HttpException(500, e);
     }
   };
 }

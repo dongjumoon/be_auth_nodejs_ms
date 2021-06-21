@@ -339,6 +339,30 @@ paths:
           description: "successful operation"
         "401":
           description: "Invalid input"
+  /api/user/isDuplicate/{user_id}:
+     get:
+      tags:
+        - "회원관리"
+      summary: "회원중복체크"
+      description: ""
+      operationId: "isDuplicate"
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "user_id"
+          in: "path"
+          description: "회원을 isDuplicate 중복체크."
+          required: true
+          type: "string"
+          format: "string"
+
+      responses:
+        "200":
+          description: "successful operation"
+        "401":
+          description: "Invalid input"     
 
   /api/board:
     get:
