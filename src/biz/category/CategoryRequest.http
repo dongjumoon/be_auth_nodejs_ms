@@ -16,7 +16,7 @@ content-type: {{contentType}}
     "code": "N0001",
     "codeName": "공지사항",
     "type": "게시판",
-    "useYn": "Y",
+    "useYn": "Y"
 }
 
 ###
@@ -28,7 +28,7 @@ content-type: {{contentType}}
     "code": "N0001",
     "codeName": "자유게시판",
     "type": "게시판",
-    "useYn": "Y",
+    "useYn": "Y"
 }
 
 ###
@@ -47,7 +47,7 @@ DELETE http://{{host}}/api/{{name}} HTTP/1.1
 content-type: {{contentType}}
   
 {
-   "code": "N0001",
+   "code": "N0001"
 }
 
 ###

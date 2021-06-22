@@ -18,10 +18,10 @@ class CouponController {
    * @param res 
    * @param next 
    */
-  public add = (req: Request, res: Response, next: NextFunction) => {
+  public add = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const couponDTO = req.body as unknown as CouponDTO;
-      const result = this.couponService.add(couponDTO);
+      const result = await this.couponService.add(couponDTO);
       const response = ResponseDTO.successProc(result);
       res.status(200).json(response);
     } catch(e) {
@@ -34,10 +34,10 @@ class CouponController {
    * @param res 
    * @param next 
    */
-  public use = (req: Request, res: Response, next: NextFunction) => {
+  public use = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const couponDTO = req.body as unknown as CouponDTO;
-      const result = this.couponService.use(couponDTO);
+      const result = await this.couponService.use(couponDTO);
       const response = ResponseDTO.successProc(result);
       res.status(200).json(response);
     } catch(e) {
@@ -50,10 +50,10 @@ class CouponController {
    * @param res 
    * @param next 
    */
-  public findByUserIdCoupon = (req: Request, res: Response, next: NextFunction) => {
+  public findByUserIdCoupon = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const userId = req.params.userId;
-      const result = this.couponService.findByUserId(userId);
+      const result = await this.couponService.findByUserId(userId);
       const response = ResponseDTO.successProc(result);
       res.status(200).json(response);
     } catch(e) {
@@ -66,11 +66,11 @@ class CouponController {
    * @param res 
    * @param next 
    */
-  public findByUserIdAndDate = (req: Request, res: Response, next: NextFunction) => {
+  public findByUserIdAndDate = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const userId = req.params.userId;
       const regDate = req.params.regDate;
-      const result = this.couponService.findByUserIdAndDate(userId, regDate);
+      const result = await this.couponService.findByUserIdAndDate(userId, regDate);
       const response = ResponseDTO.successProc(result);
       res.status(200).json(response);
     } catch(e) {
@@ -83,10 +83,10 @@ class CouponController {
    * @param res 
    * @param next 
    */
-  public useYnUpdate = (req: Request, res: Response, next: NextFunction) => {
+  public useYnUpdate = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const couponDTO = req.body as unknown as CouponDTO;
-      const result = this.couponService.useYnUpdate(couponDTO);
+      const result = await this.couponService.useYnUpdate(couponDTO);
       const response = ResponseDTO.successProc(result);
       res.status(200).json(response);
     } catch(e) {
