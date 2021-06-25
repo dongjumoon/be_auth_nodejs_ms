@@ -16,6 +16,15 @@ const userSchema: Schema = new Schema({
   password: {
     type: String,
   },
+  phone: {
+    type: String,
+  },
+  ad_accepted: {
+    type: String,
+  },
+  nick_name: {
+    type: String,
+  },
   img_url: {
     type: String,
   },

@@ -13,6 +13,11 @@ export interface User {
   del_date?: string;
   del_writer?: string;
   use_yn?: string;
+  ad_accepted?: string;
+  phone?: string;
+  nick_name?: string;
+
+
 }
 
 //export class UserVO implements User {};

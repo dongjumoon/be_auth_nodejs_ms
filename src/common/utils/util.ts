@@ -38,6 +38,7 @@ export const orderStartDateTime = () => dayUtil();
 
 
 export const board = {
+  MAX_QUERY: 100,
   createBoard(boardCreateDTO) {
     let board = { ...boardCreateDTO }
     board.regDate = regDate();
@@ -69,6 +70,8 @@ export const board = {
 
     if (options.max === undefined) {
       options.max = 10;
+    } else if (options.max > this.MAX_QUERY) {
+      options.max = this.MAX_QUERY;
     } else {
       options.max = Number(options.max);
     }
