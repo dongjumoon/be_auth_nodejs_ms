@@ -3,7 +3,7 @@ import { IsEmail } from 'class-validator';
 export class CreateUserDto {
   public user_name?: string;
 
-  @IsEmail()
+  //@IsEmail()
   public email?: string;
   public user_id?: string;
   public password?: string;
