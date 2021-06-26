@@ -1,7 +1,6 @@
 import { ResponseDTO } from "@/common/dto/ResponseDTO";
 import { NextFunction, Request, Response } from "express";
 import { CategoryDTO } from "./CategoryDTO";
-import CategoryRepository from "./CategoryRepository";
 import CategoryService from "./CategoryService";
 
 export default class CategoryController {
